@@ -1,6 +1,7 @@
 package model.user;
 
 import lombok.*;
+import model.user.dto.CreateUserResponseDto;
 import model.user.dto.GetUserDto;
 import types.Role;
 
@@ -19,7 +20,6 @@ public class User {
     String password;
 
     /**
-     *
      * @return GetUserDto object
      */
     public GetUserDto toGetUserDto() {
@@ -31,6 +31,22 @@ public class User {
                 .email(email)
                 .age(age)
                 .role(role)
+                .password(password)
+                .build();
+    }
+
+    /**
+     *
+     * @return CreateUserResponseDto object
+     */
+    public CreateUserResponseDto toCreateUserResponseDto() {
+        return CreateUserResponseDto
+                .builder()
+                .id(id)
+                .name(name)
+                .surname(surname)
+                .age(age)
+                .email(email)
                 .password(password)
                 .build();
     }
