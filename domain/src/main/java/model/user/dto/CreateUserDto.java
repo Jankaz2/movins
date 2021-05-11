@@ -16,7 +16,6 @@ public class CreateUserDto {
     private String surname;
     private Integer age;
     private String email;
-    private Role role;
 
     /**
      *
@@ -29,7 +28,6 @@ public class CreateUserDto {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .role(role)
                 .build();
     }
 }
