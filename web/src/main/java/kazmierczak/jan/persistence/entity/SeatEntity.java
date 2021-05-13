@@ -17,7 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "seats")
 public class SeatEntity extends BaseEntity {
-    private Integer seat_row;
+    @Column(name = "cinema_row")
+    private Integer row;
     private Integer place;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -29,16 +30,16 @@ public class SeatEntity extends BaseEntity {
     private List<TicketEntity> tickets = new ArrayList<>();
 
     /**
-     *
      * @return Seat object mapped from SeatEntity
      */
     public Seat toSeat() {
         return Seat
                 .builder()
                 .id(id)
-                .row(seat_row)
+                .row(row)
                 .place(place)
                 .cinemaRoom(cinemaRoom.toCinemaRoom())
+                .tickets(new ArrayList<>())
                 .build();
     }
 }

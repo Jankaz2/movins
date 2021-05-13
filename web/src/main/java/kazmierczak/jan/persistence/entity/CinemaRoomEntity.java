@@ -1,5 +1,6 @@
 package kazmierczak.jan.persistence.entity;
 
+import jdk.jfr.Name;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,9 @@ import java.util.List;
 @Table(name = "cinema_rooms")
 public class CinemaRoomEntity extends BaseEntity {
     private String name;
-    private Integer cinema_rows;
+
+    @Column(name = "cinema_rows")
+    private Integer rows;
     private Integer places;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -41,7 +44,8 @@ public class CinemaRoomEntity extends BaseEntity {
                 .builder()
                 .id(id)
                 .name(name)
-                .rows(cinema_rows)
+                .rows(rows)
+                .cinema(cinema.toCinema())
                 .places(places)
                 .seats(new ArrayList<>())
                 .build();

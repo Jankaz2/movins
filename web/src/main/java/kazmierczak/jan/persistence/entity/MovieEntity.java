@@ -40,6 +40,7 @@ public class MovieEntity extends BaseEntity {
                 .genre(genre)
                 .duration(duration)
                 .releaseDate(releaseDate)
+                .seances(new ArrayList<>())
                 .build();
     }
 }

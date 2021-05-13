@@ -38,6 +38,7 @@ public class TicketEntity extends BaseEntity {
                 .seance(seance.toSeance())
                 .seat(seat.toSeat())
                 .user(user.toUser())
+                .price(price)
                 .build();
     }
 }

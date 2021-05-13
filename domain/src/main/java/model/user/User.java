@@ -40,7 +40,6 @@ public class User {
     }
 
     /**
-     *
      * @return CreateUserResponseDto object
      */
     public CreateUserResponseDto toCreateUserResponseDto() {

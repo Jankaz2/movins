@@ -30,7 +30,7 @@ public class SeanceEntity extends BaseEntity {
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
 
-    private LocalDate localDate;
+    private LocalDate date;
 
     /**
      *
@@ -42,6 +42,7 @@ public class SeanceEntity extends BaseEntity {
                 .movie(movie.toMovie())
                 .cinemaRoom(cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
+                .date(date)
                 .build();
     }
 }

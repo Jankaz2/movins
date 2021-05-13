@@ -9,7 +9,6 @@ import model.user.User;
 import types.Role;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -44,6 +43,7 @@ public class UserEntity extends BaseEntity {
                 .age(age)
                 .role(role)
                 .password(password)
+                .email(email)
                 .tickets(new ArrayList<>())
                 .build();
     }
