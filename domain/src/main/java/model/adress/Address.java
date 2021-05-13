@@ -1,6 +1,9 @@
 package model.adress;
 
 import lombok.*;
+import model.cinemas.Cinema;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,4 +15,5 @@ public class Address {
     String city;
     String street;
     Integer number;
+    List<Cinema> cinemas;
 }

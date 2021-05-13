@@ -1,9 +1,12 @@
 package model.user;
 
 import lombok.*;
+import model.ticket.Ticket;
 import model.user.dto.CreateUserResponseDto;
 import model.user.dto.GetUserDto;
 import types.Role;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class User {
     Integer age;
     Role role;
     String password;
+    List<Ticket> tickets;
 
     /**
      * @return GetUserDto object
@@ -30,8 +34,8 @@ public class User {
                 .surname(surname)
                 .email(email)
                 .age(age)
-                .role(role)
                 .password(password)
+                .tickets(tickets)
                 .build();
     }
 
@@ -48,6 +52,7 @@ public class User {
                 .age(age)
                 .email(email)
                 .password(password)
+                .tickets(tickets)
                 .build();
     }
 }

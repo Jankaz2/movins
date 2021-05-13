@@ -1,6 +1,9 @@
 package model.cinemas;
 
 import lombok.*;
+import model.ticket.Ticket;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,4 +15,5 @@ public class Seat {
     Integer row;
     Integer place;
     CinemaRoom cinemaRoom;
+    List<Ticket> tickets;
 }

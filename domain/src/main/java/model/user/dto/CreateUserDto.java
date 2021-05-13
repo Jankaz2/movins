@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.ticket.Ticket;
 import model.user.User;
 import types.Role;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +19,9 @@ public class CreateUserDto {
     private String surname;
     private Integer age;
     private String email;
+    private List<Ticket> tickets;
 
     /**
-     *
      * @return User object created from UserDto
      */
     public User toUser() {
@@ -28,6 +31,7 @@ public class CreateUserDto {
                 .surname(surname)
                 .age(age)
                 .email(email)
+                .tickets(tickets)
                 .build();
     }
 }

@@ -3,8 +3,10 @@ package model.seance;
 import lombok.*;
 import model.cinemas.CinemaRoom;
 import model.movie.Movie;
+import model.ticket.Ticket;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class Seance {
     Movie movie;
     CinemaRoom cinemaRoom;
     LocalDate date;
+    List<Ticket> tickets;
 }

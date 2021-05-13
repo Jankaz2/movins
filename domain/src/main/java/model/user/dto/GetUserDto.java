@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.ticket.Ticket;
 import types.Role;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +19,7 @@ public class GetUserDto {
     private String surname;
     private String email;
     private Integer age;
-    private Role role;
     private String password;
+    private Role role;
+    private List<Ticket> tickets;
 }

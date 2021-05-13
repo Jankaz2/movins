@@ -2,6 +2,8 @@ package model.cinemas;
 
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -13,4 +15,5 @@ public class CinemaRoom {
     Integer rows;
     Integer places;
     Cinema cinema;
+    List<Seat> seats;
 }

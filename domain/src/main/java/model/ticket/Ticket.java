@@ -15,4 +15,5 @@ public class Ticket {
     Seat seat;
     Seance seance;
     User user;
+    Double price;
 }
