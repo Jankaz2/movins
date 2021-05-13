@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import model.movie.Movie;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -27,4 +28,18 @@ public class MovieEntity extends BaseEntity {
     @OneToMany(mappedBy = "movie")
     @Builder.Default
     private List<SeanceEntity> seances = new ArrayList<>();
+
+    /**
+     *
+     * @return Movie object mapped from MovieEntity
+     */
+    public Movie toMovie() {
+        return Movie.builder()
+                .id(id)
+                .title(title)
+                .genre(genre)
+                .duration(duration)
+                .releaseDate(releaseDate)
+                .build();
+    }
 }

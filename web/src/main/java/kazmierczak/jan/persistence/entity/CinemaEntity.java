@@ -29,7 +29,7 @@ public class CinemaEntity extends BaseEntity {
 
     /**
      *
-     * @return cinema entity mapped to cinema object
+     * @return Cinema object mapped from CinemaEntity
      */
     public Cinema toCinema() {
         return Cinema

@@ -29,7 +29,7 @@ public class AddressEntity extends BaseEntity {
 
     /**
      *
-     * @return address entity mapped to address object
+     * @return Address object mapped from AddressEntity
      */
     public Address toAddress() {
         return Address

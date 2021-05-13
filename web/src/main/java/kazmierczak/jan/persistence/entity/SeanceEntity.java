@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import model.seance.Seance;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,4 +31,17 @@ public class SeanceEntity extends BaseEntity {
     private List<TicketEntity> tickets = new ArrayList<>();
 
     private LocalDate localDate;
+
+    /**
+     *
+     * @return Seance object mapped from SeanceEntity
+     */
+    public Seance toSeance() {
+        return Seance.builder()
+                .id(id)
+                .movie(movie.toMovie())
+                .cinemaRoom(cinemaRoom.toCinemaRoom())
+                .tickets(new ArrayList<>())
+                .build();
+    }
 }

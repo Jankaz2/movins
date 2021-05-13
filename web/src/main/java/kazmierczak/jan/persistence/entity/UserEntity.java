@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import model.user.User;
 import types.Role;
 
 import javax.persistence.Entity;
@@ -30,4 +31,20 @@ public class UserEntity extends BaseEntity {
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
+
+    /**
+     *
+     * @return User object mapped from UserEntity
+     */
+    public User toUser() {
+        return User.builder()
+                .id(id)
+                .name(name)
+                .surname(surname)
+                .age(age)
+                .role(role)
+                .password(password)
+                .tickets(new ArrayList<>())
+                .build();
+    }
 }
