@@ -8,6 +8,7 @@ import model.ticket.Ticket;
 import model.user.User;
 import types.Role;
 
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Data
@@ -18,6 +19,8 @@ public class CreateUserDto {
     private String name;
     private String surname;
     private Integer age;
+
+    @Email(message = "Email is not correct")
     private String email;
     private List<Ticket> tickets;
 
