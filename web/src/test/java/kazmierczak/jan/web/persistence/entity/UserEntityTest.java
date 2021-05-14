@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 public class UserEntityTest {
     @Test
-    @DisplayName("when mapping method works correctly")
+    @DisplayName("when mapping method from UserEntity to User works correctly")
     public void test1() {
         var user = User.builder()
                 .id(1L)
@@ -40,5 +40,33 @@ public class UserEntityTest {
 
         assertThat(entityUser.toUser())
                 .isEqualTo(user);
+    }
+
+    @Test
+    @DisplayName("when mapping method from User to UserEntity works correctly")
+    public void test2() {
+        var entityUser = UserEntity
+                .builder()
+                .id(1L)
+                .name("name")
+                .surname("surname")
+                .age(12)
+                .password("password")
+                .email("email")
+                .tickets(new ArrayList<>())
+                .build();
+
+        var user = User.builder()
+                .id(1L)
+                .name("name")
+                .surname("surname")
+                .age(12)
+                .password("password")
+                .email("email")
+                .tickets(new ArrayList<>())
+                .build();
+
+        assertThat(UserEntity.fromUser(user))
+                .isEqualTo(entityUser);
     }
 }
