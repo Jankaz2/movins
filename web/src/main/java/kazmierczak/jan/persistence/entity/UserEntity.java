@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.user.UserUtils.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -32,7 +34,6 @@ public class UserEntity extends BaseEntity {
     private List<TicketEntity> tickets = new ArrayList<>();
 
     /**
-     *
      * @return User object mapped from UserEntity
      */
     public User toUser() {
@@ -47,4 +48,33 @@ public class UserEntity extends BaseEntity {
                 .tickets(new ArrayList<>())
                 .build();
     }
+
+    /**
+     *
+     * @param user object we want to map from
+     * @return UserEntity object mapped from User object
+     */
+    public static UserEntity fromUser(User user) {
+        var userId = toId.apply(user);
+        var userName = toName.apply(user);
+        var userSurname = toSurname.apply(user);
+        var userAge = toAge.apply(user);
+        var userRole = toRole.apply(user);
+        var userPassword = toPassword.apply(user);
+        var userEmail = toEmail.apply(user);
+        var userTickets = toTickets.apply(user);
+
+        return UserEntity
+                .builder()
+                .id(userId)
+                .name(userName)
+                .surname(userSurname)
+                .age(userAge)
+                .role(userRole)
+                .password(userPassword)
+                .email(userEmail)
+                .tickets(new ArrayList<>())
+                .build();
+    }
+
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static kazmierczak.jan.persistence.entity.UserEntity.*;
+
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -34,9 +36,9 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public Optional<User> add(User user) {
-        var userEntity = UserEntity.builder().build();
-        //var insertedUser = userEntityDao.save();
-        return null;
+        var userEntity = fromUser(user);
+        var insertedUser = userEntityDao.save(userEntity);
+        return Optional.ofNullable(insertedUser.toUser());
     }
 
     /**
