@@ -1,12 +1,11 @@
 package kazmierczak.jan.persistence.entity;
 
-import jdk.jfr.Name;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.cinemas.CinemaRoom;
+import model.cinema_room.CinemaRoom;
 
 import javax.persistence.*;
 import java.util.ArrayList;

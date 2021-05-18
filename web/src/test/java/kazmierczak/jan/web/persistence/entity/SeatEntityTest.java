@@ -4,7 +4,7 @@ import kazmierczak.jan.persistence.entity.AddressEntity;
 import kazmierczak.jan.persistence.entity.CinemaEntity;
 import kazmierczak.jan.persistence.entity.CinemaRoomEntity;
 import kazmierczak.jan.persistence.entity.SeatEntity;
-import model.cinemas.Seat;
+import model.seat.Seat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

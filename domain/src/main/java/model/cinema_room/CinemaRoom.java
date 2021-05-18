@@ -1,6 +1,8 @@
-package model.cinemas;
+package model.cinema_room;
 
 import lombok.*;
+import model.cinema.Cinema;
+import model.seat.Seat;
 
 import java.util.List;
 

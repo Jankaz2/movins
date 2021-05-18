@@ -1,7 +1,7 @@
 package model.seance;
 
 import lombok.*;
-import model.cinemas.CinemaRoom;
+import model.cinema_room.CinemaRoom;
 import model.movie.Movie;
 import model.ticket.Ticket;
 

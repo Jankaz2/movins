@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.cinemas.Cinema;
+import model.cinema.Cinema;
 
 import javax.persistence.*;
 import java.util.ArrayList;

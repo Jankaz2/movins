@@ -1,7 +1,6 @@
 package kazmierczak.jan.web.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.*;
-import model.cinemas.CinemaRoom;
 import model.seance.Seance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

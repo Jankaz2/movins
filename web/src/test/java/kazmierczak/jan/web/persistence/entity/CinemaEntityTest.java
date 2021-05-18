@@ -2,8 +2,7 @@ package kazmierczak.jan.web.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.AddressEntity;
 import kazmierczak.jan.persistence.entity.CinemaEntity;
-import model.adress.Address;
-import model.cinemas.Cinema;
+import model.cinema.Cinema;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
