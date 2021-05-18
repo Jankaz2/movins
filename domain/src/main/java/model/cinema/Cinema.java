@@ -1,7 +1,9 @@
 package model.cinema;
 
 import lombok.*;
-import model.adress.Address;
+import model.address.Address;
+import model.cinema.dto.CreateCinemaResponseDto;
+import model.cinema.dto.GetCinemaDto;
 import model.cinema_room.CinemaRoom;
 
 import java.util.List;
@@ -16,4 +18,27 @@ public class Cinema {
     String name;
     Address address;
     List<CinemaRoom> cinemaRooms;
+
+    public GetCinemaDto toGetCinemaDto() {
+        return GetCinemaDto
+                .builder()
+                .id(id)
+                .name(name)
+                .address(address)
+                .cinemaRooms(cinemaRooms)
+                .build();
+    }
+
+    /**
+     *
+     * @return CreateCinemaResponseDto object mapped from Cinema
+     */
+    public CreateCinemaResponseDto toCreateCinemaResponseDto() {
+        return CreateCinemaResponseDto
+                .builder()
+                .id(id)
+                .name(name)
+                .address(address)
+                .build();
+    }
 }

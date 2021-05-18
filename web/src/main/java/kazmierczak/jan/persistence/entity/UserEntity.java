@@ -54,7 +54,7 @@ public class UserEntity extends BaseEntity {
      * @param user object we want to map from
      * @return UserEntity object mapped from User object
      */
-    public static UserEntity fromUser(User user) {
+    public static UserEntity fromUserToEntity(User user) {
         var userId = toId.apply(user);
         var userName = toName.apply(user);
         var userSurname = toSurname.apply(user);

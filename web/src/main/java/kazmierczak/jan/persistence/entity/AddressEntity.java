@@ -5,13 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.adress.Address;
+import model.address.Address;
+import model.address.AddressUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+
+import static kazmierczak.jan.persistence.entity.CinemaEntity.*;
+import static model.address.AddressUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +43,28 @@ public class AddressEntity extends BaseEntity {
                 .street(street)
                 .number(number)
                 .cinemas(new ArrayList<>())
+                .build();
+    }
+
+    /**
+     *
+     * @param address we want to map
+     * @return address entity object
+     */
+    public static AddressEntity fromAddressToEntity(Address address) {
+        var addressId = addressToId.apply(address);
+        var addressCity = addressToCity.apply(address);
+        var addressStreet = addressToStreet.apply(address);
+        var addressNumber = addressToNumber.apply(address);
+        var addressCinemas = addressToCinemas.apply(address);
+
+        return AddressEntity
+                .builder()
+                .id(addressId)
+                .city(addressCity)
+                .street(addressStreet)
+                .number(addressNumber)
+                .cinemas(fromCinemasListToEntity(addressCinemas))
                 .build();
     }
 }

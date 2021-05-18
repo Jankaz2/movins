@@ -1,7 +1,7 @@
-package model.adress;
+package model.address;
 
 import lombok.*;
-import model.cinemas.Cinema;
+import model.cinema.Cinema;
 
 import java.util.List;
 

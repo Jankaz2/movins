@@ -1,7 +1,6 @@
 package kazmierczak.jan.web.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.UserEntity;
-import model.ticket.Ticket;
 import model.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,7 +65,7 @@ public class UserEntityTest {
                 .tickets(new ArrayList<>())
                 .build();
 
-        assertThat(UserEntity.fromUser(user))
+        assertThat(UserEntity.fromUserToEntity(user))
                 .isEqualTo(entityUser);
     }
 }

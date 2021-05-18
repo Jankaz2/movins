@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.adress.Address;
+import model.address.Address;
 import model.cinema.Cinema;
 import model.cinema_room.CinemaRoom;
 

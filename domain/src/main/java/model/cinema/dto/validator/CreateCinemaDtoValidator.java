@@ -1,7 +1,7 @@
 package model.cinema.dto.validator;
 
 import config.validator.Validator;
-import model.adress.Address;
+import model.address.Address;
 import model.cinema_room.CinemaRoom;
 import model.cinema.dto.CreateCinemaDto;
 

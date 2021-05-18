@@ -36,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public Optional<User> add(User user) {
-        var userEntity = fromUser(user);
+        var userEntity = fromUserToEntity(user);
         var insertedUser = userEntityDao.save(userEntity);
         return Optional.ofNullable(insertedUser.toUser());
     }

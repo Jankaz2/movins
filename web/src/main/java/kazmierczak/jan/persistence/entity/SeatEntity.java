@@ -6,10 +6,15 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.seat.Seat;
+import model.seat.SeatUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
+import static kazmierczak.jan.persistence.entity.TicketEntity.*;
+import static model.seat.SeatUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,6 +45,40 @@ public class SeatEntity extends BaseEntity {
                 .place(place)
                 .cinemaRoom(cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
+                .build();
+    }
+
+    /**
+     *
+     * @param cinemaRoomSeats list we want to map
+     * @return list of seat entity objects
+     */
+    public static List<SeatEntity> fromSeatListToEntityList(List<Seat> cinemaRoomSeats) {
+        return cinemaRoomSeats
+                .stream()
+                .map(SeatEntity::fromSeatToEntity)
+                .toList();
+    }
+
+    /**
+     *
+     * @param seat we want to map
+     * @return seat entity object
+     */
+    public static SeatEntity fromSeatToEntity(Seat seat) {
+        var seatId = toSeatId.apply(seat);
+        var seatRow = toSeatRow.apply(seat);
+        var seatPlace = toSeatPlace.apply(seat);
+        var seatCinemaRoom = toSeatCinemaRoom.apply(seat);
+        var seatTickets= toSeatTicket.apply(seat);
+
+        return SeatEntity
+                .builder()
+                .id(seatId)
+                .row(seatRow)
+                .place(seatPlace)
+                .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
+                .tickets(fromTicketsToEntityList(seatTickets))
                 .build();
     }
 }

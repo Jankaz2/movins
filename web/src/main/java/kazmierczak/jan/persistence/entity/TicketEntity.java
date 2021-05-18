@@ -8,6 +8,13 @@ import model.ticket.Ticket;
 
 import javax.persistence.*;
 
+import java.util.List;
+
+import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
+import static kazmierczak.jan.persistence.entity.SeatEntity.*;
+import static kazmierczak.jan.persistence.entity.UserEntity.*;
+import static model.ticket.TicketUtils.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -39,6 +46,40 @@ public class TicketEntity extends BaseEntity {
                 .seat(seat.toSeat())
                 .user(user.toUser())
                 .price(price)
+                .build();
+    }
+
+    /**
+     *
+     * @param tickets list we want to map
+     * @return list of ticket entity objects
+     */
+    public static List<TicketEntity> fromTicketsToEntityList(List<Ticket> tickets) {
+        return tickets
+                .stream()
+                .map(TicketEntity::fromTicketToEntity)
+                .toList();
+    }
+
+    /**
+     *
+     * @param ticket object we want to map
+     * @return ticket entity object
+     */
+    public static TicketEntity fromTicketToEntity(Ticket ticket) {
+        var ticketId = toTicketId.apply(ticket);
+        var ticketSeance = toTicketSeance.apply(ticket);
+        var ticketSeat= toTicketSeat.apply(ticket);
+        var ticketUser= toTicketUser.apply(ticket);
+        var ticketPrice= toTicketPrice.apply(ticket);
+
+        return TicketEntity
+                .builder()
+                .id(ticketId)
+                .seance(fromSeanceToEntity(ticketSeance))
+                .seat(fromSeatToEntity(ticketSeat))
+                .user(fromUserToEntity(ticketUser))
+                .price(ticketPrice)
                 .build();
     }
 }

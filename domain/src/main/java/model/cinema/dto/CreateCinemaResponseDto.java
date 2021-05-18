@@ -5,17 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.address.Address;
-import model.cinema_room.CinemaRoom;
-
-import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class GetCinemaDto {
+public class CreateCinemaResponseDto {
     private Long id;
     private String name;
     private Address address;
-    private List<CinemaRoom> cinemaRooms;
 }
