@@ -20,7 +20,7 @@ public class UserController {
     /**
      * @return list of all users
      */
-    @GetMapping("/users")
+    @GetMapping("/user")
     public ResponseDto<List<GetUserDto>> getAllUsers() {
         return ResponseDto
                 .<List<GetUserDto>>builder()
@@ -33,7 +33,7 @@ public class UserController {
      * @param createUserDto body of user we want to post
      * @return posted user object
      */
-    @PostMapping("/users")
+    @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateUserResponseDto> createUser(@RequestBody CreateUserDto createUserDto) {
         return ResponseDto
