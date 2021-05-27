@@ -22,8 +22,7 @@ public class CreateUserDto {
 
     @Email(message = "Email is not correct")
     private String email;
-    private List<Ticket> tickets;
-
+    private String password;
     /**
      * @return User object created from UserDto
      */
@@ -34,7 +33,7 @@ public class CreateUserDto {
                 .surname(surname)
                 .age(age)
                 .email(email)
-                .tickets(tickets)
+                .password(password)
                 .build();
     }
 }
