@@ -43,7 +43,6 @@ public class CinemaService {
     }
 
     /**
-     *
      * @return list of all cinemas
      */
     public List<GetCinemaDto> findAll() {
@@ -55,7 +54,6 @@ public class CinemaService {
     }
 
     /**
-     *
      * @param id of cinema we want to find
      * @return cinema with id from parameter if it exists, otherwise throws exception
      */
@@ -63,6 +61,17 @@ public class CinemaService {
         return cinemaRepository
                 .findById(id)
                 .map(Cinema::toGetCinemaDto)
-                .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this id"));
+                .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this id: " + id));
+    }
+
+    /**
+     * @param id of cinema we want to delete
+     * @return deleted object
+     */
+    public GetCinemaDto deleteById(Long id) {
+        return cinemaRepository
+                .delete(id)
+                .map(Cinema::toGetCinemaDto)
+                .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this id: " + id));
     }
 }

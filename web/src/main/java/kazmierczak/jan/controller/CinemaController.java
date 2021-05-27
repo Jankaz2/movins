@@ -40,4 +40,30 @@ public class CinemaController {
                 .data(cinemaService.createCinema(createCinemaDto))
                 .build();
     }
+
+    /**
+     *
+     * @param id we want to find cinema by
+     * @return cinemaDto with this id
+     */
+    @GetMapping("/{id}")
+    public ResponseDto<GetCinemaDto> getCinemaById(@PathVariable Long id) {
+        return ResponseDto
+                .<GetCinemaDto>builder()
+                .data(cinemaService.findById(id))
+                .build();
+    }
+
+    /**
+     *
+     * @param id of object we want to delete
+     * @return deleted object
+     */
+    @DeleteMapping("/{id}")
+    public ResponseDto<GetCinemaDto> deleteCinema(@PathVariable Long id) {
+        return ResponseDto
+                .<GetCinemaDto>builder()
+                .data(cinemaService.deleteById(id))
+                .build();
+    }
 }

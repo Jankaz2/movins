@@ -68,4 +68,16 @@ public class UserService {
                 .map(User::toGetUserDto)
                 .orElseThrow(() -> new UserServiceException("Cannot find user with this id: " + id));
     }
+
+    /**
+     *
+     * @param id of user we want to delete
+     * @return deleted object
+     */
+    public GetUserDto deleteById(Long id) {
+        return userRepository
+                .delete(id)
+                .map(User::toGetUserDto)
+                .orElseThrow(() -> new UserServiceException("Cannot find user with this id: " + id));
+    }
 }

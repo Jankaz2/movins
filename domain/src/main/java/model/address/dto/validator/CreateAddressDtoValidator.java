@@ -44,18 +44,7 @@ public class CreateAddressDtoValidator implements Validator<CreateAddressDto> {
     private boolean hasIncorrectCityOrStreet(String cityOrStreet) {
         return cityOrStreet == null
                 || cityOrStreet.length() < 3
-                || cityOrStreet.matches("^[A-Z][a-z]+$");
-    }
-
-    /**
-     * @param street we want to validate
-     * @return true if street is null or city's length is less than 3
-     * or street matches regex
-     */
-    private boolean hasIncorrectStreet(String street) {
-        return street == null
-                || street.length() < 3
-                || street.matches("^[A-Z][a-z]+$");
+                || !cityOrStreet.matches("^[A-Z][a-z]+$");
     }
 
     /**

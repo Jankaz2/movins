@@ -29,7 +29,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param createUserDto body of user we want to post
      * @return posted user object
      */
@@ -39,6 +38,26 @@ public class UserController {
         return ResponseDto
                 .<CreateUserResponseDto>builder()
                 .data(userService.createUser(createUserDto))
+                .build();
+    }
+
+    /**
+     * @param id of user we want to get
+     * @return userDto with this id
+     */
+    @GetMapping("/user/{id}")
+    public ResponseDto<GetUserDto> getUserById(@PathVariable Long id) {
+        return ResponseDto
+                .<GetUserDto>builder()
+                .data(userService.findById(id))
+                .build();
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
+        return ResponseDto
+                .<GetUserDto>builder()
+                .data(userService.deleteById(id))
                 .build();
     }
 }
