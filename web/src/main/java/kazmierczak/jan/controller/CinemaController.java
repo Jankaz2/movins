@@ -37,7 +37,7 @@ public class CinemaController {
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
         return ResponseDto
                 .<CreateCinemaResponseDto>builder()
-                .data(cinemaService.createCinemaDto(createCinemaDto))
+                .data(cinemaService.createCinema(createCinemaDto))
                 .build();
     }
 }

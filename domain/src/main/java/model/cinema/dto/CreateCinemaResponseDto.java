@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.address.Address;
+import model.address.dto.CreateAddressDto;
 
 @Data
 @Builder
@@ -13,5 +13,5 @@ import model.address.Address;
 public class CreateCinemaResponseDto {
     private Long id;
     private String name;
-    private Address address;
+    private CreateAddressDto address;
 }

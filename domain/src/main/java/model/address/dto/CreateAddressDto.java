@@ -17,7 +17,6 @@ public class CreateAddressDto {
     private String city;
     private String street;
     private Integer number;
-    private List<Cinema> cinemas;
 
     /**
      *
@@ -29,7 +28,6 @@ public class CreateAddressDto {
                 .city(city)
                 .street(street)
                 .number(number)
-                .cinemas(cinemas)
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package model.address;
 
 import lombok.*;
+import model.address.dto.CreateAddressDto;
 import model.cinema.Cinema;
 
 import java.util.List;
@@ -16,4 +17,17 @@ public class Address {
     String street;
     Integer number;
     List<Cinema> cinemas;
+
+    /**
+     *
+     * @return AddressDto object mapped from Address
+     */
+    public CreateAddressDto toCreateAddressDto() {
+        return CreateAddressDto
+                .builder()
+                .city(city)
+                .street(street)
+                .number(number)
+                .build();
+    }
 }

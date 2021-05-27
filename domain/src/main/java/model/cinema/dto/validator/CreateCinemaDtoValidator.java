@@ -1,12 +1,10 @@
 package model.cinema.dto.validator;
 
 import config.validator.Validator;
-import model.address.Address;
-import model.cinema_room.CinemaRoom;
+import model.address.dto.CreateAddressDto;
 import model.cinema.dto.CreateCinemaDto;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CreateCinemaDtoValidator implements Validator<CreateCinemaDto> {
@@ -29,10 +27,6 @@ public class CreateCinemaDtoValidator implements Validator<CreateCinemaDto> {
             errors.put("address", "is incorrect: " + address);
         }
 
-        var cinemaRooms = createCinemaDto.getCinemaRooms();
-        if (hasIncorrectCinemaRoomsList(cinemaRooms)) {
-            errors.put("cinema rooms", "are incorrect: " + cinemaRooms);
-        }
         return errors;
     }
 
@@ -48,15 +42,7 @@ public class CreateCinemaDtoValidator implements Validator<CreateCinemaDto> {
      * @param address we want to validate
      * @return true if address is null, otherwise return false
      */
-    private boolean hasIncorrectAddress(Address address) {
+    private boolean hasIncorrectAddress(CreateAddressDto address) {
         return address == null;
-    }
-
-    /**
-     * @param cinemaRoomList we want to validate
-     * @return true if cinemaRoomList is null or empty, otherwise return false
-     */
-    private boolean hasIncorrectCinemaRoomsList(List<CinemaRoom> cinemaRoomList) {
-        return cinemaRoomList == null || cinemaRoomList.isEmpty();
     }
 }

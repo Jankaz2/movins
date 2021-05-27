@@ -19,5 +19,4 @@ public class CreateUserResponseDto {
     private String email;
     private Integer age;
     private String password;
-    private List<Ticket> tickets;
 }

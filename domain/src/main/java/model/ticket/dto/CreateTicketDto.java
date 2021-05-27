@@ -15,7 +15,6 @@ import model.user.User;
 @Builder
 public class CreateTicketDto {
     private Long id;
-    private Seat seat;
     private Seance seance;
     private User user;
     private Double price;
@@ -27,7 +26,6 @@ public class CreateTicketDto {
     public Ticket toTicket() {
         return Ticket
                 .builder()
-                .seat(seat)
                 .seance(seance)
                 .user(user)
                 .price(price)

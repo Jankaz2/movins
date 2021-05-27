@@ -19,7 +19,6 @@ public class CreateMovieDto {
     private String genre;
     private Integer duration;
     private LocalDate releaseDate;
-    private List<Seance> seances;
 
     /**
      *
@@ -32,7 +31,6 @@ public class CreateMovieDto {
                 .genre(genre)
                 .duration(duration)
                 .releaseDate(releaseDate)
-                .seances(seances)
                 .build();
     }
 }

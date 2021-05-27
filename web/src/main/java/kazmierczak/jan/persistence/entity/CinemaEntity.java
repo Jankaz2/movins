@@ -6,14 +6,12 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.cinema.Cinema;
-import model.cinema.CinemaUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.AddressEntity.*;
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static model.cinema.CinemaUtils.*;
 
 @NoArgsConstructor
@@ -47,18 +45,6 @@ public class CinemaEntity extends BaseEntity {
 
     /**
      *
-     * @param cinemas list we want to map
-     * @return list of cinema entities
-     */
-    public static List<CinemaEntity> fromCinemasListToEntity(List<Cinema> cinemas) {
-        return cinemas
-                .stream()
-                .map(CinemaEntity::fromCinemaToEntity)
-                .toList();
-    }
-
-    /**
-     *
      * @param cinema we want to map
      * @return cinema entity obejct mapped from cinema
      */
@@ -73,7 +59,19 @@ public class CinemaEntity extends BaseEntity {
                 .id(cinemaId)
                 .name(cinemaName)
                 .address(fromAddressToEntity(cinemaAddress))
-                .cinemaRooms(fromCinemaRoomsToEntityList(cinemaRooms))
+                .cinemaRooms(new ArrayList<>())
                 .build();
+    }
+
+    /**
+     *
+     * @param cinemas list we want to map
+     * @return list of cinema entities
+     */
+    public static List<CinemaEntity> fromCinemasListToEntity(List<Cinema> cinemas) {
+        return cinemas
+                .stream()
+                .map(CinemaEntity::fromCinemaToEntity)
+                .toList();
     }
 }

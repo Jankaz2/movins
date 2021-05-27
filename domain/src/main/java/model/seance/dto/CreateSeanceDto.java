@@ -18,9 +18,7 @@ import java.util.List;
 @Builder
 public class CreateSeanceDto {
     private Movie movie;
-    private CinemaRoom cinemaRoom;
     private LocalDate date;
-    private List<Ticket> tickets;
 
     /**
      *
@@ -30,9 +28,7 @@ public class CreateSeanceDto {
         return Seance
                 .builder()
                 .movie(movie)
-                .cinemaRoom(cinemaRoom)
                 .date(date)
-                .tickets(tickets)
                 .build();
     }
 }

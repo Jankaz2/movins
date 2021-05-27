@@ -27,7 +27,7 @@ public class CinemaService {
      * @return created CinemaResponseDto object
      */
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public CreateCinemaResponseDto createCinemaDto(CreateCinemaDto createCinemaDto) {
+    public CreateCinemaResponseDto createCinema(CreateCinemaDto createCinemaDto) {
         validate(new CreateCinemaDtoValidator(), createCinemaDto);
 
         var name = createCinemaDto.getName();

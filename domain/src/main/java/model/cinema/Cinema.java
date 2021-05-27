@@ -24,8 +24,7 @@ public class Cinema {
                 .builder()
                 .id(id)
                 .name(name)
-                .address(address)
-                .cinemaRooms(cinemaRooms)
+                .address(address.toCreateAddressDto())
                 .build();
     }
 
@@ -38,7 +37,7 @@ public class Cinema {
                 .builder()
                 .id(id)
                 .name(name)
-                .address(address)
+                .address(address.toCreateAddressDto())
                 .build();
     }
 }

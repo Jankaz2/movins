@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kazmierczak.jan.persistence.entity.CinemaEntity.*;
 import static kazmierczak.jan.persistence.entity.SeatEntity.*;
 import static model.cinema_room.CinemaRoomUtils.*;
 
@@ -84,9 +85,9 @@ public class CinemaRoomEntity extends BaseEntity {
                 .id(cinemaRoomId)
                 .name(cinemaRoomName)
                 .rows(cinemaRoomRows)
-                .cinema(CinemaEntity.fromCinemaToEntity(cinemaRoomCinema))
+                .cinema(fromCinemaToEntity(cinemaRoomCinema))
                 .places(cinemaRoomPlaces)
-                .seats(fromSeatListToEntityList(cinemaRoomSeats))
+                .seats(new ArrayList<>())
                 .build();
     }
 }

@@ -51,7 +51,6 @@ public class User {
                 .age(age)
                 .email(email)
                 .password(password)
-                .tickets(tickets)
                 .build();
     }
 }

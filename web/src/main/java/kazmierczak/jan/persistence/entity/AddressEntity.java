@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.persistence.entity.CinemaEntity.*;
 import static model.address.AddressUtils.*;
 
 @NoArgsConstructor
@@ -64,7 +63,7 @@ public class AddressEntity extends BaseEntity {
                 .city(addressCity)
                 .street(addressStreet)
                 .number(addressNumber)
-                .cinemas(fromCinemasListToEntity(addressCinemas))
+                .cinemas(new ArrayList<>())
                 .build();
     }
 }

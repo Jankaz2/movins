@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.address.Address;
-import model.cinema_room.CinemaRoom;
+import model.address.dto.CreateAddressDto;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +14,5 @@ import java.util.List;
 public class GetCinemaDto {
     private Long id;
     private String name;
-    private Address address;
-    private List<CinemaRoom> cinemaRooms;
+    private CreateAddressDto address;
 }
