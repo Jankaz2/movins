@@ -23,6 +23,7 @@ public class CreateUserDto {
     @Email(message = "Email is not correct")
     private String email;
     private String password;
+    private Role role;
     /**
      * @return User object created from UserDto
      */
@@ -34,6 +35,7 @@ public class CreateUserDto {
                 .age(age)
                 .email(email)
                 .password(password)
+                .role(role)
                 .build();
     }
 }

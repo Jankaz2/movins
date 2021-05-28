@@ -21,5 +21,4 @@ public class GetUserDto {
     private Integer age;
     private String password;
     private Role role;
-    private List<Ticket> tickets;
 }

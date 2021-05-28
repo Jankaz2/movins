@@ -35,7 +35,7 @@ public class User {
                 .email(email)
                 .age(age)
                 .password(password)
-                .tickets(tickets)
+                .role(role)
                 .build();
     }
 
@@ -51,6 +51,7 @@ public class User {
                 .age(age)
                 .email(email)
                 .password(password)
+                .role(role)
                 .build();
     }
 }
