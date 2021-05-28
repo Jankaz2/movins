@@ -2,6 +2,7 @@ package model.user.dto.validator;
 
 import config.validator.Validator;
 import model.user.dto.CreateUserDto;
+import types.Role;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class CreateUserDtoValidator implements Validator<CreateUserDto> {
         var password = createUserDto.getPassword();
         if (hasIncorrectPassword(password)) {
             errors.put("password", "is incorrect: " + password);
+        }
+
+        var role = createUserDto.getRole();
+        if (hasIncorrectRole(role)) {
+            errors.put("role", "is incorrect: " + role);
         }
 
         return errors;
@@ -92,5 +98,13 @@ public class CreateUserDtoValidator implements Validator<CreateUserDto> {
      */
     private boolean hasIncorrectPassword(String password) {
         return password.length() < 8;
+    }
+
+    /**
+     * @param role we want to validate
+     * @return true if role is null, otherwise return false
+     */
+    private boolean hasIncorrectRole(Role role) {
+        return role == null;
     }
 }
