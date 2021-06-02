@@ -1,6 +1,7 @@
 package model.cinema_room;
 
 import model.cinema.Cinema;
+import model.seance.Seance;
 import model.seat.Seat;
 
 import java.util.List;
@@ -36,4 +37,10 @@ public interface CinemaRoomUtils {
      * map CinemaRoom object to seats of this object
      */
     Function<CinemaRoom, List<Seat>> toCinemaRoomSeats = cinemaRoom -> cinemaRoom.seats;
+
+
+    /**
+     * map CinemaRoom object to seats of this object
+     */
+    Function<CinemaRoom, List<Seance>> toCinemaRoomSeances = cinemaRoom -> cinemaRoom.seances;
 }

@@ -1,17 +1,17 @@
 package kazmierczak.jan.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import model.cinema.Cinema;
+import model.cinema_room.CinemaRoom;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.AddressEntity.*;
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static model.cinema.CinemaUtils.*;
 
 @NoArgsConstructor
@@ -26,7 +26,7 @@ public class CinemaEntity extends BaseEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinema", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<CinemaRoomEntity> cinemaRooms = new ArrayList<>();
 
@@ -39,12 +39,14 @@ public class CinemaEntity extends BaseEntity {
                 .id(id)
                 .name(name)
                 .address(address.toAddress())
-                .cinemaRooms(new ArrayList<>())
+                .cinemaRooms(cinemaRooms
+                        .stream()
+                        .map(CinemaRoomEntity::toCinemaRoom)
+                        .toList())
                 .build();
     }
 
     /**
-     *
      * @param cinema we want to map
      * @return cinema entity obejct mapped from cinema
      */
@@ -59,19 +61,10 @@ public class CinemaEntity extends BaseEntity {
                 .id(cinemaId)
                 .name(cinemaName)
                 .address(fromAddressToEntity(cinemaAddress))
-                .cinemaRooms(new ArrayList<>())
+                .cinemaRooms(cinemaRooms
+                        .stream()
+                        .map(CinemaRoomEntity::fromCinemaRooomtoEntity)
+                        .toList())
                 .build();
-    }
-
-    /**
-     *
-     * @param cinemas list we want to map
-     * @return list of cinema entities
-     */
-    public static List<CinemaEntity> fromCinemasListToEntity(List<Cinema> cinemas) {
-        return cinemas
-                .stream()
-                .map(CinemaEntity::fromCinemaToEntity)
-                .toList();
     }
 }

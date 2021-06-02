@@ -1,14 +1,16 @@
 package model.cinema.dto;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.address.Address;
 import model.address.dto.CreateAddressDto;
 import model.cinema.Cinema;
+import model.cinema_room.CinemaRoom;
+import model.cinema_room.dto.CreateCinemaRoomDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,9 +19,9 @@ import model.cinema.Cinema;
 public class CreateCinemaDto {
     private String name;
     private CreateAddressDto address;
+    private List<CreateCinemaRoomDto> cinemaRooms;
 
     /**
-     *
      * @return Cinema object mapped from CinemaDto
      */
     public Cinema toCinema() {
@@ -27,6 +29,7 @@ public class CreateCinemaDto {
                 .builder()
                 .name(name)
                 .address(address.toAddress())
+                .cinemaRooms(CreateCinemaRoomDto.toListOfCinemaRooms(cinemaRooms))
                 .build();
     }
 }

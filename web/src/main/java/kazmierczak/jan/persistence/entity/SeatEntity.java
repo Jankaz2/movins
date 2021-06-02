@@ -77,7 +77,7 @@ public class SeatEntity extends BaseEntity {
                 .id(seatId)
                 .row(seatRow)
                 .place(seatPlace)
-                .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
+               // .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
                 .tickets(fromTicketsToEntityList(seatTickets))
                 .build();
     }

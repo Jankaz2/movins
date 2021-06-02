@@ -53,6 +53,11 @@ public class UserController {
                 .build();
     }
 
+    /**
+     *
+     * @param id of user we want to delete
+     * @return deleted object
+     */
     @DeleteMapping("/user/{id}")
     public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
         return ResponseDto

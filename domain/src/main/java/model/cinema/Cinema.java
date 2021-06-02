@@ -8,6 +8,8 @@ import model.cinema_room.CinemaRoom;
 
 import java.util.List;
 
+import static model.cinema_room.CinemaRoom.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,12 +21,17 @@ public class Cinema {
     Address address;
     List<CinemaRoom> cinemaRooms;
 
+    /**
+     *
+     * @return GetCinemaDto object mapped from Cinema
+     */
     public GetCinemaDto toGetCinemaDto() {
         return GetCinemaDto
                 .builder()
                 .id(id)
                 .name(name)
                 .address(address.toCreateAddressDto())
+                .cinemaRooms(CinemaRoom.toListOfCreateCinemaRoomDto(cinemaRooms))
                 .build();
     }
 
@@ -38,6 +45,7 @@ public class Cinema {
                 .id(id)
                 .name(name)
                 .address(address.toCreateAddressDto())
+                .cinemaRooms(toListOfCreateCinemaRoomDto(cinemaRooms))
                 .build();
     }
 }

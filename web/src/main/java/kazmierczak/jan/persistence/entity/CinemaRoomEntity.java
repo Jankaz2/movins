@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.CinemaEntity.*;
+import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
 import static kazmierczak.jan.persistence.entity.SeatEntity.*;
 import static model.cinema_room.CinemaRoomUtils.*;
 
@@ -32,11 +33,11 @@ public class CinemaRoomEntity extends BaseEntity {
     @JoinColumn(name = "cinema_id")
     private CinemaEntity cinema;
 
-    @OneToMany(mappedBy = "cinemaRoom")
+    @OneToMany(mappedBy = "cinemaRoom", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<SeatEntity> seats = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cinemaRoom")
+    @OneToMany(mappedBy = "cinemaRoom", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<SeanceEntity> seances = new ArrayList<>();
 
@@ -49,22 +50,10 @@ public class CinemaRoomEntity extends BaseEntity {
                 .id(id)
                 .name(name)
                 .rows(rows)
-                .cinema(cinema.toCinema())
+              //  .cinema(cinema.toCinema())
                 .places(places)
                 .seats(new ArrayList<>())
                 .build();
-    }
-
-    /**
-     *
-     * @param cinemaRooms list we want to map
-     * @return list of cinema rooms entity objects
-     */
-    public static List<CinemaRoomEntity> fromCinemaRoomsToEntityList(List<CinemaRoom> cinemaRooms) {
-        return cinemaRooms
-                .stream()
-                .map(CinemaRoomEntity::fromCinemaRooomtoEntity)
-                .toList();
     }
 
     /**
@@ -79,15 +68,16 @@ public class CinemaRoomEntity extends BaseEntity {
         var cinemaRoomCinema = toCinemaRoomCinema.apply(cinemaRoom);
         var cinemaRoomPlaces = toCinemaRoomPlaces.apply(cinemaRoom);
         var cinemaRoomSeats = toCinemaRoomSeats.apply(cinemaRoom);
+        var cinemaRoomSeances = toCinemaRoomSeances.apply(cinemaRoom);
 
         return CinemaRoomEntity
                 .builder()
                 .id(cinemaRoomId)
                 .name(cinemaRoomName)
                 .rows(cinemaRoomRows)
-                .cinema(fromCinemaToEntity(cinemaRoomCinema))
+                //.cinema(fromCinemaToEntity(cinemaRoomCinema))
                 .places(cinemaRoomPlaces)
-                .seats(new ArrayList<>())
+               //.seats(new ArrayList<>())// .seances(new ArrayList<>())
                 .build();
     }
 }

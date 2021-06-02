@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.cinema.Cinema;
 import model.cinema_room.CinemaRoom;
-import model.seat.Seat;
 
 import java.util.List;
 
@@ -18,8 +16,17 @@ public class CreateCinemaRoomDto {
     private String name;
     private Integer rows;
     private Integer places;
-    private Cinema cinema;
-    private List<Seat> seats;
+
+    /**
+     * @param cinemaRooms list we want to map
+     * @return list of CinemaRoom objects
+     */
+    public static List<CinemaRoom> toListOfCinemaRooms(List<CreateCinemaRoomDto> cinemaRooms) {
+        return cinemaRooms
+                .stream()
+                .map(CreateCinemaRoomDto::toCinemaRoom)
+                .toList();
+    }
 
     /**
      *
@@ -31,8 +38,6 @@ public class CreateCinemaRoomDto {
                 .name(name)
                 .rows(rows)
                 .places(places)
-                .cinema(cinema)
-                .seats(seats)
                 .build();
     }
 }

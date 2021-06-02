@@ -80,7 +80,7 @@ public class SeanceEntity extends BaseEntity {
                 .builder()
                 .id(seanceId)
                 .movie(fromMovieToEntity(seanceMovie))
-                .cinemaRoom(fromCinemaRooomtoEntity(seanceCinemaRoom))
+               // .cinemaRoom(fromCinemaRooomtoEntity(seanceCinemaRoom))
                 .tickets(fromTicketsToEntityList(seanceTickets))
                 .date(seanceDate)
                 .build();

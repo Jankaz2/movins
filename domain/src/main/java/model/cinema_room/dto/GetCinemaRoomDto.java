@@ -18,6 +18,4 @@ public class GetCinemaRoomDto {
     private String name;
     private Integer rows;
     private Integer places;
-    private Cinema cinema;
-    private List<Seat> seats;
 }

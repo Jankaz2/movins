@@ -17,7 +17,6 @@ import java.util.List;
 public class CreateSeatDto {
     private Integer row;
     private Integer place;
-    private List<Ticket> tickets;
 
     /**
      *
@@ -28,7 +27,6 @@ public class CreateSeatDto {
                 .builder()
                 .row(row)
                 .place(place)
-                .tickets(tickets)
                 .build();
     }
 }

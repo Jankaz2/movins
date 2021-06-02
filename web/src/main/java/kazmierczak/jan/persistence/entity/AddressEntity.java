@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.address.Address;
-import model.address.AddressUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -55,7 +54,6 @@ public class AddressEntity extends BaseEntity {
         var addressCity = addressToCity.apply(address);
         var addressStreet = addressToStreet.apply(address);
         var addressNumber = addressToNumber.apply(address);
-        var addressCinemas = addressToCinemas.apply(address);
 
         return AddressEntity
                 .builder()
@@ -63,7 +61,6 @@ public class AddressEntity extends BaseEntity {
                 .city(addressCity)
                 .street(addressStreet)
                 .number(addressNumber)
-                .cinemas(new ArrayList<>())
                 .build();
     }
 }

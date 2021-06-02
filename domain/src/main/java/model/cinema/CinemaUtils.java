@@ -10,7 +10,7 @@ public interface CinemaUtils {
     /**
      * map cinema to Id of this cinema
      */
-    Function<Cinema, Long> cinemaToId = cinema -> cinema.id;;
+    Function<Cinema, Long> cinemaToId = cinema -> cinema.id;
 
     /**
      * map cinema to name of this cinema
