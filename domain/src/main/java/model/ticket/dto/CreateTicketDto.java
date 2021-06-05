@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.seance.Seance;
+import model.seance.dto.CreateSeanceDto;
 import model.seat.Seat;
 import model.ticket.Ticket;
 import model.user.User;
+import model.user.dto.CreateUserDto;
 
 @Data
 @AllArgsConstructor
@@ -15,8 +17,8 @@ import model.user.User;
 @Builder
 public class CreateTicketDto {
     private Long id;
-    private Seance seance;
-    private User user;
+    private CreateSeanceDto seance;
+    private CreateUserDto user;
     private Double price;
 
     /**
@@ -26,8 +28,8 @@ public class CreateTicketDto {
     public Ticket toTicket() {
         return Ticket
                 .builder()
-                .seance(seance)
-                .user(user)
+                .seance(seance.toSeance())
+                .user(user.toUser())
                 .price(price)
                 .build();
     }
