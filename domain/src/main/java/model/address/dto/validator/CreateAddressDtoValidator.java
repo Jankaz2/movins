@@ -24,7 +24,7 @@ public class CreateAddressDtoValidator implements Validator<CreateAddressDto> {
 
         var street = createAddressDto.getStreet();
         if (hasIncorrectCityOrStreet(street)) {
-            errors.put("number", "is incorrect: " + street);
+            errors.put("street", "is incorrect: " + street);
         }
 
         var number = createAddressDto.getNumber();
