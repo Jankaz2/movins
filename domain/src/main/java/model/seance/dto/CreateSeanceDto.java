@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.cinema_room.CinemaRoom;
 import model.movie.Movie;
+import model.movie.dto.CreateMovieDto;
 import model.seance.Seance;
 import model.ticket.Ticket;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CreateSeanceDto {
-    private Movie movie;
+    private CreateMovieDto movie;
     private LocalDate date;
 
     /**
@@ -27,7 +28,7 @@ public class CreateSeanceDto {
     public Seance toSeance() {
         return Seance
                 .builder()
-                .movie(movie)
+                .movie(movie.toMovie())
                 .date(date)
                 .build();
     }
