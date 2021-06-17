@@ -6,8 +6,11 @@ import model.user.User;
 import model.user.dto.CreateUserDto;
 import model.user.dto.CreateUserResponseDto;
 import model.user.dto.GetUserDto;
+import model.user.dto.UserToActivateDto;
 import model.user.dto.validator.CreateUserDtoValidator;
 import model.user.repository.UserRepository;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,8 @@ import static java.util.stream.Collectors.*;
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EventPublisher<UserToActivateDto> eventPublisher;
 
     /**
      * @param createUserDto object we want to build responseDto from
@@ -37,12 +42,16 @@ public class UserService {
             throw new UserServiceException("User with email " + email + " already exists");
         }
 
-        var user = createUserDto.toUser();
+        createUserDto.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
 
-        return userRepository
+        var user = createUserDto.toUser();
+        var insertedUser = userRepository
                 .add(user)
                 .map(User::toCreateUserResponseDto)
                 .orElseThrow(() -> new UserServiceException("Cannot create new user"));
+
+        eventPublisher.publishEvent(UserToActivateDto.builder().id(insertedUser.getId()).build());
+        return insertedUser;
     }
 
     /**
@@ -57,7 +66,6 @@ public class UserService {
     }
 
     /**
-     *
      * @param id we want to find user with
      * @return user with this id if this user exists, otherwise
      * throw exception
@@ -70,7 +78,6 @@ public class UserService {
     }
 
     /**
-     *
      * @param id of user we want to delete
      * @return deleted object
      */
