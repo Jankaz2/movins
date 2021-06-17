@@ -17,14 +17,9 @@ public class CreateUserDtoValidator implements Validator<CreateUserDto> {
             return errors;
         }
 
-        var name = createUserDto.getName();
-        if (hasIncorrectName(name)) {
-            errors.put("name", "is incorrect: " + name);
-        }
-
-        var surname = createUserDto.getSurname();
-        if (hasIncorrectSurname(surname)) {
-            errors.put("surname", "is incorrect: " + surname);
+        var username = createUserDto.getUsername();
+        if (hasIncorrectUsername(username)) {
+            errors.put("username", "is incorrect: " + username);
         }
 
         var age = createUserDto.getAge();
@@ -51,25 +46,14 @@ public class CreateUserDtoValidator implements Validator<CreateUserDto> {
     }
 
     /**
-     * @param name we want to validate
+     * @param username we want to validate
      * @return true if name is null or is too short or syntax is wrong,
      * otherwise return false
      */
-    private boolean hasIncorrectName(String name) {
-        return name == null
-                || name.length() < 3
-                || !name.matches("^[A-Z][a-z]+$");
-    }
-
-    /**
-     * @param surname we want to validate
-     * @return true if surname is null or is too short or syntax is wrong,
-     * otherwise return false
-     */
-    private boolean hasIncorrectSurname(String surname) {
-        return surname == null
-                || surname.length() < 5
-                || !surname.matches("^[A-Z][a-z]+$");
+    private boolean hasIncorrectUsername(String username) {
+        return username == null
+                || username.length() < 3
+                || !username.matches("^[A-Za-z]+[\\d]{0,4}");
     }
 
     /**

@@ -8,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import types.Role;
 
-import static org.assertj.core.api.Assertions.*;
-
 @ExtendWith(SpringExtension.class)
 public class GetUserDtoTest {
     @Test
@@ -18,7 +16,7 @@ public class GetUserDtoTest {
         var user = User
                 .builder()
                 .id(1L)
-                .name("name")
+                .username("name")
                 .surname("surname")
                 .age(18)
                 .email("email@email.pl")
@@ -29,7 +27,7 @@ public class GetUserDtoTest {
         var userDto = GetUserDto
                 .builder()
                 .id(1L)
-                .name("name")
+                .username("name")
                 .surname("surname")
                 .age(18)
                 .email("email@email.pl")

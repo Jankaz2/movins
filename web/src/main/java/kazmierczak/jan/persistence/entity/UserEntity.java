@@ -41,7 +41,7 @@ public class UserEntity extends BaseEntity {
     public User toUser() {
         return User.builder()
                 .id(id)
-                .name(name)
+                .username(name)
                 .surname(surname)
                 .age(age)
                 .role(role)

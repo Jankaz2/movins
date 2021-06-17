@@ -18,7 +18,7 @@ public class UserEntityTest {
     public void test1() {
         var user = User.builder()
                 .id(1L)
-                .name("name")
+                .username("name")
                 .surname("surname")
                 .age(12)
                 .password("password")
@@ -57,7 +57,7 @@ public class UserEntityTest {
 
         var user = User.builder()
                 .id(1L)
-                .name("name")
+                .username("name")
                 .surname("surname")
                 .age(12)
                 .password("password")

@@ -15,8 +15,7 @@ import java.util.List;
 @ToString
 public class User {
     Long id;
-    String name;
-    String surname;
+    String username;
     String email;
     Integer age;
     Role role;
@@ -30,8 +29,7 @@ public class User {
         return GetUserDto
                 .builder()
                 .id(id)
-                .name(name)
-                .surname(surname)
+                .username(username)
                 .email(email)
                 .age(age)
                 .password(password)
@@ -46,8 +44,7 @@ public class User {
         return CreateUserResponseDto
                 .builder()
                 .id(id)
-                .name(name)
-                .surname(surname)
+                .username(username)
                 .age(age)
                 .email(email)
                 .password(password)
