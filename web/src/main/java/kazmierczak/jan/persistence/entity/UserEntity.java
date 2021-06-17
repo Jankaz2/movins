@@ -3,14 +3,13 @@ package kazmierczak.jan.persistence.entity;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.user.User;
 import types.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +19,15 @@ import static model.user.UserUtils.*;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
+@Getter
 @Table(name = "cinema_users")
 public class UserEntity extends BaseEntity {
     private String name;
     private String surname;
     private String email;
     private Integer age;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
     private String password;
 

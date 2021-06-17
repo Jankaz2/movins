@@ -13,14 +13,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cinema")
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
     /**
      * @return list of all users
      */
-    @GetMapping("/user")
+    @GetMapping
     public ResponseDto<List<GetUserDto>> getAllUsers() {
         return ResponseDto
                 .<List<GetUserDto>>builder()
@@ -32,7 +32,7 @@ public class UserController {
      * @param createUserDto body of user we want to post
      * @return posted user object
      */
-    @PostMapping("/user")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateUserResponseDto> createUser(@RequestBody CreateUserDto createUserDto) {
         return ResponseDto
@@ -45,7 +45,7 @@ public class UserController {
      * @param id of user we want to get
      * @return userDto with this id
      */
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseDto<GetUserDto> getUserById(@PathVariable Long id) {
         return ResponseDto
                 .<GetUserDto>builder()
@@ -58,7 +58,7 @@ public class UserController {
      * @param id of user we want to delete
      * @return deleted object
      */
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
         return ResponseDto
                 .<GetUserDto>builder()
