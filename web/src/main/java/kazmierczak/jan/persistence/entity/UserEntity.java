@@ -22,8 +22,7 @@ import static model.user.UserUtils.*;
 @Getter
 @Table(name = "cinema_users")
 public class UserEntity extends BaseEntity {
-    private String name;
-    private String surname;
+    private String username;
     private String email;
     private Integer age;
 
@@ -35,19 +34,21 @@ public class UserEntity extends BaseEntity {
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
 
+    private boolean enabled;
+
     /**
      * @return User object mapped from UserEntity
      */
     public User toUser() {
         return User.builder()
                 .id(id)
-                .username(name)
-                .surname(surname)
+                .username(username)
                 .age(age)
                 .role(role)
                 .password(password)
                 .email(email)
                 .tickets(new ArrayList<>())
+                .enabled(enabled)
                 .build();
     }
 
@@ -58,24 +59,24 @@ public class UserEntity extends BaseEntity {
      */
     public static UserEntity fromUserToEntity(User user) {
         var userId = toId.apply(user);
-        var userName = toName.apply(user);
-        var userSurname = toSurname.apply(user);
+        var userName = toUsername.apply(user);
         var userAge = toAge.apply(user);
         var userRole = toRole.apply(user);
         var userPassword = toPassword.apply(user);
         var userEmail = toEmail.apply(user);
         var userTickets = toTickets.apply(user);
+        var enabled = toEnabled.apply(user);
 
         return UserEntity
                 .builder()
                 .id(userId)
-                .name(userName)
-                .surname(userSurname)
+                .username(userName)
                 .age(userAge)
                 .role(userRole)
                 .password(userPassword)
                 .email(userEmail)
                 .tickets(new ArrayList<>())
+                .enabled(enabled)
                 .build();
     }
 

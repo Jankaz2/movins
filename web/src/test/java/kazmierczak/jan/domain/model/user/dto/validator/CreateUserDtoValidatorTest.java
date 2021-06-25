@@ -27,8 +27,7 @@ public class CreateUserDtoValidatorTest {
     public void test2() {
         var validator = new CreateUserDtoValidator();
         var createUserDto = CreateUserDto.builder()
-                .name("a")
-                .surname("Jonas")
+                .username("a")
                 .age(10)
                 .email("john2001@wp.pl")
                 .build();
@@ -43,8 +42,7 @@ public class CreateUserDtoValidatorTest {
     public void test3() {
         var validator = new CreateUserDtoValidator();
         var createUserDto = CreateUserDto.builder()
-                .name("Jonas")
-                .surname("a")
+                .username("Jonas")
                 .age(10)
                 .email("john2001@wp.pl")
                 .build();
@@ -59,8 +57,7 @@ public class CreateUserDtoValidatorTest {
     public void test4() {
         var validator = new CreateUserDtoValidator();
         var createUserDto = CreateUserDto.builder()
-                .name("Jonas")
-                .surname("Jonas")
+                .username("Jonas")
                 .age(0)
                 .email("john2001@wp.pl")
                 .build();
@@ -75,8 +72,7 @@ public class CreateUserDtoValidatorTest {
     public void test5() {
         var validator = new CreateUserDtoValidator();
         var createUserDto = CreateUserDto.builder()
-                .name("Jonas")
-                .surname("Jonas")
+                .username("Jonas")
                 .age(10)
                 .email("john2001_@wp.pl")
                 .build();

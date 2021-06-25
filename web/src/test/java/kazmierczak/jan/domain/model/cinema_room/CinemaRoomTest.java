@@ -17,27 +17,28 @@ public class CinemaRoomTest {
     @DisplayName("when toListOfCreateCinemaRoomDto method works correct")
     public void test1() {
         var cinemaRoomsList = List.of(
-          CinemaRoom.builder().name("Name1").rows(10).places(10).build(),
-          CinemaRoom.builder().name("Name2").rows(11).places(11).build()
+                CinemaRoom.builder().name("Name1").rows(10).places(10).build(),
+                CinemaRoom.builder().name("Name2").rows(11).places(11).build()
         );
 
         var cinemaRoomsDtoList = List.of(
-          CreateCinemaRoomDto.builder().name("Name1").rows(10).places(10).build(),
-          CreateCinemaRoomDto.builder().name("Name2").rows(11).places(11).build()
+                CreateCinemaRoomDto.builder().name("Name1").rows(10).places(10).build(),
+                CreateCinemaRoomDto.builder().name("Name2").rows(11).places(11).build()
         );
 
-        assertThat(CinemaRoom.toListOfCreateCinemaRoomDto(cinemaRoomsList))
+        assertThat(cinemaRoomsList.stream().map(CinemaRoom::toCreateCinemaRoomDto).toList())
                 .isEqualTo(cinemaRoomsDtoList);
     }
 
     @Test
     @DisplayName("when toCreateCinemaRoomDto method works correct")
-    public void test2() {   var cinemaRoom = CinemaRoom
-            .builder()
-            .name("Name")
-            .rows(10)
-            .places(10)
-            .build();
+    public void test2() {
+        var cinemaRoom = CinemaRoom
+                .builder()
+                .name("Name")
+                .rows(10)
+                .places(10)
+                .build();
 
         var createCinemaRoomDto = CreateCinemaRoomDto
                 .builder()

@@ -8,7 +8,6 @@ import model.cinema_room.CinemaRoom;
 
 import java.util.List;
 
-import static model.cinema_room.CinemaRoom.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +21,6 @@ public class Cinema {
     List<CinemaRoom> cinemaRooms;
 
     /**
-     *
      * @return GetCinemaDto object mapped from Cinema
      */
     public GetCinemaDto toGetCinemaDto() {
@@ -31,21 +29,24 @@ public class Cinema {
                 .id(id)
                 .name(name)
                 .address(address.toCreateAddressDto())
-                .cinemaRooms(CinemaRoom.toListOfCreateCinemaRoomDto(cinemaRooms))
+             /*   .cinemaRooms(cinemaRooms
+                        .stream()
+                        .map(CinemaRoom::toCreateCinemaRoomDto)
+                        .toList())*/
                 .build();
     }
 
     /**
-     *
      * @return CreateCinemaResponseDto object mapped from Cinema
      */
     public CreateCinemaResponseDto toCreateCinemaResponseDto() {
         return CreateCinemaResponseDto
                 .builder()
-                .id(id)
-                .name(name)
-                .address(address.toCreateAddressDto())
-                .cinemaRooms(toListOfCreateCinemaRoomDto(cinemaRooms))
+                .addedCinemaId(id)
                 .build();
+    }
+
+    public void setCinemaRooms(List<CinemaRoom> cinemaRooms) {
+        this.cinemaRooms = cinemaRooms;
     }
 }

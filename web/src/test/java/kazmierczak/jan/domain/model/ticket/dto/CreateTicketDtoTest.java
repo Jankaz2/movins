@@ -44,16 +44,14 @@ public class CreateTicketDtoTest {
 
         var user = User
                 .builder()
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .build();
 
         var userDto = CreateUserDto
                 .builder()
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .build();

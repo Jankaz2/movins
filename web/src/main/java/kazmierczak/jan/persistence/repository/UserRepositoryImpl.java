@@ -31,6 +31,17 @@ public class UserRepositoryImpl implements UserRepository {
 
     /**
      *
+     * @param username we want to find user by
+     * @return user with this username if it exists
+     */
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userEntityDao
+                .findByUsername(username)
+                .map(UserEntity::toUser);
+    }
+
+    /**
      * @param user object we want to add
      * @return added user object
      */
@@ -42,7 +53,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     /**
-     *
      * @param id of user we want to delete
      * @return deleted user
      */
@@ -56,7 +66,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     /**
-     *
      * @param id of user we want to find
      * @return user with id from param
      */
@@ -68,7 +77,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     /**
-     *
      * @return all users
      */
     @Override
@@ -81,7 +89,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     /**
-     *
      * @param ids list of users ids we want to find
      * @return list of users that got id from ids list
      */

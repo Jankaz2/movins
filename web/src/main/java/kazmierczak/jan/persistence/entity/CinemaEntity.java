@@ -4,8 +4,6 @@ import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import model.cinema.Cinema;
-import model.cinema_room.CinemaRoom;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class CinemaEntity extends BaseEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(mappedBy = "cinema", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER)
     @Builder.Default
     private List<CinemaRoomEntity> cinemaRooms = new ArrayList<>();
 
@@ -54,17 +52,12 @@ public class CinemaEntity extends BaseEntity {
         var cinemaId = cinemaToId.apply(cinema);
         var cinemaName = cinemaToName.apply(cinema);
         var cinemaAddress = cinemaToAddress.apply(cinema);
-        var cinemaRooms = cinemaToCinemaRooms.apply(cinema);
 
         return CinemaEntity
                 .builder()
                 .id(cinemaId)
                 .name(cinemaName)
                 .address(fromAddressToEntity(cinemaAddress))
-                .cinemaRooms(cinemaRooms
-                        .stream()
-                        .map(CinemaRoomEntity::fromCinemaRooomtoEntity)
-                        .toList())
                 .build();
     }
 }

@@ -27,7 +27,10 @@ public class CreateCinemaRoomDtoTest {
                 CinemaRoom.builder().name("Name2").rows(11).places(11).build()
         );
 
-        assertThat(CreateCinemaRoomDto.toListOfCinemaRooms(cinemaRoomsDtoList))
+        assertThat(cinemaRoomsDtoList
+                .stream()
+                .map(CreateCinemaRoomDto::toCinemaRoom)
+                .toList())
                 .isEqualTo(cinemaRoomsList);
     }
 

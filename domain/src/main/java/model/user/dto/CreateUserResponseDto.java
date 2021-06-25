@@ -12,8 +12,7 @@ import types.Role;
 @Builder
 public class CreateUserResponseDto {
     private Long id;
-    private String name;
-    private String surname;
+    private String username;
     private String email;
     private Integer age;
     private String password;

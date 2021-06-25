@@ -1,21 +1,19 @@
 package model.cinema.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import model.address.dto.CreateAddressDto;
 import model.cinema.Cinema;
-import model.cinema_room.CinemaRoom;
 import model.cinema_room.dto.CreateCinemaRoomDto;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static model.cinema_room.dto.CreateCinemaRoomDto.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class CreateCinemaDto {
     private String name;
     private CreateAddressDto address;
@@ -29,7 +27,6 @@ public class CreateCinemaDto {
                 .builder()
                 .name(name)
                 .address(address.toAddress())
-                .cinemaRooms(CreateCinemaRoomDto.toListOfCinemaRooms(cinemaRooms))
                 .build();
     }
 }

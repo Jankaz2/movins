@@ -19,8 +19,7 @@ public class CreateUserResponseDtoTest {
         var user = User
                 .builder()
                 .id(1L)
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .password("password")
@@ -30,8 +29,7 @@ public class CreateUserResponseDtoTest {
         var createUserResponseDto = CreateUserResponseDto
                 .builder()
                 .id(1L)
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .password("password")

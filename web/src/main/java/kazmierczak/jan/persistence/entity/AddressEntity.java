@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.address.Address;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class AddressEntity extends BaseEntity {
     private String street;
     private Integer number;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     @Builder.Default
     private List<CinemaEntity> cinemas = new ArrayList<>();
 

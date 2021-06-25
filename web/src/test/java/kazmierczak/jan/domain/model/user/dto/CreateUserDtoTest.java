@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import types.Role;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,16 +17,14 @@ public class CreateUserDtoTest {
     public void test1() {
         var user = User
                 .builder()
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .build();
 
         var userDto = CreateUserDto
                 .builder()
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(18)
                 .email("email@email.pl")
                 .build();

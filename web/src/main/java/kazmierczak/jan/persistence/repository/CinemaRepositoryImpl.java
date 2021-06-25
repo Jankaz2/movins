@@ -4,6 +4,7 @@ import kazmierczak.jan.persistence.dao.CinemaEntityDao;
 import kazmierczak.jan.persistence.entity.CinemaEntity;
 import kazmierczak.jan.persistence.exception.PersistenceException;
 import lombok.RequiredArgsConstructor;
+import model.address.Address;
 import model.cinema.Cinema;
 import model.cinema.repository.CinemaRepository;
 import org.springframework.stereotype.Repository;
@@ -29,9 +30,14 @@ public class CinemaRepositoryImpl implements CinemaRepository {
                 .map(CinemaEntity::toCinema);
     }
 
+    @Override
+    public Optional<Cinema> findByAddress(Address address) {
+        return Optional.empty();
+    }
+
     /**
      * @param cinema we want to add
-     * @return added cinema object
+     * @return added cinema object`
      */
     @Override
     public Optional<Cinema> add(Cinema cinema) {

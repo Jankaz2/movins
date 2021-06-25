@@ -21,6 +21,7 @@ public class User {
     Role role;
     String password;
     List<Ticket> tickets;
+    boolean enabled;
 
     /**
      * @return GetUserDto object

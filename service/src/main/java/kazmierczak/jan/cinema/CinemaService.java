@@ -8,6 +8,8 @@ import model.cinema.dto.CreateCinemaResponseDto;
 import model.cinema.dto.GetCinemaDto;
 import model.cinema.dto.validator.CreateCinemaDtoValidator;
 import model.cinema.repository.CinemaRepository;
+import model.cinema_room.dto.CreateCinemaRoomDto;
+import model.cinema_room.repository.CinemaRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static config.validator.Validator.*;
+import static model.cinema_room.CinemaRoomUtils.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CinemaService {
     private final CinemaRepository cinemaRepository;
+    private final CinemaRoomRepository cinemaRoomRepository;
 
     /**
      * @param createCinemaDto object we want to create
@@ -32,14 +36,24 @@ public class CinemaService {
 
         var name = createCinemaDto.getName();
         if (cinemaRepository.findByName(name).isPresent()) {
-            throw new CinemaServiceException("Cinema with this name " + name + " already exists");
+            throw new CinemaServiceException("Cinema with this name -> [" + name + "] already exists");
         }
-
         var cinema = createCinemaDto.toCinema();
-        return cinemaRepository
-                .add(cinema)
-                .map(Cinema::toCreateCinemaResponseDto)
-                .orElseThrow(() -> new CinemaServiceException("Cannot create new cinema"));
+
+        var cinemaRooms = createCinemaDto
+                .getCinemaRooms()
+                .stream()
+                .map(CreateCinemaRoomDto::toCinemaRoom)
+                .peek(cinemaRoom -> cinemaRoom.setCinema(cinema))
+                .toList();
+
+        var insertedCinemaRooms = cinemaRoomRepository.saveAll(cinemaRooms);
+
+        return insertedCinemaRooms
+                .stream()
+                .findFirst()
+                .map(cinemaRoom -> toCinemaRoomCinema.apply(cinemaRoom).toCreateCinemaResponseDto())
+                .orElseThrow(() -> new CinemaServiceException("Cannot insert cinema"));
     }
 
     /**

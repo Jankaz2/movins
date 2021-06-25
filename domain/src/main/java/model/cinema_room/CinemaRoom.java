@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-@ToString
 public class CinemaRoom {
     Long id;
     String name;
@@ -23,18 +22,6 @@ public class CinemaRoom {
     Cinema cinema;
     List<Seat> seats;
     List<Seance> seances;
-
-    /**
-     *
-     * @param cinemaRooms we want to map
-     * @return list of CreateCinemaRoomDto
-     */
-    public static List<CreateCinemaRoomDto> toListOfCreateCinemaRoomDto(List<CinemaRoom> cinemaRooms) {
-        return cinemaRooms
-                .stream()
-                .map(CinemaRoom::toCreateCinemaRoomDto)
-                .toList();
-    }
 
     /**
      *
@@ -47,5 +34,22 @@ public class CinemaRoom {
                 .rows(rows)
                 .places(places)
                 .build();
+    }
+
+    public void setCinema(Cinema cinema) {
+        this.cinema = cinema;
+    }
+
+    @Override
+    public String toString() {
+        return "CinemaRoom{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", rows=" + rows +
+                ", places=" + places +
+                ", cinema=" + cinema.toGetCinemaDto() +
+                ", seats=" + seats +
+                ", seances=" + seances +
+                '}';
     }
 }

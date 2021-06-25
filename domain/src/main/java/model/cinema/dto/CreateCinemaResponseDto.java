@@ -14,8 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class CreateCinemaResponseDto {
-    private Long id;
-    private String name;
-    private CreateAddressDto address;
-    private List<CreateCinemaRoomDto> cinemaRooms;
+    private Long addedCinemaId;
 }

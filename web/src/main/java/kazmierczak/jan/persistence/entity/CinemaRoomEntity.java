@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import model.cinema_room.CinemaRoom;
 import model.cinema_room.CinemaRoomUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,17 +29,21 @@ public class CinemaRoomEntity extends BaseEntity {
 
     @Column(name = "cinema_rows")
     private Integer rows;
+
+    @Column(name = "cinema_places")
     private Integer places;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "cinema_id")
     private CinemaEntity cinema;
 
-    @OneToMany(mappedBy = "cinemaRoom", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "cinemaRoom", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @Builder.Default
     private List<SeatEntity> seats = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cinemaRoom", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "cinemaRoom", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @Builder.Default
     private List<SeanceEntity> seances = new ArrayList<>();
 
@@ -50,14 +56,13 @@ public class CinemaRoomEntity extends BaseEntity {
                 .id(id)
                 .name(name)
                 .rows(rows)
-              //  .cinema(cinema.toCinema())
+                .cinema(cinema.toCinema())
                 .places(places)
                 .seats(new ArrayList<>())
                 .build();
     }
 
     /**
-     *
      * @param cinemaRoom we want to map
      * @return cinema room entity object
      */
@@ -67,17 +72,36 @@ public class CinemaRoomEntity extends BaseEntity {
         var cinemaRoomRows = toCinemaRoomRows.apply(cinemaRoom);
         var cinemaRoomCinema = toCinemaRoomCinema.apply(cinemaRoom);
         var cinemaRoomPlaces = toCinemaRoomPlaces.apply(cinemaRoom);
-        var cinemaRoomSeats = toCinemaRoomSeats.apply(cinemaRoom);
-        var cinemaRoomSeances = toCinemaRoomSeances.apply(cinemaRoom);
 
         return CinemaRoomEntity
                 .builder()
                 .id(cinemaRoomId)
                 .name(cinemaRoomName)
                 .rows(cinemaRoomRows)
-                //.cinema(fromCinemaToEntity(cinemaRoomCinema))
+                .cinema(fromCinemaToEntity(cinemaRoomCinema))
                 .places(cinemaRoomPlaces)
-               //.seats(new ArrayList<>())// .seances(new ArrayList<>())
                 .build();
+    }
+
+    public static List<CinemaRoomEntity> fromCinemaRoomsToEntityList(List<CinemaRoom> cinemaRooms) {
+        var cinemaEntity = fromCinemaToEntity(toCinemaRoomCinema.apply(cinemaRooms.stream().findFirst().orElseThrow()));
+        var resultList = new ArrayList<CinemaRoomEntity>();
+        for (var cinemaRoom : cinemaRooms) {
+            var cinemaRoomId = toCinemaRoomId.apply(cinemaRoom);
+            var cinemaRoomName = toCinemaRoomName.apply(cinemaRoom);
+            var cinemaRoomRows = toCinemaRoomRows.apply(cinemaRoom);
+            var cinemaRoomPlaces = toCinemaRoomPlaces.apply(cinemaRoom);
+
+            resultList.add(CinemaRoomEntity
+                    .builder()
+                    .id(cinemaRoomId)
+                    .name(cinemaRoomName)
+                    .rows(cinemaRoomRows)
+                    .cinema(cinemaEntity)
+                    .places(cinemaRoomPlaces)
+                    .build());
+        }
+
+        return resultList;
     }
 }

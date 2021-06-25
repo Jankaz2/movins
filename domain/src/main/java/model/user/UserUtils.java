@@ -13,14 +13,9 @@ public interface UserUtils {
     Function<User, Long> toId = user -> user.id;
 
     /**
-     * map User to name of this User
+     * map User to username of this User
      */
-    Function<User, String> toName = user -> user.name;
-
-    /**
-     * map User to surname of this User
-     */
-    Function<User, String> toSurname = user -> user.surname;
+    Function<User, String> toUsername = user -> user.username;
 
     /**
      * map User to email of this User
@@ -46,4 +41,9 @@ public interface UserUtils {
      * map User to tickets list of this User
      */
     Function<User, List<Ticket>> toTickets = user -> user.tickets;
+
+    /**
+     * map User to enabled value of this User
+     */
+    Function<User, Boolean> toEnabled = user -> user.enabled;
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import model.cinema.dto.CreateCinemaDto;
 import model.cinema.dto.CreateCinemaResponseDto;
 import model.cinema.dto.GetCinemaDto;
+import model.cinema_room.CinemaRoom;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class CinemaController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
         return ResponseDto
-                .<CreateCinemaResponseDto>builder()
+                 .<CreateCinemaResponseDto>builder()
                 .data(cinemaService.createCinema(createCinemaDto))
                 .build();
     }

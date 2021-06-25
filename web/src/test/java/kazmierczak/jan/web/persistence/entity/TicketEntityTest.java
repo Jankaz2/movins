@@ -74,8 +74,7 @@ public class TicketEntityTest {
         var userEntity = UserEntity
                 .builder()
                 .id(1L)
-                .name("name")
-                .surname("surname")
+                .username("name")
                 .age(12)
                 .password("password")
                 .email("email")
