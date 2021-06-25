@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
+
 @Repository
 @RequiredArgsConstructor
 public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
@@ -43,12 +45,8 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
 
     @Override
     public List<CinemaRoom> saveAll(List<CinemaRoom> cinemaRooms) {
-      /*  var cinemaRoomsEntities = cinemaRooms
-                .stream()
-                .map(CinemaRoomEntity::fromCinemaRooomtoEntity)
-                .toList();*/
+        var cinemaRoomsEntities = fromCinemaRoomsToEntityList(cinemaRooms);
 
-        var cinemaRoomsEntities = CinemaRoomEntity.fromCinemaRoomsToEntityList(cinemaRooms);
         var insertedCinemaRooms = cinemaRoomEntityDao
                 .saveAll(cinemaRoomsEntities);
 

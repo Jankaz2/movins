@@ -83,6 +83,11 @@ public class CinemaRoomEntity extends BaseEntity {
                 .build();
     }
 
+    /**
+     *
+     * @param cinemaRooms list we want to map to entity
+     * @return list of cinema rooms entities
+     */
     public static List<CinemaRoomEntity> fromCinemaRoomsToEntityList(List<CinemaRoom> cinemaRooms) {
         var cinemaEntity = fromCinemaToEntity(toCinemaRoomCinema.apply(cinemaRooms.stream().findFirst().orElseThrow()));
         var resultList = new ArrayList<CinemaRoomEntity>();
