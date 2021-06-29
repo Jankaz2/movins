@@ -9,7 +9,6 @@ import model.user.dto.GetUserDto;
 import model.user.dto.UserToActivateDto;
 import model.user.dto.validator.CreateUserDtoValidator;
 import model.user.repository.UserRepository;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,7 +22,6 @@ import static java.util.stream.Collectors.*;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,12 +35,17 @@ public class UserService {
     public CreateUserResponseDto createUser(CreateUserDto createUserDto) {
         validate(new CreateUserDtoValidator(), createUserDto);
 
+        var username = createUserDto.getUsername();
+        if(userRepository.findByUsername(username).isPresent()) {
+            throw new UserServiceException("User with this username: " + username + " already exists");
+        }
+
         var email = createUserDto.getEmail();
         if (userRepository.findByEmail(email).isPresent()) {
             throw new UserServiceException("User with email " + email + " already exists");
         }
 
-        createUserDto.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+       createUserDto.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
 
         var user = createUserDto.toUser();
         var insertedUser = userRepository

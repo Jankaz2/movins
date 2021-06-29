@@ -42,7 +42,7 @@ public class UserToActivateListener {
         var insertedVerificationToken = verificationTokenEntityDao.save(verificationToken);
 
         var recipientEmail =  userToActivate.getEmail();
-        var subject = "Registration activate";
+        var subject = "Registration activation";
         var url = "http://localhost:3000/user/activate?token=" + token;
 
         var simpleMailMessage = new SimpleMailMessage();
