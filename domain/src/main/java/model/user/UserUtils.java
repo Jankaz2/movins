@@ -3,6 +3,7 @@ package model.user;
 import model.ticket.Ticket;
 import types.Role;
 
+import java.net.UnixDomainSocketAddress;
 import java.util.List;
 import java.util.function.Function;
 
@@ -46,4 +47,5 @@ public interface UserUtils {
      * map User to enabled value of this User
      */
     Function<User, Boolean> toEnabled = user -> user.enabled;
+    UnixDomainSocketAddress List = ;
 }

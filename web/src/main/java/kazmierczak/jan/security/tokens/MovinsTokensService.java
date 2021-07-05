@@ -9,17 +9,20 @@ import lombok.RequiredArgsConstructor;
 import model.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+import static java.util.List.*;
 import static model.user.UserUtils.*;
 
 @Service
 @RequiredArgsConstructor
-public class AppTokensService {
+public class MovinsTokensService {
     private final UserRepository userRepository;
     private SecretKey secretKey;
 
@@ -76,6 +79,30 @@ public class AppTokensService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+
+    public UsernamePasswordAuthenticationToken parseAccessToken(String header) {
+        if(header == null) {
+            throw new AppTokensException("Header is null");
+        }
+
+        if(!header.startsWith(tokensPrefix)) {
+            throw new AppTokensException("Token has invalid syntax");
+        }
+
+        var token = header.replaceAll(tokensPrefix, "");
+        var userId = id(token);
+
+        return userRepository
+                .findById(userId)
+                .map(user -> {
+                    var userCredentials = user.toGetUserAuthorization();
+                    return new UsernamePasswordAuthenticationToken(
+                            userCredentials.getUsername(),
+                            null,
+                            of(new SimpleGrantedAuthority(userCredentials.getRole().toString()))
+                    );
+                }).orElseThrow(() -> new AppTokensException("Authorization failed"));
     }
 
     private Claims claims(String token) {
