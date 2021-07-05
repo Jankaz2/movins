@@ -11,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class UserToActivateListener {
 
     @Async
     @EventListener
+    @Transactional
     public void sendActivationEmail(UserToActivateDto userToActivateDto) {
         var userId = userToActivateDto.getId();
         var userToActivate = userEntityDao

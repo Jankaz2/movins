@@ -7,7 +7,6 @@ import kazmierczak.jan.security.tokens.dto.TokensDto;
 import kazmierczak.jan.security.tokens.exception.AppTokensException;
 import lombok.RequiredArgsConstructor;
 import model.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
@@ -38,8 +37,8 @@ public class AppTokensService {
 
     /**
      *
-      * @param authentication
-     * @return
+     * @param authentication
+     * @return generated token dto
      */
     public TokensDto createTokens(Authentication authentication) {
         var context = new AnnotationConfigApplicationContext(MovinsAppConfig.class);

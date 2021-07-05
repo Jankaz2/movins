@@ -13,12 +13,14 @@ import javax.crypto.SecretKey;
 @Configuration
 @ComponentScan("kazmierczak.jan")
 public class MovinsAppConfig {
- /*   @Bean
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
     @Bean
     public SecretKey secretKey() {
         return Keys.secretKeyFor(SignatureAlgorithm.ES512);
-    }*/
+    }
 }

@@ -3,6 +3,8 @@ package model.user;
 import lombok.*;
 import model.ticket.Ticket;
 import model.user.dto.CreateUserResponseDto;
+import model.user.dto.GetUserAuthentication;
+import model.user.dto.GetUserAuthorization;
 import model.user.dto.GetUserDto;
 import types.Role;
 
@@ -49,6 +51,32 @@ public class User {
                 .age(age)
                 .email(email)
                 .password(password)
+                .role(role)
+                .build();
+    }
+
+    /**
+     *
+     * @return getUserAuthentication object
+     */
+    public GetUserAuthentication toGetUserAuthentication() {
+        return GetUserAuthentication
+                .builder()
+                .username(username)
+                .password(password)
+                .enabled(enabled)
+                .role(role)
+                .build();
+    }
+
+    /**
+     *
+     * @return getUserAuthorization object
+     */
+    public GetUserAuthorization toGetUserAuthorization() {
+        return GetUserAuthorization
+                .builder()
+                .username(username)
                 .role(role)
                 .build();
     }
