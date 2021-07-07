@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.movie.Movie;
-import model.movie.MovieUtils;
+import kazmierczak.jan.model.movie.Movie;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
-import static model.movie.MovieUtils.*;
+import static kazmierczak.jan.model.movie.MovieUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

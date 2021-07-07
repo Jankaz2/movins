@@ -1,7 +1,7 @@
 package kazmierczak.jan.domain.model.cinema_room.dto;
 
-import model.cinema_room.CinemaRoom;
-import model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

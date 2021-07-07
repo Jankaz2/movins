@@ -3,9 +3,9 @@ package kazmierczak.jan.controller;
 import kazmierczak.jan.controller.dto.ResponseDto;
 import kazmierczak.jan.user.UserService;
 import lombok.RequiredArgsConstructor;
-import model.user.dto.CreateUserDto;
-import model.user.dto.CreateUserResponseDto;
-import model.user.dto.GetUserDto;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
+import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
+import kazmierczak.jan.model.user.dto.GetUserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

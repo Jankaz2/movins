@@ -1,7 +1,7 @@
 package kazmierczak.jan.web.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.MovieEntity;
-import model.movie.Movie;
+import kazmierczak.jan.model.movie.Movie;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

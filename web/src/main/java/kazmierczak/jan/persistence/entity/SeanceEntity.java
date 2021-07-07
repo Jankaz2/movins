@@ -5,18 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.seance.Seance;
-import model.seance.SeanceUtils;
+import kazmierczak.jan.model.seance.Seance;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static kazmierczak.jan.persistence.entity.MovieEntity.*;
 import static kazmierczak.jan.persistence.entity.TicketEntity.*;
-import static model.seance.SeanceUtils.*;
+import static kazmierczak.jan.model.seance.SeanceUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

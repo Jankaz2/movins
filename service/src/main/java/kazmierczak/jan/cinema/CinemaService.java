@@ -2,22 +2,22 @@ package kazmierczak.jan.cinema;
 
 import kazmierczak.jan.cinema.exception.CinemaServiceException;
 import lombok.RequiredArgsConstructor;
-import model.cinema.Cinema;
-import model.cinema.dto.CreateCinemaDto;
-import model.cinema.dto.CreateCinemaResponseDto;
-import model.cinema.dto.GetCinemaDto;
-import model.cinema.dto.validator.CreateCinemaDtoValidator;
-import model.cinema.repository.CinemaRepository;
-import model.cinema_room.dto.CreateCinemaRoomDto;
-import model.cinema_room.repository.CinemaRoomRepository;
+import kazmierczak.jan.model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
+import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
+import kazmierczak.jan.model.cinema.dto.validator.CreateCinemaDtoValidator;
+import kazmierczak.jan.model.cinema.repository.CinemaRepository;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static config.validator.Validator.*;
-import static model.cinema_room.CinemaRoomUtils.*;
+import static kazmierczak.jan.config.validator.Validator.*;
+import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.*;
 
 @Service
 @RequiredArgsConstructor

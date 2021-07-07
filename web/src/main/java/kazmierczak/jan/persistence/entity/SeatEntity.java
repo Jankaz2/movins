@@ -5,16 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.seat.Seat;
-import model.seat.SeatUtils;
+import kazmierczak.jan.model.seat.Seat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static kazmierczak.jan.persistence.entity.TicketEntity.*;
-import static model.seat.SeatUtils.*;
+import static kazmierczak.jan.model.seat.SeatUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

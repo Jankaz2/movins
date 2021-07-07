@@ -3,14 +3,13 @@ package kazmierczak.jan.persistence.entity;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.Cinema;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.AddressEntity.*;
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
-import static model.cinema.CinemaUtils.*;
+import static kazmierczak.jan.model.cinema.CinemaUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

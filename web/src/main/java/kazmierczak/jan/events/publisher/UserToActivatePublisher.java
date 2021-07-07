@@ -2,7 +2,7 @@ package kazmierczak.jan.events.publisher;
 
 import kazmierczak.jan.user.EventPublisher;
 import lombok.RequiredArgsConstructor;
-import model.user.dto.UserToActivateDto;
+import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

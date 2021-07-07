@@ -1,16 +1,15 @@
 package kazmierczak.jan.domain.model.cinema.dto;
 
-import model.address.Address;
-import model.cinema.Cinema;
-import model.cinema.dto.CreateCinemaDto;
-import model.cinema_room.CinemaRoom;
-import model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.address.Address;
+import kazmierczak.jan.model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;

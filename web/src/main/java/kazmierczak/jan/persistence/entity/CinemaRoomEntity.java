@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.cinema_room.CinemaRoom;
-import model.cinema_room.CinemaRoomUtils;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -15,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.persistence.entity.CinemaEntity.*;
-import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
-import static kazmierczak.jan.persistence.entity.SeatEntity.*;
-import static model.cinema_room.CinemaRoomUtils.*;
+import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

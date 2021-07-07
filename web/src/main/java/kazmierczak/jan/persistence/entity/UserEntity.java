@@ -6,14 +6,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.user.User;
-import types.Role;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.types.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.user.UserUtils.*;
+import static kazmierczak.jan.model.user.UserUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

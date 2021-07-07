@@ -1,9 +1,9 @@
 package kazmierczak.jan.domain.model.address.dto.validator;
 
-import config.validator.Validator;
-import config.validator.exception.ValidatorException;
-import model.address.dto.CreateAddressDto;
-import model.address.dto.validator.CreateAddressDtoValidator;
+import kazmierczak.jan.config.validator.Validator;
+import kazmierczak.jan.config.validator.exception.ValidatorException;
+import kazmierczak.jan.model.address.dto.CreateAddressDto;
+import kazmierczak.jan.model.address.dto.validator.CreateAddressDtoValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

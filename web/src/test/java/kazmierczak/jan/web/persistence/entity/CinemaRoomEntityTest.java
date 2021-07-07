@@ -3,7 +3,7 @@ package kazmierczak.jan.web.persistence.entity;
 import kazmierczak.jan.persistence.entity.AddressEntity;
 import kazmierczak.jan.persistence.entity.CinemaEntity;
 import kazmierczak.jan.persistence.entity.CinemaRoomEntity;
-import model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

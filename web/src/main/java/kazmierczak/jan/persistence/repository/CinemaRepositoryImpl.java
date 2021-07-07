@@ -4,9 +4,9 @@ import kazmierczak.jan.persistence.dao.CinemaEntityDao;
 import kazmierczak.jan.persistence.entity.CinemaEntity;
 import kazmierczak.jan.persistence.exception.PersistenceException;
 import lombok.RequiredArgsConstructor;
-import model.address.Address;
-import model.cinema.Cinema;
-import model.cinema.repository.CinemaRepository;
+import kazmierczak.jan.model.address.Address;
+import kazmierczak.jan.model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.repository.CinemaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

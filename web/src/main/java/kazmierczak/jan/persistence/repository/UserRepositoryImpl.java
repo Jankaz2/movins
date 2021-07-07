@@ -4,8 +4,8 @@ import kazmierczak.jan.persistence.dao.UserEntityDao;
 import kazmierczak.jan.persistence.entity.UserEntity;
 import kazmierczak.jan.persistence.exception.PersistenceException;
 import lombok.RequiredArgsConstructor;
-import model.user.User;
-import model.user.repository.UserRepository;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.address.Address;
+import kazmierczak.jan.model.address.Address;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.address.AddressUtils.*;
+import static kazmierczak.jan.model.address.AddressUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

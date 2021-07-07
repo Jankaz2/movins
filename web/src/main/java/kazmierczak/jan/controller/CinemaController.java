@@ -3,10 +3,9 @@ package kazmierczak.jan.controller;
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import model.cinema.dto.CreateCinemaDto;
-import model.cinema.dto.CreateCinemaResponseDto;
-import model.cinema.dto.GetCinemaDto;
-import model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
+import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

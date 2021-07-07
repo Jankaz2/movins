@@ -1,7 +1,7 @@
 package kazmierczak.jan.domain.model.model.dto;
 
-import model.movie.Movie;
-import model.movie.dto.CreateMovieDto;
+import kazmierczak.jan.model.movie.Movie;
+import kazmierczak.jan.model.movie.dto.CreateMovieDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

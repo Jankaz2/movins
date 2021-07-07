@@ -4,7 +4,7 @@ import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import model.ticket.Ticket;
+import kazmierczak.jan.model.ticket.Ticket;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
 import static kazmierczak.jan.persistence.entity.SeatEntity.*;
 import static kazmierczak.jan.persistence.entity.UserEntity.*;
-import static model.ticket.TicketUtils.*;
+import static kazmierczak.jan.model.ticket.TicketUtils.*;
 
 @NoArgsConstructor
 @AllArgsConstructor

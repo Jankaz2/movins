@@ -1,7 +1,7 @@
 package kazmierczak.jan.web.persistence.entity;
 
 import kazmierczak.jan.persistence.entity.*;
-import model.ticket.Ticket;
+import kazmierczak.jan.model.ticket.Ticket;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

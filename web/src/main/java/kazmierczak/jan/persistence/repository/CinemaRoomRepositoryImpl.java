@@ -3,9 +3,8 @@ package kazmierczak.jan.persistence.repository;
 import kazmierczak.jan.persistence.dao.CinemaRoomEntityDao;
 import kazmierczak.jan.persistence.entity.CinemaRoomEntity;
 import lombok.RequiredArgsConstructor;
-import model.cinema.Cinema;
-import model.cinema_room.CinemaRoom;
-import model.cinema_room.repository.CinemaRoomRepository;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

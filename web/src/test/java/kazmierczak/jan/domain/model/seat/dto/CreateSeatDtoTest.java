@@ -1,7 +1,7 @@
 package kazmierczak.jan.domain.model.seat.dto;
 
-import model.seat.Seat;
-import model.seat.dto.CreateSeatDto;
+import kazmierczak.jan.model.seat.Seat;
+import kazmierczak.jan.model.seat.dto.CreateSeatDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

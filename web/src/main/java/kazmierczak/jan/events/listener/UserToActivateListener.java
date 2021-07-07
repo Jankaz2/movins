@@ -5,7 +5,7 @@ import kazmierczak.jan.persistence.dao.UserEntityDao;
 import kazmierczak.jan.persistence.dao.VerificationTokenEntityDao;
 import kazmierczak.jan.persistence.entity.VerificationTokenEntity;
 import lombok.RequiredArgsConstructor;
-import model.user.dto.UserToActivateDto;
+import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

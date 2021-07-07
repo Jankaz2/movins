@@ -1,16 +1,14 @@
 package kazmierczak.jan.domain.model.seance.dto;
 
-import model.movie.Movie;
-import model.movie.dto.CreateMovieDto;
-import model.seance.Seance;
-import model.seance.dto.CreateSeanceDto;
+import kazmierczak.jan.model.movie.dto.CreateMovieDto;
+import kazmierczak.jan.model.seance.Seance;
+import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.*;
 

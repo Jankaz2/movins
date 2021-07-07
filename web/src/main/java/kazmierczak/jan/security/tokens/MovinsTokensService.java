@@ -3,10 +3,11 @@ package kazmierczak.jan.security.tokens;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import kazmierczak.jan.config.MovinsAppConfig;
+import kazmierczak.jan.MovinsApp;
 import kazmierczak.jan.security.tokens.dto.TokensDto;
 import kazmierczak.jan.security.tokens.exception.AppTokensException;
 import lombok.RequiredArgsConstructor;
-import model.user.repository.UserRepository;
+import kazmierczak.jan.model.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,17 +15,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
 import static java.util.List.*;
-import static model.user.UserUtils.*;
+import static kazmierczak.jan.model.user.UserUtils.*;
 
 @Service
 @RequiredArgsConstructor
 public class MovinsTokensService {
-    private final UserRepository userRepository;
-    private SecretKey secretKey;
 
     @Value("${tokens.access-token.expiration-time-ms}")
     private Long accessTokenExpirationTimeMs;
@@ -38,15 +38,22 @@ public class MovinsTokensService {
     @Value("${tokens.prefix}")
     private String tokensPrefix;
 
+    private final UserRepository userRepository;
+    private SecretKey secretKey;
+
+    @PostConstruct
+    private void init() {
+        var context = new AnnotationConfigApplicationContext();
+        context.register(MovinsAppConfig.class);
+        context.refresh();
+        secretKey = context.getBean("secretKey", SecretKey.class);
+    }
+
     /**
-     *
      * @param authentication
      * @return generated token dto
      */
     public TokensDto createTokens(Authentication authentication) {
-        var context = new AnnotationConfigApplicationContext(MovinsAppConfig.class);
-        secretKey = (SecretKey) context.getBean("secretKey");
-
         var username = authentication.getName();
         var userId = userRepository
                 .findByUsername(username)
@@ -82,11 +89,11 @@ public class MovinsTokensService {
     }
 
     public UsernamePasswordAuthenticationToken parseAccessToken(String header) {
-        if(header == null) {
+        if (header == null) {
             throw new AppTokensException("Header is null");
         }
 
-        if(!header.startsWith(tokensPrefix)) {
+        if (!header.startsWith(tokensPrefix)) {
             throw new AppTokensException("Token has invalid syntax");
         }
 
@@ -106,9 +113,6 @@ public class MovinsTokensService {
     }
 
     private Claims claims(String token) {
-        var context = new AnnotationConfigApplicationContext(MovinsAppConfig.class);
-        secretKey = (SecretKey) context.getBean("secretKey");
-
         return Jwts
                 .parserBuilder()
                 .setSigningKey(secretKey)

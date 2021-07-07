@@ -2,13 +2,13 @@ package kazmierczak.jan.user;
 
 import kazmierczak.jan.user.exception.UserServiceException;
 import lombok.RequiredArgsConstructor;
-import model.user.User;
-import model.user.dto.CreateUserDto;
-import model.user.dto.CreateUserResponseDto;
-import model.user.dto.GetUserDto;
-import model.user.dto.UserToActivateDto;
-import model.user.dto.validator.CreateUserDtoValidator;
-import model.user.repository.UserRepository;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
+import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
+import kazmierczak.jan.model.user.dto.GetUserDto;
+import kazmierczak.jan.model.user.dto.UserToActivateDto;
+import kazmierczak.jan.model.user.dto.validator.CreateUserDtoValidator;
+import kazmierczak.jan.model.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static config.validator.Validator.*;
+import static kazmierczak.jan.config.validator.Validator.*;
 import static java.util.stream.Collectors.*;
 
 @Service

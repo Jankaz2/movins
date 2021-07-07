@@ -1,7 +1,7 @@
 package kazmierczak.jan.domain.model.address.dto;
 
-import model.address.Address;
-import model.address.dto.CreateAddressDto;
+import kazmierczak.jan.model.address.Address;
+import kazmierczak.jan.model.address.dto.CreateAddressDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

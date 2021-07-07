@@ -1,12 +1,12 @@
 package kazmierczak.jan.domain.model.user.dto;
 
-import model.user.User;
-import model.user.dto.GetUserDto;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.GetUserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import types.Role;
+import kazmierczak.jan.types.Role;
 
 import static org.assertj.core.api.Assertions.*;
 

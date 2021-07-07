@@ -1,7 +1,7 @@
 package kazmierczak.jan.domain.model.user.dto;
 
-import model.user.User;
-import model.user.dto.CreateUserDto;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

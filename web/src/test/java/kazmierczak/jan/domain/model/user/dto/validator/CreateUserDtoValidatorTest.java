@@ -1,9 +1,9 @@
 package kazmierczak.jan.domain.model.user.dto.validator;
 
-import config.validator.Validator;
-import config.validator.exception.ValidatorException;
-import model.user.dto.CreateUserDto;
-import model.user.dto.validator.CreateUserDtoValidator;
+import kazmierczak.jan.config.validator.Validator;
+import kazmierczak.jan.config.validator.exception.ValidatorException;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
+import kazmierczak.jan.model.user.dto.validator.CreateUserDtoValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,12 +1,12 @@
 package kazmierczak.jan.domain.model.ticket.dto;
 
-import model.movie.dto.CreateMovieDto;
-import model.seance.Seance;
-import model.seance.dto.CreateSeanceDto;
-import model.ticket.Ticket;
-import model.ticket.dto.CreateTicketDto;
-import model.user.User;
-import model.user.dto.CreateUserDto;
+import kazmierczak.jan.model.movie.dto.CreateMovieDto;
+import kazmierczak.jan.model.seance.Seance;
+import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
+import kazmierczak.jan.model.ticket.Ticket;
+import kazmierczak.jan.model.ticket.dto.CreateTicketDto;
+import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
