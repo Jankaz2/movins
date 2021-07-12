@@ -1,5 +1,6 @@
 package kazmierczak.jan.model.cinema_room;
 
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
 import lombok.*;
 import kazmierczak.jan.model.cinema.Cinema;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
@@ -34,6 +35,17 @@ public class CinemaRoom {
                 .build();
     }
 
+    /**
+     *
+     * @return CreateCinemaRoomResponseDto
+     */
+    public CreateCinemaRoomResponseDto toCreateCinemaRoomResponseDto() {
+        return CreateCinemaRoomResponseDto
+                .builder()
+                .id(id)
+                .build();
+    }
+
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
     }
@@ -45,9 +57,6 @@ public class CinemaRoom {
                 ", name='" + name + '\'' +
                 ", rows=" + rows +
                 ", places=" + places +
-                ", cinema=" + cinema.toGetCinemaDto() +
-                ", seats=" + seats +
-                ", seances=" + seances +
                 '}';
     }
 }

@@ -93,7 +93,7 @@ public class CinemaTest {
 
         var createCinemaResponseDto = CreateCinemaResponseDto
                 .builder()
-                .addedCinemaId(1L)
+                .cinemaId(1L)
                 .build();
 
         assertThat(cinema.toCreateCinemaResponseDto())

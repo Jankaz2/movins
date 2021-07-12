@@ -11,7 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreateCinemaRoomResponseDto {
     private Long id;
-    private String name;
-    private Integer rows;
-    private Integer places;
 }

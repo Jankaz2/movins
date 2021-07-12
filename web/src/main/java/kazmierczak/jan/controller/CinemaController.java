@@ -2,6 +2,8 @@ package kazmierczak.jan.controller;
 
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.dto.ResponseDto;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
@@ -37,13 +39,12 @@ public class CinemaController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
         return ResponseDto
-                 .<CreateCinemaResponseDto>builder()
+                .<CreateCinemaResponseDto>builder()
                 .data(cinemaService.createCinema(createCinemaDto))
                 .build();
     }
 
     /**
-     *
      * @param id we want to find cinema by
      * @return cinemaDto with this id
      */
@@ -56,7 +57,6 @@ public class CinemaController {
     }
 
     /**
-     *
      * @param id of object we want to delete
      * @return deleted object
      */
@@ -65,6 +65,23 @@ public class CinemaController {
         return ResponseDto
                 .<GetCinemaDto>builder()
                 .data(cinemaService.deleteById(id))
+                .build();
+    }
+
+    /**
+     * @param id of cinema we want to add cinema room to
+     * @param createCinemaRoomDto the cinema room we want to add
+     * @return response dto of added object
+     */
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto<CreateCinemaResponseDto> addCinemaRoomToCinema(
+            @PathVariable Long id,
+            @RequestBody List<CreateCinemaRoomDto> createCinemaRoomDto) {
+
+        return ResponseDto
+                .<CreateCinemaResponseDto>builder()
+                .data(cinemaService.changeCinemaRooms(id, createCinemaRoomDto))
                 .build();
     }
 }

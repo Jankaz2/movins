@@ -20,8 +20,8 @@ public class MovinsAppConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean
+   /* @Bean
     public SecretKey secretKey() {
         return Keys.secretKeyFor(SignatureAlgorithm.ES512);
-    }
+    }*/
 }

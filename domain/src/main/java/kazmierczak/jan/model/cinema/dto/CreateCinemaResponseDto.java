@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CreateCinemaResponseDto {
-    private Long addedCinemaId;
+    private Long cinemaId;
 }

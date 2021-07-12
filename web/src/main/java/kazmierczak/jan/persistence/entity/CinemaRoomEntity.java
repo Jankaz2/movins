@@ -30,7 +30,7 @@ public class CinemaRoomEntity extends BaseEntity {
     @Column(name = "cinema_places")
     private Integer places;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {/*CascadeType.PERSIST,*/ CascadeType.MERGE})
     @JoinColumn(name = "cinema_id")
     private CinemaEntity cinema;
 

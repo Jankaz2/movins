@@ -19,7 +19,9 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
 
     @Override
     public Optional<CinemaRoom> add(CinemaRoom cinemaRoom) {
-        return Optional.empty();
+        var cinemaRoomEntity = fromCinemaRooomtoEntity(cinemaRoom);
+        var insertedCinemaRoom = cinemaRoomEntityDao.save(cinemaRoomEntity);
+        return Optional.ofNullable(insertedCinemaRoom.toCinemaRoom());
     }
 
     @Override

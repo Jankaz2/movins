@@ -1,6 +1,10 @@
 package kazmierczak.jan.cinema;
 
 import kazmierczak.jan.cinema.exception.CinemaServiceException;
+import kazmierczak.jan.model.cinema.CinemaUtils;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
+import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.Cinema;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
@@ -17,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.*;
+import static kazmierczak.jan.model.cinema.CinemaUtils.*;
 import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.*;
 
 @Service
@@ -30,6 +35,7 @@ public class CinemaService {
      * @param createCinemaDto object we want to create
      * @return created CinemaResponseDto object
      */
+    //TODO: przetestuj
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public CreateCinemaResponseDto createCinema(CreateCinemaDto createCinemaDto) {
         validate(new CreateCinemaDtoValidator(), createCinemaDto);
@@ -54,6 +60,39 @@ public class CinemaService {
                 .findFirst()
                 .map(cinemaRoom -> toCinemaRoomCinema.apply(cinemaRoom).toCreateCinemaResponseDto())
                 .orElseThrow(() -> new CinemaServiceException("Cannot insert cinema"));
+    }
+
+    /**
+     * @param cinemaId       id of cinema we want to add cinema rooms to
+     * @param cinemaRoomDtos cinema rooms we want to add
+     * @return cinema response dto object
+     */
+    public CreateCinemaResponseDto changeCinemaRooms(Long cinemaId, List<CreateCinemaRoomDto> cinemaRoomDtos) {
+        cinemaRoomDtos.forEach(createCinemaRoomDto -> validate(new CreateCinemaRoomDtoValidator(), createCinemaRoomDto));
+
+        if (cinemaRepository.findById(cinemaId).isEmpty()) {
+            throw new CinemaServiceException("Cinema with this id -> [" + cinemaId + "] does not exist");
+        }
+
+        var cinema = cinemaRepository
+                .findById(cinemaId).orElseThrow(() -> new CinemaServiceException("Cannot find cinema"));
+
+        var cinemaRooms = cinemaRoomDtos
+                .stream()
+                .map(CreateCinemaRoomDto::toCinemaRoom)
+                .toList();
+
+        var changedCinema = cinema.withChangedCinemaRooms(cinemaRooms);
+
+        var finalCinemaRooms = cinemaToCinemaRooms
+                .apply(changedCinema)
+                .stream()
+                .peek(cinemaRoom -> cinemaRoom.setCinema(changedCinema))
+                .toList();
+
+        cinemaRoomRepository.saveAll(finalCinemaRooms);
+
+        return changedCinema.toCreateCinemaResponseDto();
     }
 
     /**
