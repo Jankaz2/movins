@@ -53,7 +53,6 @@ public class CinemaRoomEntity extends BaseEntity {
                 .id(id)
                 .name(name)
                 .rows(rows)
-                .cinema(cinema.toCinema())
                 .places(places)
                 .seats(new ArrayList<>())
                 .build();
@@ -81,12 +80,19 @@ public class CinemaRoomEntity extends BaseEntity {
     }
 
     /**
-     *
      * @param cinemaRooms list we want to map to entity
      * @return list of cinema rooms entities
      */
     public static List<CinemaRoomEntity> fromCinemaRoomsToEntityList(List<CinemaRoom> cinemaRooms) {
-        var cinemaEntity = fromCinemaToEntity(toCinemaRoomCinema.apply(cinemaRooms.stream().findFirst().orElseThrow()));
+        var cinemaEntity = fromCinemaToEntity(
+                toCinemaRoomCinema
+                        .apply(cinemaRooms
+                                .stream()
+                                .findFirst()
+                                .orElseThrow()
+                        )
+        );
+
         var resultList = new ArrayList<CinemaRoomEntity>();
         for (var cinemaRoom : cinemaRooms) {
             var cinemaRoomId = toCinemaRoomId.apply(cinemaRoom);
