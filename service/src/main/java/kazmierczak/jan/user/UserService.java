@@ -31,6 +31,7 @@ public class UserService {
      * @param createUserDto object we want to build responseDto from
      * @return created UserResponseDto object
      */
+    //TODO przetestuj
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public CreateUserResponseDto createUser(CreateUserDto createUserDto) {
         validate(new CreateUserDtoValidator(), createUserDto);
