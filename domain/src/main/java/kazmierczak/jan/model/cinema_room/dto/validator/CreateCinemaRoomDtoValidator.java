@@ -18,17 +18,17 @@ public class CreateCinemaRoomDtoValidator implements Validator<CreateCinemaRoomD
 
         var name = createCinemaRoomDto.getName();
         if(hasIncorrectName(name)){
-            errors.put("name", "is incorrect");
+            errors.put("name", "is incorrect: " + name);
         }
 
         var rows = createCinemaRoomDto.getRows();
         if(hasIncorrectRows(rows)){
-            errors.put("rows", "number is less than 0");
+            errors.put("rows", "number is less than 1");
         }
 
         var places = createCinemaRoomDto.getPlaces();
         if(hasIncorrectPlaces(places)){
-            errors.put("places", "number is less than 0");
+            errors.put("places", "number is less than 1");
         }
 
         return errors;
