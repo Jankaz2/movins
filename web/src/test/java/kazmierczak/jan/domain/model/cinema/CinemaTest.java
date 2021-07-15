@@ -6,6 +6,7 @@ import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -98,5 +99,49 @@ public class CinemaTest {
 
         assertThat(cinema.toCreateCinemaResponseDto())
                 .isEqualTo(createCinemaResponseDto);
+    }
+
+    @Test
+    @DisplayName("test for withAddedCinemaRooms method")
+    public void test3() {
+        var cinemaRoomsList = List.of(
+                CinemaRoom.builder().name("Name1").rows(10).places(10).build()
+        );
+
+        var cinemaRoomsListToAdd = List.of(
+                CinemaRoom.builder().name("Name2").rows(11).places(11).build()
+        );
+
+        var address = Address
+                .builder()
+                .id(1L)
+                .city("City")
+                .street("Street")
+                .number(10)
+                .cinemas(new ArrayList<>())
+                .build();
+
+        var cinema = Cinema
+                .builder()
+                .id(1L)
+                .name("Name")
+                .address(address)
+                .cinemaRooms(cinemaRoomsList)
+                .build();
+
+        var cinemaWithNewCinemaRooms = cinema.withAddedCinemaRooms(cinemaRoomsListToAdd);
+        var cinemaWithNewCinemaROoms2 = Cinema
+                .builder()
+                .id(1L)
+                .name("Name")
+                .address(address)
+                .cinemaRooms(List.of(
+                        CinemaRoom.builder().name("Name1").rows(10).places(10).build(),
+                        CinemaRoom.builder().name("Name2").rows(11).places(11).build()
+                ))
+                .build();
+
+        assertThat(cinemaWithNewCinemaRooms)
+                .isEqualTo(cinemaWithNewCinemaROoms2);
     }
 }
