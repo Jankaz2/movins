@@ -1,9 +1,6 @@
 package kazmierczak.jan.model.cinema_room.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 
 @Data

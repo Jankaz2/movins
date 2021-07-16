@@ -2,6 +2,7 @@ package kazmierczak.jan.persistence.repository;
 
 import kazmierczak.jan.persistence.dao.CinemaRoomEntityDao;
 import kazmierczak.jan.persistence.entity.CinemaRoomEntity;
+import kazmierczak.jan.persistence.exception.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
@@ -25,8 +26,13 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
     }
 
     @Override
-    public Optional<CinemaRoom> delete(Long aLong) {
-        return Optional.empty();
+    public Optional<CinemaRoom> delete(Long id) {
+        var cinemaRoomEntity = cinemaRoomEntityDao
+                .findById(id)
+                .orElseThrow(() -> new PersistenceException("Cannot find cinema room with this id -> " + id));
+
+        cinemaRoomEntityDao.delete(cinemaRoomEntity);
+        return Optional.ofNullable(cinemaRoomEntity.toCinemaRoom());
     }
 
     @Override

@@ -4,6 +4,7 @@ import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import kazmierczak.jan.model.cinema.Cinema;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,11 @@ import static kazmierczak.jan.model.cinema.CinemaUtils.*;
 public class CinemaEntity extends BaseEntity {
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER, orphanRemoval = true/*, cascade = CascadeType.REMOVE*/)
     @Builder.Default
     private List<CinemaRoomEntity> cinemaRooms = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class CinemaEntity extends BaseEntity {
                 .address(address.toAddress())
                 .cinemaRooms(cinemaRooms
                         .stream()
-                        .map(CinemaRoomEntity::toCinemaRoom)
+                        .map(CinemaRoomEntity::toCinemaRoomLight)
                         .toList())
                 .build();
     }

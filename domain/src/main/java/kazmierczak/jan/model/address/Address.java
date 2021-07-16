@@ -20,6 +20,22 @@ public class Address {
 
     /**
      *
+     * @param addressDto we want to set
+     * @return Address object with changed data
+     */
+    public Address withChangedData(CreateAddressDto addressDto) {
+        return Address
+                .builder()
+                .id(id)
+                .city(addressDto.getCity())
+                .street(addressDto.getStreet())
+                .number(addressDto.getNumber())
+                .cinemas(cinemas)
+                .build();
+    }
+
+    /**
+     *
      * @return AddressDto object mapped from Address
      */
     public CreateAddressDto toCreateAddressDto() {

@@ -3,7 +3,6 @@ package kazmierczak.jan.controller;
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.dto.ResponseDto;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
@@ -69,19 +68,37 @@ public class CinemaController {
     }
 
     /**
-     * @param id of cinema we want to add cinema room to
+     * @param name of cinema we want to add cinema room to
      * @param createCinemaRoomDto the cinema room we want to add
      * @return response dto of added object
      */
-    @PatchMapping("/{id}")
+    @PatchMapping("/{name}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> addCinemaRoomToCinema(
-            @PathVariable Long id,
+            @PathVariable String name,
             @RequestBody List<CreateCinemaRoomDto> createCinemaRoomDto) {
 
         return ResponseDto
                 .<CreateCinemaResponseDto>builder()
-                .data(cinemaService.changeCinemaRooms(id, createCinemaRoomDto))
+                .data(cinemaService.addCinemaRoomsToExistedCinema(name, createCinemaRoomDto))
+                .build();
+    }
+
+    /**
+     *
+     * @param oldName name we want to find cinema by
+     * @param createCinemaDto new cinema object we want to set
+     * @return response dto object with id of updated cinema
+     */
+    @PutMapping("/{oldName}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto<CreateCinemaResponseDto> updateCinema(
+            @PathVariable String oldName,
+            @RequestBody CreateCinemaDto createCinemaDto) {
+
+        return ResponseDto
+                .<CreateCinemaResponseDto>builder()
+                .data(cinemaService.updateCinema(oldName, createCinemaDto))
                 .build();
     }
 }

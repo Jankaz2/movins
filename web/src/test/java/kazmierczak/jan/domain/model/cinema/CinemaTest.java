@@ -1,7 +1,9 @@
 package kazmierczak.jan.domain.model.cinema;
 
 import kazmierczak.jan.model.address.Address;
+import kazmierczak.jan.model.address.dto.CreateAddressDto;
 import kazmierczak.jan.model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
@@ -143,5 +145,51 @@ public class CinemaTest {
 
         assertThat(cinemaWithNewCinemaRooms)
                 .isEqualTo(cinemaWithNewCinemaROoms2);
+    }
+
+    @Test
+    @DisplayName("test for withChangeData method")
+    public void test4() {
+        var address = Address
+                .builder()
+                .id(1L)
+                .city("City")
+                .street("Street")
+                .number(10)
+                .cinemas(new ArrayList<>())
+                .build();
+
+        var cinema = Cinema
+                .builder()
+                .id(1L)
+                .name("Name")
+                .address(address)
+                .cinemaRooms(new ArrayList<>())
+                .build();
+
+        var addressDto = CreateAddressDto
+                .builder()
+                .city("City")
+                .street("Street")
+                .number(12)
+                .build();
+
+        var cinemaDto = CreateCinemaDto
+                .builder()
+                .name("Cinemadto")
+                .address(addressDto)
+                .cinemaRooms(new ArrayList<>())
+                .build();
+
+        var cinemaAfterChange = Cinema
+                .builder()
+                .id(1L)
+                .name("Cinemadto")
+                .address(addressDto.toAddress())
+                .cinemaRooms(new ArrayList<>())
+                .build();
+
+        assertThat(cinema.withChangedData(cinemaDto))
+                .isEqualTo(cinemaAfterChange);
     }
 }

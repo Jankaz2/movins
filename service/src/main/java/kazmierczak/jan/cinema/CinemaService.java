@@ -1,9 +1,7 @@
 package kazmierczak.jan.cinema;
 
 import kazmierczak.jan.cinema.exception.CinemaServiceException;
-import kazmierczak.jan.model.cinema.CinemaUtils;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
 import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.Cinema;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.*;
@@ -38,12 +37,12 @@ public class CinemaService {
     //TODO: przetestuj
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public CreateCinemaResponseDto createCinema(CreateCinemaDto createCinemaDto) {
-        validate(new CreateCinemaDtoValidator(), createCinemaDto);
-
         var name = createCinemaDto.getName();
         if (cinemaRepository.findByName(name).isPresent()) {
             throw new CinemaServiceException("Cinema with this name -> [" + name + "] already exists");
         }
+
+        validate(new CreateCinemaDtoValidator(), createCinemaDto);
         var cinema = createCinemaDto.toCinema();
 
         var cinemaRooms = createCinemaDto
@@ -55,34 +54,35 @@ public class CinemaService {
 
         var insertedCinemaRooms = cinemaRoomRepository.saveAll(cinemaRooms);
 
-        return insertedCinemaRooms
-                .stream()
-                .findFirst()
-                .map(cinemaRoom -> toCinemaRoomCinema.apply(cinemaRoom).toCreateCinemaResponseDto())
-                .orElseThrow(() -> new CinemaServiceException("Cannot insert cinema"));
+        return //cinema.toCreateCinemaResponseDto();
+                insertedCinemaRooms
+                        .stream()
+                        .findFirst()
+                        .map(cinemaRoom -> toCinemaRoomCinema.apply(cinemaRoom).toCreateCinemaResponseDto())
+                        .orElseThrow(() -> new CinemaServiceException("Cannot insert cinema"));
     }
 
     /**
-     * @param cinemaId       id of cinema we want to add cinema rooms to
+     * @param cinemaName     id of cinema we want to add cinema rooms to
      * @param cinemaRoomDtos cinema rooms we want to add
      * @return cinema response dto object
      */
-    public CreateCinemaResponseDto changeCinemaRooms(Long cinemaId, List<CreateCinemaRoomDto> cinemaRoomDtos) {
-        cinemaRoomDtos.forEach(createCinemaRoomDto -> validate(new CreateCinemaRoomDtoValidator(), createCinemaRoomDto));
-
-        if (cinemaRepository.findById(cinemaId).isEmpty()) {
-            throw new CinemaServiceException("Cinema with this id -> [" + cinemaId + "] does not exist");
+    public CreateCinemaResponseDto addCinemaRoomsToExistedCinema(String cinemaName, List<CreateCinemaRoomDto> cinemaRoomDtos) {
+        if (cinemaRepository.findByName(cinemaName).isEmpty()) {
+            throw new CinemaServiceException("Cinema with this id -> [" + cinemaName + "] does not exist");
         }
 
+        cinemaRoomDtos.forEach(createCinemaRoomDto -> validate(new CreateCinemaRoomDtoValidator(), createCinemaRoomDto));
+
         var cinema = cinemaRepository
-                .findById(cinemaId).orElseThrow(() -> new CinemaServiceException("Cannot find cinema"));
+                .findByName(cinemaName).orElseThrow(() -> new CinemaServiceException("Cannot find cinema"));
 
         var cinemaRooms = cinemaRoomDtos
                 .stream()
                 .map(CreateCinemaRoomDto::toCinemaRoom)
                 .toList();
 
-        var changedCinema = cinema.withChangedCinemaRooms(cinemaRooms);
+        var changedCinema = cinema.withAddedCinemaRooms(cinemaRooms);
 
         var finalCinemaRooms = cinemaToCinemaRooms
                 .apply(changedCinema)
@@ -93,6 +93,40 @@ public class CinemaService {
         cinemaRoomRepository.saveAll(finalCinemaRooms);
 
         return changedCinema.toCreateCinemaResponseDto();
+    }
+
+    /**
+     * @param oldName         name we want to find existing cinema by
+     * @param createCinemaDto cinema we want to set as a new one
+     * @return response of cinema dto
+     */
+    @Transactional
+    public CreateCinemaResponseDto updateCinema(String oldName, CreateCinemaDto createCinemaDto) {
+        if (cinemaRepository.findByName(oldName).isEmpty()) {
+            throw new CinemaServiceException("Cinema with this name: " + oldName + " does not exist");
+        }
+
+        validate(new CreateCinemaDtoValidator(), createCinemaDto);
+
+        int cinemaDtoCinemaRoomIndex = 0;
+        var cinemaToUpdate = cinemaRepository.findByName(oldName)
+                .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this name: " + oldName));
+
+        var cinemaRooms = cinemaToCinemaRooms.apply(cinemaToUpdate);
+        var updatedCinema = cinemaToUpdate.withChangedData(createCinemaDto);
+
+        var address = cinemaToAddress.apply(cinemaToUpdate).withChangedData(createCinemaDto.getAddress());
+        updatedCinema.setAddress(address);
+
+        var finalCinemaRooms = new ArrayList<CinemaRoom>();
+
+        for (var finalCinemaRoom : cinemaRooms) {
+            finalCinemaRoom.setCinema(updatedCinema);
+            finalCinemaRooms.add(finalCinemaRoom.withChangedData(createCinemaDto.getCinemaRooms().get(cinemaDtoCinemaRoomIndex++)));
+        }
+
+        cinemaRoomRepository.saveAll(finalCinemaRooms);
+        return updatedCinema.toCreateCinemaResponseDto();
     }
 
     /**

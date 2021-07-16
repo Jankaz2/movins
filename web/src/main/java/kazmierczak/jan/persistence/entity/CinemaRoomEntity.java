@@ -30,7 +30,7 @@ public class CinemaRoomEntity extends BaseEntity {
     @Column(name = "cinema_places")
     private Integer places;
 
-    @ManyToOne(cascade = {/*CascadeType.PERSIST,*/ CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "cinema_id")
     private CinemaEntity cinema;
 
@@ -48,6 +48,18 @@ public class CinemaRoomEntity extends BaseEntity {
      * @return CinemaRoom object mapped from CinemaRoomEntity
      */
     public CinemaRoom toCinemaRoom() {
+        return CinemaRoom
+                .builder()
+                .id(id)
+                .name(name)
+                .rows(rows)
+                .cinema(cinema.toCinema())
+                .places(places)
+                .seats(new ArrayList<>())
+                .build();
+    }
+
+    public CinemaRoom toCinemaRoomLight() {
         return CinemaRoom
                 .builder()
                 .id(id)

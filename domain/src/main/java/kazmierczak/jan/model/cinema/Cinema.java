@@ -1,5 +1,6 @@
 package kazmierczak.jan.model.cinema;
 
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
 import lombok.*;
 import kazmierczak.jan.model.address.Address;
@@ -27,7 +28,7 @@ public class Cinema {
      * @param newCinemaRooms cinema rooms objects that we want to add to cinema
      * @return cinema with new cinema rooms objects added
      */
-    public Cinema withChangedCinemaRooms(List<CinemaRoom> newCinemaRooms) {
+    public Cinema withAddedCinemaRooms(List<CinemaRoom> newCinemaRooms) {
         var cinemas = new ArrayList<>(cinemaRooms);
         cinemas.addAll(newCinemaRooms);
 
@@ -37,6 +38,21 @@ public class Cinema {
                 .name(name)
                 .address(address)
                 .cinemaRooms(cinemas)
+                .build();
+    }
+
+    /**
+     *
+     * @param newCinema object we want to set as a new
+     * @return updated Cinema
+     */
+    public Cinema withChangedData(CreateCinemaDto newCinema) {
+        return Cinema
+                .builder()
+                .id(id)
+                .name(newCinema.getName())
+                .address(newCinema.getAddress().toAddress())
+                .cinemaRooms(newCinema.getCinemaRooms().stream().map(CreateCinemaRoomDto::toCinemaRoom).toList())
                 .build();
     }
 
@@ -65,5 +81,9 @@ public class Cinema {
 
     public void setCinemaRooms(List<CinemaRoom> cinemaRooms) {
         this.cinemaRooms = cinemaRooms;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

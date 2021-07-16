@@ -24,6 +24,24 @@ public class CinemaRoom {
 
     /**
      *
+     * @param cinemaRoomDto we want to set
+     * @return cinemaRoom with new data
+     */
+    public CinemaRoom withChangedData(CreateCinemaRoomDto cinemaRoomDto) {
+        return CinemaRoom
+                .builder()
+                .id(id)
+                .name(cinemaRoomDto.getName())
+                .rows(cinemaRoomDto.getRows())
+                .places(cinemaRoomDto.getPlaces())
+                .cinema(cinema)
+                .seats(seats)
+                .places(places)
+                .build();
+    }
+
+    /**
+     *
      * @return CreateCinemaRoomDto object
      */
     public CreateCinemaRoomDto toCreateCinemaRoomDto() {
@@ -32,17 +50,6 @@ public class CinemaRoom {
                 .name(name)
                 .rows(rows)
                 .places(places)
-                .build();
-    }
-
-    /**
-     *
-     * @return CreateCinemaRoomResponseDto
-     */
-    public CreateCinemaRoomResponseDto toCreateCinemaRoomResponseDto() {
-        return CreateCinemaRoomResponseDto
-                .builder()
-                .id(id)
                 .build();
     }
 
