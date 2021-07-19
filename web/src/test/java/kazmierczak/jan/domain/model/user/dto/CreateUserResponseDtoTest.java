@@ -29,10 +29,6 @@ public class CreateUserResponseDtoTest {
         var createUserResponseDto = CreateUserResponseDto
                 .builder()
                 .id(1L)
-                .username("name")
-                .age(18)
-                .email("email@email.pl")
-                .password("password")
                 .build();
 
         assertThat(user.toCreateUserResponseDto())

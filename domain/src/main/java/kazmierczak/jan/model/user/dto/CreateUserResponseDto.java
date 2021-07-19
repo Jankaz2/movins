@@ -12,9 +12,4 @@ import kazmierczak.jan.types.Role;
 @Builder
 public class CreateUserResponseDto {
     private Long id;
-    private String username;
-    private String email;
-    private Integer age;
-    private String password;
-    private Role role;
 }

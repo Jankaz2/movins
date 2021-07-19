@@ -9,11 +9,9 @@ import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -21,9 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +39,7 @@ public class CinemaControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("when findAll method works correctly")
+    @DisplayName("when getAllCinemas method works correctly")
     public void test1() throws Exception {
         var addressDto = CreateAddressDto
                 .builder()
@@ -117,7 +112,7 @@ public class CinemaControllerTest {
     }
 
     @Test
-    @DisplayName("when findById method works correctly")
+    @DisplayName("when getCinemaById method works correctly")
     public void test3() throws Exception {
         var addressDto = CreateAddressDto
                 .builder()
@@ -150,7 +145,7 @@ public class CinemaControllerTest {
     }
 
     @Test
-    @DisplayName("when deleteById method works correctly")
+    @DisplayName("when deleteCinema method works correctly")
     public void test4() throws Exception {
         var addressDto = CreateAddressDto
                 .builder()
