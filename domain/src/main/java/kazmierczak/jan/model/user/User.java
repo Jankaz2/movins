@@ -47,11 +47,6 @@ public class User {
         return CreateUserResponseDto
                 .builder()
                 .id(id)
-                .username(username)
-                .age(age)
-                .email(email)
-                .password(password)
-                .role(role)
                 .build();
     }
 
