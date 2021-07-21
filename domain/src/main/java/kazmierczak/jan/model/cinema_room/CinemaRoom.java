@@ -1,6 +1,7 @@
 package kazmierczak.jan.model.cinema_room;
 
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
+import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
 import lombok.*;
 import kazmierczak.jan.model.cinema.Cinema;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
@@ -47,6 +48,20 @@ public class CinemaRoom {
     public CreateCinemaRoomDto toCreateCinemaRoomDto() {
         return CreateCinemaRoomDto
                 .builder()
+                .name(name)
+                .rows(rows)
+                .places(places)
+                .build();
+    }
+
+    /**
+     *
+     * @return GetCinemaRoomDto object 
+     */
+    public GetCinemaRoomDto toGetCinemaRoomDto() {
+        return GetCinemaRoomDto
+                .builder()
+                .id(id)
                 .name(name)
                 .rows(rows)
                 .places(places)

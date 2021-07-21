@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CinemaRoomRepository extends CrudRepository<CinemaRoom, Long> {
     List<CinemaRoom> saveAll(List<CinemaRoom> cinemaRooms);
+    List<CinemaRoom> findCinemaRoomsByCinemaName(String name);
 }

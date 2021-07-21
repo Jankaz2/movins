@@ -22,7 +22,6 @@ public class Movie {
     List<Seance> seances;
 
     /**
-     *
      * @return createMovieResponseDto object
      */
     public CreateMovieResponseDto toCreateMovieResponseDto() {
@@ -33,17 +32,20 @@ public class Movie {
     }
 
     /**
-     *
      * @return getMovieDto object
      */
     public GetMovieDto toGetMovieDto() {
         return GetMovieDto
                 .builder()
+                .id(id)
                 .title(title)
                 .genre(genre)
                 .duration(duration)
                 .releaseDate(releaseDate)
-                .seances(seances)
+                .seances(seances
+                        .stream()
+                        .map(Seance::toGetSeanceDto)
+                        .toList())
                 .build();
     }
 }

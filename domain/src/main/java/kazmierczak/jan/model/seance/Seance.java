@@ -1,5 +1,6 @@
 package kazmierczak.jan.model.seance;
 
+import kazmierczak.jan.model.seance.dto.GetSeanceDto;
 import lombok.*;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.movie.Movie;
@@ -19,6 +20,15 @@ public class Seance {
     CinemaRoom cinemaRoom;
     LocalDate date;
     List<Ticket> tickets;
+
+    public GetSeanceDto toGetSeanceDto () {
+        return GetSeanceDto
+                .builder()
+                .id(id)
+                .cinemaRoom(cinemaRoom.toGetCinemaRoomDto())
+                .date(date)
+                .build();
+    }
 
     public void setMovie(Movie movie) {
         this.movie = movie;

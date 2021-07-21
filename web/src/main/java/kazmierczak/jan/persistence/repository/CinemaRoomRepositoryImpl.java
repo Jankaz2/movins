@@ -101,4 +101,13 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
                 .map(CinemaRoomEntity::toCinemaRoom)
                 .toList();
     }
+
+    @Override
+    public List<CinemaRoom> findCinemaRoomsByCinemaName(String name) {
+        return cinemaRoomEntityDao
+                .findCinemaRoomEntitiesByCinema_Name(name)
+                .stream()
+                .map(CinemaRoomEntity::toCinemaRoom)
+                .toList();
+    }
 }

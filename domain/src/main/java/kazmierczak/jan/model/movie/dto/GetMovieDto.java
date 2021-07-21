@@ -1,5 +1,6 @@
 package kazmierczak.jan.model.movie.dto;
 
+import kazmierczak.jan.model.seance.dto.GetSeanceDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GetMovieDto {
+    private Long id;
     private String title;
     private String genre;
     private Integer duration;
     private LocalDate releaseDate;
-    private List<Seance> seances;
+    private List<GetSeanceDto> seances;
 }

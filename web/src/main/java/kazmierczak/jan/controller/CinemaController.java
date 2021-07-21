@@ -1,8 +1,11 @@
 package kazmierczak.jan.controller;
 
+import kazmierczak.jan.cinema.CinemaRoomService;
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.dto.ResponseDto;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
+import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
@@ -20,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CinemaController {
     private final CinemaService cinemaService;
+    private final CinemaRoomService cinemaRoomService;
 
     /**
      * @return list of all cinemas
@@ -101,6 +105,44 @@ public class CinemaController {
         return ResponseDto
                 .<CreateCinemaResponseDto>builder()
                 .data(cinemaService.updateCinema(oldName, createCinemaDto))
+                .build();
+    }
+
+    /**
+     *
+     * @return list of all cinema rooms
+     */
+    @GetMapping("/rooms")
+    public ResponseDto<List<GetCinemaRoomDto>> getAllCinemaRooms() {
+        return ResponseDto
+                .<List<GetCinemaRoomDto>>builder()
+                .data(cinemaRoomService.findALl())
+                .build();
+    }
+
+    /**
+     *
+     * @param id of cinema room we want to find
+     * @return cinema room with this id
+     */
+    @GetMapping("/rooms/{id}")
+    public ResponseDto<GetCinemaRoomDto> getCinemaRoomById(@PathVariable Long id) {
+        return ResponseDto
+                .<GetCinemaRoomDto>builder()
+                .data(cinemaRoomService.findById(id))
+                .build();
+    }
+
+    /**
+     *
+     * @param name we want to find cinema rooms by
+     * @return list of cinema rooms
+     */
+    @GetMapping("/rooms/name/{name}")
+    public ResponseDto<List<GetCinemaRoomDto>> getCinemaRoomsByCinemaName(@PathVariable String name) {
+        return ResponseDto
+                .<List<GetCinemaRoomDto>>builder()
+                .data(cinemaRoomService.findByCinemaName(name))
                 .build();
     }
 }

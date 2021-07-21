@@ -32,11 +32,6 @@ public class MovieService {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public CreateMovieResponseDto createMovie(Long cinemaRoomId, CreateMovieDto createMovieDto) {
-        var title = createMovieDto.getTitle();
-        if (movieRepository.findByTitle(title).isPresent()) {
-            throw new MovieServiceException("Movie with this title: " + title + " already exists");
-        }
-
         validate(new CreateMovieDtoValidator(), createMovieDto);
 
         var movie = createMovieDto.toMovie();
