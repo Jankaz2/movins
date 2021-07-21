@@ -13,8 +13,4 @@ import java.time.LocalDate;
 @Builder
 public class CreateMovieResponseDto {
     private Long id;
-    private String title;
-    private String genre;
-    private Integer duration;
-    private LocalDate releaseDate;
 }

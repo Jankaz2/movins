@@ -1,5 +1,10 @@
 package kazmierczak.jan.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static kazmierczak.jan.persistence.entity.MovieEntity.*;
 import static kazmierczak.jan.persistence.entity.TicketEntity.*;
 import static kazmierczak.jan.model.seance.SeanceUtils.*;
@@ -26,7 +32,7 @@ public class SeanceEntity extends BaseEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {/*CascadeType.PERSIST,*/ CascadeType.MERGE})
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoomEntity cinemaRoom;
 
@@ -37,7 +43,6 @@ public class SeanceEntity extends BaseEntity {
     private LocalDate date;
 
     /**
-     *
      * @return Seance object mapped from SeanceEntity
      */
     public Seance toSeance() {
@@ -52,18 +57,49 @@ public class SeanceEntity extends BaseEntity {
 
     /**
      *
+     * @return Seance light object mapped from SeanceEntity
+     */
+    public Seance toSeanceLight() {
+        return Seance
+                .builder()
+                .id(id)
+                .cinemaRoom(cinemaRoom.toCinemaRoom())
+                .date(date)
+                .build();
+    }
+
+    /**
      * @param seances list we want to map
      * @return list of seance entity objects
      */
     public static List<SeanceEntity> fromSeancesToEntityList(List<Seance> seances) {
-        return seances
-                .stream()
-                .map(SeanceEntity::fromSeanceToEntity)
-                .toList();
+        var movieEntity = fromMovieToEntity(
+                toSeanceMovie
+                        .apply(seances
+                                .stream()
+                                .findFirst()
+                                .orElseThrow()
+                        )
+        );
+
+        var resultList = new ArrayList<SeanceEntity>();
+        for (var seance : seances) {
+            var seanceId = toSeanceId.apply(seance);
+            var seanceCinemaRoom = toSeanceCinemaRooom.apply(seance);
+            var seanceDate = toSeanceDate.apply(seance);
+
+            resultList.add(SeanceEntity
+                    .builder()
+                    .id(seanceId)
+                    .movie(movieEntity)
+                    .cinemaRoom(fromCinemaRooomtoEntity(seanceCinemaRoom))
+                    .date(seanceDate)
+                    .build());
+        }
+        return resultList;
     }
 
     /**
-     *
      * @param seance object we want to map
      * @return seance entity object
      */
@@ -71,15 +107,13 @@ public class SeanceEntity extends BaseEntity {
         var seanceId = toSeanceId.apply(seance);
         var seanceMovie = toSeanceMovie.apply(seance);
         var seanceCinemaRoom = toSeanceCinemaRooom.apply(seance);
-        var seanceTickets = toSeanceTickets.apply(seance);
         var seanceDate = toSeanceDate.apply(seance);
 
         return SeanceEntity
                 .builder()
                 .id(seanceId)
                 .movie(fromMovieToEntity(seanceMovie))
-               // .cinemaRoom(fromCinemaRooomtoEntity(seanceCinemaRoom))
-                .tickets(fromTicketsToEntityList(seanceTickets))
+                .cinemaRoom(fromCinemaRooomtoEntity(seanceCinemaRoom))
                 .date(seanceDate)
                 .build();
     }

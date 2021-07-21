@@ -15,7 +15,4 @@ import java.time.LocalDate;
 @Builder
 public class CreateSeanceResponseDto {
     private Long id;
-    private Movie movie;
-    private CinemaRoom cinemaRoom;
-    private LocalDate date;
 }

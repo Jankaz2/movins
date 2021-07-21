@@ -24,7 +24,7 @@ public class CinemaEntity extends BaseEntity {
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
-    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER, orphanRemoval = true/*, cascade = CascadeType.REMOVE*/)
+    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER, orphanRemoval = true)
     @Builder.Default
     private List<CinemaRoomEntity> cinemaRooms = new ArrayList<>();
 

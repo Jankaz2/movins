@@ -8,6 +8,8 @@ import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

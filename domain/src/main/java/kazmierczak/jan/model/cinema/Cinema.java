@@ -29,15 +29,15 @@ public class Cinema {
      * @return cinema with new cinema rooms objects added
      */
     public Cinema withAddedCinemaRooms(List<CinemaRoom> newCinemaRooms) {
-        var cinemas = new ArrayList<>(cinemaRooms);
-        cinemas.addAll(newCinemaRooms);
+        var rooms =  new ArrayList<>(cinemaRooms);
+        rooms.addAll(newCinemaRooms);
 
         return Cinema
                 .builder()
                 .id(id)
                 .name(name)
                 .address(address)
-                .cinemaRooms(cinemas)
+                .cinemaRooms(rooms)
                 .build();
     }
 

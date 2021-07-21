@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class CreateSeanceDto {
-    private CreateMovieDto movie;
     private LocalDate date;
 
     /**
@@ -24,7 +23,6 @@ public class CreateSeanceDto {
     public Seance toSeance() {
         return Seance
                 .builder()
-                .movie(movie.toMovie())
                 .date(date)
                 .build();
     }

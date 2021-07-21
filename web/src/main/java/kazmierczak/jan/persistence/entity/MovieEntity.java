@@ -33,7 +33,6 @@ public class MovieEntity extends BaseEntity {
     private List<SeanceEntity> seances = new ArrayList<>();
 
     /**
-     *
      * @return Movie object mapped from MovieEntity
      */
     public Movie toMovie() {
@@ -43,12 +42,14 @@ public class MovieEntity extends BaseEntity {
                 .genre(genre)
                 .duration(duration)
                 .releaseDate(releaseDate)
-                .seances(new ArrayList<>())
+                .seances(seances
+                        .stream()
+                        .map(SeanceEntity::toSeanceLight)
+                        .toList())
                 .build();
     }
 
     /**
-     *
      * @param movie we want to map
      * @return movie entity object
      */
@@ -58,7 +59,6 @@ public class MovieEntity extends BaseEntity {
         var movieGenre = toMovieGenre.apply(movie);
         var movieDuration = toMovieDuration.apply(movie);
         var movieReleaseDate = toMovieReleaseDate.apply(movie);
-        var movieReleaseSeances = toMovieSeances.apply(movie);
 
         return MovieEntity
                 .builder()
@@ -67,7 +67,6 @@ public class MovieEntity extends BaseEntity {
                 .genre(movieGenre)
                 .duration(movieDuration)
                 .releaseDate(movieReleaseDate)
-                .seances(fromSeancesToEntityList(movieReleaseSeances))
                 .build();
     }
 }

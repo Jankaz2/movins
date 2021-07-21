@@ -19,4 +19,12 @@ public class Seance {
     CinemaRoom cinemaRoom;
     LocalDate date;
     List<Ticket> tickets;
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public void setCinemaRoom(CinemaRoom cinemaRoom) {
+        this.cinemaRoom = cinemaRoom;
+    }
 }

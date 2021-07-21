@@ -32,7 +32,6 @@ public class CreateTicketDtoTest {
 
         var createSeanceDto = CreateSeanceDto
                 .builder()
-                .movie(creatreMovieDto)
                 .date(LocalDate.of(2021, 12, 12))
                 .build();
 

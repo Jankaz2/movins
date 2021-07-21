@@ -18,6 +18,11 @@ import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
     private final CinemaRoomEntityDao cinemaRoomEntityDao;
 
+    /**
+     *
+     * @param cinemaRoom we want to add
+     * @return added object
+     */
     @Override
     public Optional<CinemaRoom> add(CinemaRoom cinemaRoom) {
         var cinemaRoomEntity = fromCinemaRooomtoEntity(cinemaRoom);
@@ -25,6 +30,11 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
         return Optional.ofNullable(insertedCinemaRoom.toCinemaRoom());
     }
 
+    /**
+     *
+     * @param id of cinema room we want to delete
+     * @return deleted object
+     */
     @Override
     public Optional<CinemaRoom> delete(Long id) {
         var cinemaRoomEntity = cinemaRoomEntityDao
@@ -35,9 +45,16 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
         return Optional.ofNullable(cinemaRoomEntity.toCinemaRoom());
     }
 
+    /**
+     *
+     * @param id of cinema room we want to find
+     * @return found cinema
+     */
     @Override
-    public Optional<CinemaRoom> findById(Long aLong) {
-        return Optional.empty();
+    public Optional<CinemaRoom> findById(Long id) {
+        return cinemaRoomEntityDao
+                .findById(id)
+                .map(CinemaRoomEntity::toCinemaRoom);
     }
 
     @Override
@@ -50,6 +67,11 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
         return null;
     }
 
+    /**
+     *
+     * @param cinemaRooms we want to save
+     * @return list of saved cinema rooms
+     */
     @Override
     public List<CinemaRoom> saveAll(List<CinemaRoom> cinemaRooms) {
         var cinemaRoomsEntities = fromCinemaRoomsToEntityList(cinemaRooms);

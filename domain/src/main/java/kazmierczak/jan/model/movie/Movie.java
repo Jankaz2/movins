@@ -1,5 +1,7 @@
 package kazmierczak.jan.model.movie;
 
+import kazmierczak.jan.model.movie.dto.CreateMovieResponseDto;
+import kazmierczak.jan.model.movie.dto.GetMovieDto;
 import lombok.*;
 import kazmierczak.jan.model.seance.Seance;
 
@@ -18,4 +20,30 @@ public class Movie {
     Integer duration;
     LocalDate releaseDate;
     List<Seance> seances;
+
+    /**
+     *
+     * @return createMovieResponseDto object
+     */
+    public CreateMovieResponseDto toCreateMovieResponseDto() {
+        return CreateMovieResponseDto
+                .builder()
+                .id(id)
+                .build();
+    }
+
+    /**
+     *
+     * @return getMovieDto object
+     */
+    public GetMovieDto toGetMovieDto() {
+        return GetMovieDto
+                .builder()
+                .title(title)
+                .genre(genre)
+                .duration(duration)
+                .releaseDate(releaseDate)
+                .seances(seances)
+                .build();
+    }
 }

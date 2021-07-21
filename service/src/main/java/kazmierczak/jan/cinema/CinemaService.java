@@ -54,8 +54,7 @@ public class CinemaService {
 
         var insertedCinemaRooms = cinemaRoomRepository.saveAll(cinemaRooms);
 
-        return //cinema.toCreateCinemaResponseDto();
-                insertedCinemaRooms
+        return insertedCinemaRooms
                         .stream()
                         .findFirst()
                         .map(cinemaRoom -> toCinemaRoomCinema.apply(cinemaRoom).toCreateCinemaResponseDto())
@@ -77,12 +76,12 @@ public class CinemaService {
         var cinema = cinemaRepository
                 .findByName(cinemaName).orElseThrow(() -> new CinemaServiceException("Cannot find cinema"));
 
-        var cinemaRooms = cinemaRoomDtos
+        var newCinemaRooms = cinemaRoomDtos
                 .stream()
                 .map(CreateCinemaRoomDto::toCinemaRoom)
                 .toList();
 
-        var changedCinema = cinema.withAddedCinemaRooms(cinemaRooms);
+        var changedCinema = cinema.withAddedCinemaRooms(newCinemaRooms);
 
         var finalCinemaRooms = cinemaToCinemaRooms
                 .apply(changedCinema)
@@ -91,8 +90,7 @@ public class CinemaService {
                 .toList();
 
         cinemaRoomRepository.saveAll(finalCinemaRooms);
-
-        return changedCinema.toCreateCinemaResponseDto();
+        return cinema.toCreateCinemaResponseDto();
     }
 
     /**

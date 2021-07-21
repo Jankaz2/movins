@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GetMovieDto {
-    private Long id;
     private String title;
     private String genre;
     private Integer duration;
