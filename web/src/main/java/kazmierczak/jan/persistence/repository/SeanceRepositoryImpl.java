@@ -21,7 +21,6 @@ import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
 public class SeanceRepositoryImpl implements SeanceRepository {
     private final SeanceEntityDao seanceEntityDao;
 
-
     /**
      * @param seance we want to add
      * @return optional of nullable of added seance
@@ -84,7 +83,6 @@ public class SeanceRepositoryImpl implements SeanceRepository {
     }
 
     /**
-     *
      * @param date we want to find seance by
      * @return found seance
      */
@@ -95,6 +93,10 @@ public class SeanceRepositoryImpl implements SeanceRepository {
                 .map(SeanceEntity::toSeance);
     }
 
+    /**
+     * @param seances we want to save
+     * @return saved seances
+     */
     @Override
     public List<Seance> saveAll(List<Seance> seances) {
         var seanceEntites = fromSeancesToEntityList(seances);
@@ -103,6 +105,19 @@ public class SeanceRepositoryImpl implements SeanceRepository {
                 .saveAll(seanceEntites);
 
         return insertedSeances
+                .stream()
+                .map(SeanceEntity::toSeance)
+                .toList();
+    }
+
+    /**
+     * @param id of cinema we want to find seances by
+     * @return list of seances
+     */
+    @Override
+    public List<Seance> findAllByCinemaRoomId(Long id) {
+        return seanceEntityDao
+                .findAllByCinemaRoom_Id(id)
                 .stream()
                 .map(SeanceEntity::toSeance)
                 .toList();

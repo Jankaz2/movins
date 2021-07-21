@@ -9,9 +9,11 @@ import kazmierczak.jan.model.movie.dto.CreateMovieResponseDto;
 import kazmierczak.jan.model.movie.dto.GetMovieDto;
 import kazmierczak.jan.model.movie.dto.validator.CreateMovieDtoValidator;
 import kazmierczak.jan.model.movie.repository.MovieRepository;
+import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.model.seance.SeanceUtils;
 import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
 import kazmierczak.jan.model.seance.dto.CreateSeanceResponseDto;
+import kazmierczak.jan.model.seance.dto.GetSeanceDto;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,19 @@ public class MovieService {
                 .findAll()
                 .stream()
                 .map(Movie::toGetMovieDto)
+                .toList();
+    }
+
+    /**
+     *
+     * @param id of cinema room we want to find seances by
+     * @return list of all seances
+     */
+    public List<GetSeanceDto> findAllSeancesByCinemaRoomId(Long id) {
+        return seanceRepository
+                .findAllByCinemaRoomId(id)
+                .stream()
+                .map(Seance::toGetSeanceDto)
                 .toList();
     }
 }

@@ -26,6 +26,7 @@ public class Seance {
                 .builder()
                 .id(id)
                 .cinemaRoom(cinemaRoom.toGetCinemaRoomDto())
+                .movie(movie.toGetMovieDtoLight())
                 .date(date)
                 .build();
     }

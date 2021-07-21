@@ -2,6 +2,7 @@ package kazmierczak.jan.model.movie;
 
 import kazmierczak.jan.model.movie.dto.CreateMovieResponseDto;
 import kazmierczak.jan.model.movie.dto.GetMovieDto;
+import kazmierczak.jan.model.movie.dto.GetMovieDtoLight;
 import lombok.*;
 import kazmierczak.jan.model.seance.Seance;
 
@@ -46,6 +47,21 @@ public class Movie {
                         .stream()
                         .map(Seance::toGetSeanceDto)
                         .toList())
+                .build();
+    }
+
+    /**
+     *
+     * @return getMovieDtoLight object
+     */
+    public GetMovieDtoLight toGetMovieDtoLight() {
+        return GetMovieDtoLight
+                .builder()
+                .id(id)
+                .title(title)
+                .genre(genre)
+                .duration(duration)
+                .releaseDate(releaseDate)
                 .build();
     }
 }

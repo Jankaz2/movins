@@ -1,6 +1,8 @@
 package kazmierczak.jan.model.seance.dto;
 
 import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
+import kazmierczak.jan.model.movie.dto.GetMovieDto;
+import kazmierczak.jan.model.movie.dto.GetMovieDtoLight;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +21,6 @@ import java.util.List;
 public class GetSeanceDto {
     private Long id;
     private GetCinemaRoomDto cinemaRoom;
+    private GetMovieDtoLight movie;
     private LocalDate date;
 }

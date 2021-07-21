@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface SeanceRepository extends CrudRepository<Seance, Long> {
     Optional<Seance> findByDate(LocalDate date);
     List<Seance> saveAll(List<Seance> seances);
+    List<Seance> findAllByCinemaRoomId(Long id);
 }

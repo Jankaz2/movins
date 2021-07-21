@@ -40,12 +40,12 @@ public class CinemaRoomService {
 
     /**
      *
-     * @param name of cinema we want to find cinema rooms by
+     * @param id of cinema we want to find cinema rooms by
      * @return list of cinema rooms
      */
-    public List<GetCinemaRoomDto> findByCinemaName(String name) {
+    public List<GetCinemaRoomDto> findByCinemaId(Long id) {
         return cinemaRoomRepository
-                .findCinemaRoomsByCinemaName(name)
+                .findCinemaRoomsByCinemaId(id)
                 .stream()
                 .map(CinemaRoom::toGetCinemaRoomDto)
                 .toList();

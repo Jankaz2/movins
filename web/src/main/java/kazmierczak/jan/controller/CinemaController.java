@@ -135,14 +135,14 @@ public class CinemaController {
 
     /**
      *
-     * @param name we want to find cinema rooms by
+     * @param id we want to find cinema rooms by
      * @return list of cinema rooms
      */
-    @GetMapping("/rooms/name/{name}")
-    public ResponseDto<List<GetCinemaRoomDto>> getCinemaRoomsByCinemaName(@PathVariable String name) {
+    @GetMapping("/rooms/name/{id}")
+    public ResponseDto<List<GetCinemaRoomDto>> getCinemaRoomsByCinemaId(@PathVariable Long id) {
         return ResponseDto
                 .<List<GetCinemaRoomDto>>builder()
-                .data(cinemaRoomService.findByCinemaName(name))
+                .data(cinemaRoomService.findByCinemaId(id))
                 .build();
     }
 }

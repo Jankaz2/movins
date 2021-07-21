@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CinemaRoomEntityDao extends JpaRepository<CinemaRoomEntity, Long> {
-    List<CinemaRoomEntity> findCinemaRoomEntitiesByCinema_Name(String name);
+    List<CinemaRoomEntity> findCinemaRoomEntitiesByCinema_Id(Long id);
 }

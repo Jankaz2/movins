@@ -102,10 +102,15 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
                 .toList();
     }
 
+    /**
+     *
+     * @param id of cinema we want to find cinema rooms by
+     * @return list of cinema rooms
+     */
     @Override
-    public List<CinemaRoom> findCinemaRoomsByCinemaName(String name) {
+    public List<CinemaRoom> findCinemaRoomsByCinemaId(Long id) {
         return cinemaRoomEntityDao
-                .findCinemaRoomEntitiesByCinema_Name(name)
+                .findCinemaRoomEntitiesByCinema_Id(id)
                 .stream()
                 .map(CinemaRoomEntity::toCinemaRoom)
                 .toList();
