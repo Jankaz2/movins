@@ -57,14 +57,31 @@ public class CinemaRoomRepositoryImpl implements CinemaRoomRepository {
                 .map(CinemaRoomEntity::toCinemaRoom);
     }
 
+    /**
+     *
+     * @return list of all cinema rooms
+     */
     @Override
     public List<CinemaRoom> findAll() {
-        return null;
+        return cinemaRoomEntityDao
+                .findAll()
+                .stream()
+                .map(CinemaRoomEntity::toCinemaRoom)
+                .toList();
     }
 
+    /**
+     *
+     * @param ids we want to find cinema rooms by
+     * @return list of found cinema rooms
+     */
     @Override
     public List<CinemaRoom> findAllById(List<Long> ids) {
-        return null;
+        return cinemaRoomEntityDao
+                .findAllById(ids)
+                .stream()
+                .map(CinemaRoomEntity::toCinemaRoom)
+                .toList();
     }
 
     /**
