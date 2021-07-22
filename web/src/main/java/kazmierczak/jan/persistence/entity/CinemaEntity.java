@@ -49,6 +49,9 @@ public class CinemaEntity extends BaseEntity {
      * @return cinema entity obejct mapped from cinema
      */
     public static CinemaEntity fromCinemaToEntity(Cinema cinema) {
+        if (cinema == null) {
+            return null;
+        }
         var cinemaId = cinemaToId.apply(cinema);
         var cinemaName = cinemaToName.apply(cinema);
         var cinemaAddress = cinemaToAddress.apply(cinema);

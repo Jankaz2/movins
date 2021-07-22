@@ -66,6 +66,7 @@ public class CinemaService {
      * @param cinemaRoomDtos cinema rooms we want to add
      * @return cinema response dto object
      */
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public CreateCinemaResponseDto addCinemaRoomsToExistedCinema(String cinemaName, List<CreateCinemaRoomDto> cinemaRoomDtos) {
         if (cinemaRepository.findByName(cinemaName).isEmpty()) {
             throw new CinemaServiceException("Cinema with this id -> [" + cinemaName + "] does not exist");
@@ -81,15 +82,12 @@ public class CinemaService {
                 .map(CreateCinemaRoomDto::toCinemaRoom)
                 .toList();
 
-        var changedCinema = cinema.withAddedCinemaRooms(newCinemaRooms);
-
-        var finalCinemaRooms = cinemaToCinemaRooms
-                .apply(changedCinema)
+        var insertedCinemaRooms = cinemaRoomRepository.saveAll(newCinemaRooms);
+        cinemaRoomRepository.saveAll(insertedCinemaRooms
                 .stream()
-                .peek(cinemaRoom -> cinemaRoom.setCinema(changedCinema))
-                .toList();
+                .peek(cinemaRoom -> cinemaRoom.setCinema(cinema))
+                .toList());
 
-        cinemaRoomRepository.saveAll(finalCinemaRooms);
         return cinema.toCreateCinemaResponseDto();
     }
 

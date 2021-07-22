@@ -53,7 +53,7 @@ public class CinemaRoomEntity extends BaseEntity {
                 .id(id)
                 .name(name)
                 .rows(rows)
-                .cinema(cinema.toCinema())
+                .cinema(cinema == null ? null : cinema.toCinema())
                 .places(places)
                 .seats(new ArrayList<>())
                 .build();
