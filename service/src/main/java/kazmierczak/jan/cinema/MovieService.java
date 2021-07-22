@@ -45,10 +45,13 @@ public class MovieService {
                 .stream()
                 .map(CreateSeanceDto::toSeance)
                 .peek(seance -> seance.setMovie(movie))
-                .peek(seance -> seance.setCinemaRoom(cinemaRoom))
                 .toList();
 
         var insertedSeances = seanceRepository.saveAll(seances);
+        seanceRepository.saveAll(insertedSeances
+                .stream()
+                .peek(seance -> seance.setCinemaRoom(cinemaRoom))
+                .toList());
 
         return insertedSeances
                 .stream()
@@ -58,7 +61,6 @@ public class MovieService {
     }
 
     /**
-     *
      * @return list of all movies
      */
     public List<GetMovieDto> findAll() {
@@ -70,7 +72,6 @@ public class MovieService {
     }
 
     /**
-     *
      * @param id of cinema room we want to find seances by
      * @return list of all seances
      */

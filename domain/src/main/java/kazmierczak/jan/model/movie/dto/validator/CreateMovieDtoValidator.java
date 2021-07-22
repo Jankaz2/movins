@@ -44,7 +44,7 @@ public class CreateMovieDtoValidator implements Validator<CreateMovieDto> {
      * @return true if title is null or title's length is less than 3
      */
     private boolean hasIncorrectTitle(String title) {
-        return title == null || title.length() < 3;
+        return title == null || title.length() < 2;
     }
 
     /**

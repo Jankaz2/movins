@@ -28,11 +28,11 @@ import static kazmierczak.jan.model.seance.SeanceUtils.*;
 @Entity
 @Table(name = "seances")
 public class SeanceEntity extends BaseEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-    @ManyToOne(cascade = {/*CascadeType.PERSIST,*/ CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoomEntity cinemaRoom;
 
@@ -49,7 +49,7 @@ public class SeanceEntity extends BaseEntity {
         return Seance.builder()
                 .id(id)
                 .movie(movie.toMovie())
-                .cinemaRoom(cinemaRoom.toCinemaRoom())
+                .cinemaRoom(cinemaRoom == null ? null : cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
                 .date(date)
                 .build();

@@ -75,6 +75,9 @@ public class CinemaRoomEntity extends BaseEntity {
      * @return cinema room entity object
      */
     public static CinemaRoomEntity fromCinemaRooomtoEntity(CinemaRoom cinemaRoom) {
+        if (cinemaRoom == null) {
+            return null;
+        }
         var cinemaRoomId = toCinemaRoomId.apply(cinemaRoom);
         var cinemaRoomName = toCinemaRoomName.apply(cinemaRoom);
         var cinemaRoomRows = toCinemaRoomRows.apply(cinemaRoom);

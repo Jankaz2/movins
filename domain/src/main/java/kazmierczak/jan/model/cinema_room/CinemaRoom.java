@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
 @EqualsAndHashCode
 public class CinemaRoom {
     Long id;
