@@ -31,7 +31,8 @@ public class MovinsAuthenticationFilter extends UsernamePasswordAuthenticationFi
             HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
         try {
-            var userToAuthenticate = new ObjectMapper().readValue(request.getInputStream(), AuthenticationDto.class);
+            var userToAuthenticate
+                    = new ObjectMapper().readValue(request.getInputStream(), AuthenticationDto.class);
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     userToAuthenticate.getUsername(),
                     userToAuthenticate.getPassword(),

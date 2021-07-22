@@ -13,9 +13,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+
 
     /**
      * @return list of all users
@@ -32,12 +33,20 @@ public class UserController {
      * @param createUserDto body of user we want to post
      * @return posted user object
      */
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateUserResponseDto> createUser(@RequestBody CreateUserDto createUserDto) {
         return ResponseDto
                 .<CreateUserResponseDto>builder()
                 .data(userService.createUser(createUserDto))
+                .build();
+    }
+
+    @GetMapping("/activation")
+    public ResponseDto<Long> activate(@RequestParam("token") String token) {
+        return ResponseDto
+                .<Long>builder()
+                .data(userService.activateUser(token))
                 .build();
     }
 
@@ -54,7 +63,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param id of user we want to delete
      * @return deleted object
      */

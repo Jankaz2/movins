@@ -1,5 +1,8 @@
 package kazmierczak.jan.user;
 
+import kazmierczak.jan.model.user.UserUtils;
+import kazmierczak.jan.model.verification_token.VerificationToken;
+import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
 import kazmierczak.jan.user.exception.UserServiceException;
 import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.user.User;
@@ -19,6 +22,7 @@ import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.*;
 import static java.util.stream.Collectors.*;
+import static kazmierczak.jan.model.user.UserUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +30,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EventPublisher<UserToActivateDto> eventPublisher;
+    private final VerificationTokenRepository verificationTokenRepository;
 
     /**
      * @param createUserDto object we want to build responseDto from
@@ -37,7 +42,7 @@ public class UserService {
         validate(new CreateUserDtoValidator(), createUserDto);
 
         var username = createUserDto.getUsername();
-        if(userRepository.findByUsername(username).isPresent()) {
+        if (userRepository.findByUsername(username).isPresent()) {
             throw new UserServiceException("User with this username: " + username + " already exists");
         }
 
@@ -46,7 +51,7 @@ public class UserService {
             throw new UserServiceException("User with email " + email + " already exists");
         }
 
-       createUserDto.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+        createUserDto.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
 
         var user = createUserDto.toUser();
         var insertedUser = userRepository
@@ -56,6 +61,32 @@ public class UserService {
 
         eventPublisher.publishEvent(UserToActivateDto.builder().id(insertedUser.getId()).build());
         return insertedUser;
+    }
+
+    /**
+     *
+     * @param token we want to activate user by
+     * @return id of activated user
+     */
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public Long activateUser(String token) {
+        if (token == null) {
+            throw new UserServiceException("Activation token is null");
+        }
+
+        return verificationTokenRepository
+                .findByToken(token)
+                .filter(VerificationToken::isValid)
+                .flatMap(verificationToken -> userRepository
+                        .findById(verificationToken.getUserId())
+                        .map(user -> {
+                            user.activate();
+                            return userRepository
+                                    .add(user)
+                                    .map(toId)
+                                    .orElseThrow(() -> new UserServiceException("Cannot activate user"));
+                        }))
+                .orElseThrow(() -> new UserServiceException("User activation failed"));
     }
 
     /**

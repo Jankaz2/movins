@@ -25,6 +25,10 @@ public class User {
     List<Ticket> tickets;
     boolean enabled;
 
+    public void activate() {
+        enabled = true;
+    }
+
     /**
      * @return GetUserDto object
      */

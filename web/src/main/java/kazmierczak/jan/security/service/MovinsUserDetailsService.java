@@ -1,8 +1,8 @@
 package kazmierczak.jan.security.service;
 
+import kazmierczak.jan.model.user.repository.UserRepository;
 import kazmierczak.jan.security.exception.MovinsSecurityException;
 import lombok.RequiredArgsConstructor;
-import kazmierczak.jan.model.user.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

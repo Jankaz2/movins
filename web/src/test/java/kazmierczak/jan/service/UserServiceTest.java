@@ -4,6 +4,7 @@ import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import kazmierczak.jan.model.user.repository.UserRepository;
+import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
 import kazmierczak.jan.types.Role;
 import kazmierczak.jan.user.EventPublisher;
 import kazmierczak.jan.user.UserService;
@@ -37,9 +38,12 @@ public class UserServiceTest {
         @MockBean
         public EventPublisher<UserToActivateDto> eventPublisher;
 
+        @MockBean
+        public VerificationTokenRepository verificationTokenRepository;
+
         @Bean
         public UserService userService() {
-            return new UserService(userRepository, passwordEncoder, eventPublisher);
+            return new UserService(userRepository, passwordEncoder, eventPublisher, verificationTokenRepository);
         }
     }
 
@@ -54,6 +58,9 @@ public class UserServiceTest {
 
     @Autowired
     private EventPublisher<UserToActivateDto> eventPublisher;
+
+    @Autowired
+    private VerificationTokenRepository verificationTokenRepository;
 
     @Test
     @DisplayName("testing findAll method")

@@ -2,25 +2,23 @@ package kazmierczak.jan.security.tokens;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import kazmierczak.jan.config.MovinsAppConfig;
-import kazmierczak.jan.MovinsApp;
+//import kazmierczak.jan.config.MovinsAppConfig;
+import kazmierczak.jan.model.user.repository.UserRepository;
 import kazmierczak.jan.security.tokens.dto.TokensDto;
 import kazmierczak.jan.security.tokens.exception.AppTokensException;
 import lombok.RequiredArgsConstructor;
-import kazmierczak.jan.model.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.Authentication;
 
-import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-import static java.util.List.*;
-import static kazmierczak.jan.model.user.UserUtils.*;
+import static java.util.List.of;
+import static kazmierczak.jan.model.user.UserUtils.toId;
 
 @Service
 @RequiredArgsConstructor
@@ -33,21 +31,21 @@ public class MovinsTokensService {
     private Long refreshTokenExpirationTimeMs;
 
     @Value("${tokens.refresh-token.access-token-expiration-time-ms-property}")
-    private String refreshTokenAccessTokenExpirationTimeMsProperty;
+    private String refreshTokenProperty;
 
     @Value("${tokens.prefix}")
     private String tokensPrefix;
 
     private final UserRepository userRepository;
-    private SecretKey secretKey;
+    private final SecretKey secretKey;
 
-    @PostConstruct
+/*    @PostConstruct
     private void init() {
         var context = new AnnotationConfigApplicationContext();
         context.register(MovinsAppConfig.class);
         context.refresh();
         secretKey = context.getBean("secretKey", SecretKey.class);
-    }
+    }*/
 
     /**
      * @param authentication
@@ -77,7 +75,7 @@ public class MovinsTokensService {
                 .setSubject(String.valueOf(userId))
                 .setExpiration(refreshTokenExpirationDate)
                 .setIssuedAt(currentDate)
-                .claim(refreshTokenAccessTokenExpirationTimeMsProperty, accessTokenExpirationDate.getTime())
+                .claim(refreshTokenProperty, accessTokenExpirationDate.getTime())
                 .signWith(secretKey)
                 .compact();
 
