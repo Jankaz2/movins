@@ -2,13 +2,11 @@ package kazmierczak.jan.security.tokens;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-//import kazmierczak.jan.config.MovinsAppConfig;
 import kazmierczak.jan.model.user.repository.UserRepository;
 import kazmierczak.jan.security.tokens.dto.TokensDto;
 import kazmierczak.jan.security.tokens.exception.AppTokensException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+import static java.lang.String.*;
 import static java.util.List.of;
 import static kazmierczak.jan.model.user.UserUtils.toId;
 
@@ -39,14 +38,6 @@ public class MovinsTokensService {
     private final UserRepository userRepository;
     private final SecretKey secretKey;
 
-/*    @PostConstruct
-    private void init() {
-        var context = new AnnotationConfigApplicationContext();
-        context.register(MovinsAppConfig.class);
-        context.refresh();
-        secretKey = context.getBean("secretKey", SecretKey.class);
-    }*/
-
     /**
      * @param authentication
      * @return generated token dto
@@ -64,7 +55,7 @@ public class MovinsTokensService {
 
         var accessToken = Jwts
                 .builder()
-                .setSubject(String.valueOf(userId))
+                .setSubject(valueOf(userId))
                 .setExpiration(accessTokenExpirationDate)
                 .setIssuedAt(currentDate)
                 .signWith(secretKey)
@@ -72,7 +63,7 @@ public class MovinsTokensService {
 
         var refreshToken = Jwts
                 .builder()
-                .setSubject(String.valueOf(userId))
+                .setSubject(valueOf(userId))
                 .setExpiration(refreshTokenExpirationDate)
                 .setIssuedAt(currentDate)
                 .claim(refreshTokenProperty, accessTokenExpirationDate.getTime())

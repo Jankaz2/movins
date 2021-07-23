@@ -12,4 +12,5 @@ import kazmierczak.jan.types.Role;
 @Builder
 public class CreateUserResponseDto {
     private Long id;
+    private String username;
 }

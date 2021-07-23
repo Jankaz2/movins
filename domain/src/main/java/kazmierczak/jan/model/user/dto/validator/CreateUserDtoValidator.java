@@ -72,7 +72,7 @@ public class CreateUserDtoValidator implements Validator<CreateUserDto> {
      */
     private boolean hasIncorrectEmail(String email) {
         return email == null
-                || !email.matches("^[A-Za-z0-9.]{5,}@[a-z0-9]{2,}.[a-z]{2,}$");
+                || !email.matches("^[A-Za-z0-9.]{2,}@[a-z0-9]{2,}.[a-z]{2,}$");
     }
 
     /**

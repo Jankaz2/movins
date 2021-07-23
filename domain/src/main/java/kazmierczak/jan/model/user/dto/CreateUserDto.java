@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.types.Role;
 
-//import javax.validation.constraints.Email;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +14,6 @@ import kazmierczak.jan.types.Role;
 public class CreateUserDto {
     private String username;
     private Integer age;
-
-   // @Email(message = "Email is not correct")
     private String email;
     private String password;
     private Role role;
@@ -32,6 +28,7 @@ public class CreateUserDto {
                 .email(email)
                 .password(password)
                 .role(role)
+                .enabled(false)
                 .build();
     }
 }

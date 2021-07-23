@@ -25,16 +25,15 @@ public class UserEntity extends BaseEntity {
     private String username;
     private String email;
     private Integer age;
+    private String password;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    private String password;
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
-
-    private boolean enabled;
 
     /**
      * @return User object mapped from UserEntity

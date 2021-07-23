@@ -51,6 +51,7 @@ public class User {
         return CreateUserResponseDto
                 .builder()
                 .id(id)
+                .username(username)
                 .build();
     }
 
