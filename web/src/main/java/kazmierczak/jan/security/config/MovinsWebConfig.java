@@ -58,6 +58,7 @@ public class MovinsWebConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/register", "/users/activation").permitAll()
                 .antMatchers("/cinema/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/cinema/**").permitAll()
+                .antMatchers("/tickets/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

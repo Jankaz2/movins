@@ -56,7 +56,6 @@ public class SeanceEntity extends BaseEntity {
     }
 
     /**
-     *
      * @return Seance light object mapped from SeanceEntity
      */
     public Seance toSeanceLight() {
@@ -104,6 +103,9 @@ public class SeanceEntity extends BaseEntity {
      * @return seance entity object
      */
     public static SeanceEntity fromSeanceToEntity(Seance seance) {
+        if (seance == null) {
+            return null;
+        }
         var seanceId = toSeanceId.apply(seance);
         var seanceMovie = toSeanceMovie.apply(seance);
         var seanceCinemaRoom = toSeanceCinemaRooom.apply(seance);

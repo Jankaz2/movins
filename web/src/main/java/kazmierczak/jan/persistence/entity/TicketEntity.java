@@ -36,42 +36,28 @@ public class TicketEntity extends BaseEntity {
     private Double price;
 
     /**
-     *
      * @return Ticket object mapped from TicketEntity
      */
     public Ticket toTicket() {
         return Ticket.builder()
                 .id(id)
-                .seance(seance.toSeance())
-                .seat(seat.toSeat())
-                .user(user.toUser())
+                .seance(seance == null ? null : seance.toSeance())
+                .seat(seat == null ? null : seat.toSeat())
+                .user(user == null ? null : user.toUser())
                 .price(price)
                 .build();
     }
 
     /**
-     *
-     * @param tickets list we want to map
-     * @return list of ticket entity objects
-     */
-    public static List<TicketEntity> fromTicketsToEntityList(List<Ticket> tickets) {
-        return tickets
-                .stream()
-                .map(TicketEntity::fromTicketToEntity)
-                .toList();
-    }
-
-    /**
-     *
      * @param ticket object we want to map
      * @return ticket entity object
      */
     public static TicketEntity fromTicketToEntity(Ticket ticket) {
         var ticketId = toTicketId.apply(ticket);
         var ticketSeance = toTicketSeance.apply(ticket);
-        var ticketSeat= toTicketSeat.apply(ticket);
-        var ticketUser= toTicketUser.apply(ticket);
-        var ticketPrice= toTicketPrice.apply(ticket);
+        var ticketUser = toTicketUser.apply(ticket);
+        var ticketPrice = toTicketPrice.apply(ticket);
+        var ticketSeat = toTicketSeat.apply(ticket);
 
         return TicketEntity
                 .builder()

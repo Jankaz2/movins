@@ -42,4 +42,8 @@ public class Seat {
                 .place(place)
                 .build();
     }
+
+    public void setCinemaRoom(CinemaRoom cinemaRoom) {
+        this.cinemaRoom = cinemaRoom;
+    }
 }

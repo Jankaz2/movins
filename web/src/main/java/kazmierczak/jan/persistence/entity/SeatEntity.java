@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
 import static kazmierczak.jan.persistence.entity.TicketEntity.*;
 import static kazmierczak.jan.model.seat.SeatUtils.*;
 
@@ -24,7 +25,10 @@ public class SeatEntity extends BaseEntity {
     private Integer row;
     private Integer place;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*
+    TODO zapytaj sie o kaskadowosc w tym wypadku - dziala przy dodawaniu (zamawianiu) biletu, ale czy tak moze byc?
+    */
+    @ManyToOne(cascade = {/*CascadeType.PERSIST*//*, CascadeType.MERGE*/})
     @JoinColumn(name = "cinemaroom_id")
     private CinemaRoomEntity cinemaRoom;
 
@@ -41,21 +45,9 @@ public class SeatEntity extends BaseEntity {
                 .id(id)
                 .row(row)
                 .place(place)
-                .cinemaRoom(cinemaRoom.toCinemaRoom())
+                .cinemaRoom(cinemaRoom == null ? null : cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
                 .build();
-    }
-
-    /**
-     *
-     * @param cinemaRoomSeats list we want to map
-     * @return list of seat entity objects
-     */
-    public static List<SeatEntity> fromSeatListToEntityList(List<Seat> cinemaRoomSeats) {
-        return cinemaRoomSeats
-                .stream()
-                .map(SeatEntity::fromSeatToEntity)
-                .toList();
     }
 
     /**
@@ -64,19 +56,20 @@ public class SeatEntity extends BaseEntity {
      * @return seat entity object
      */
     public static SeatEntity fromSeatToEntity(Seat seat) {
+        if(seat == null) {
+            return null;
+        }
         var seatId = toSeatId.apply(seat);
         var seatRow = toSeatRow.apply(seat);
         var seatPlace = toSeatPlace.apply(seat);
         var seatCinemaRoom = toSeatCinemaRoom.apply(seat);
-        var seatTickets= toSeatTicket.apply(seat);
 
         return SeatEntity
                 .builder()
                 .id(seatId)
                 .row(seatRow)
                 .place(seatPlace)
-               // .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
-                .tickets(fromTicketsToEntityList(seatTickets))
+                .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
                 .build();
     }
 }

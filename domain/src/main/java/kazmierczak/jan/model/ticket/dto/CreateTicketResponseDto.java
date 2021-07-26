@@ -14,8 +14,4 @@ import kazmierczak.jan.model.user.User;
 @Builder
 public class CreateTicketResponseDto {
     private Long id;
-    private Seat seat;
-    private Seance seance;
-    private User user;
-    private Double price;
 }

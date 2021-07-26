@@ -1,12 +1,11 @@
 package kazmierczak.jan.model.ticket.dto;
 
+import kazmierczak.jan.model.seat.dto.CreateSeatDto;
+import kazmierczak.jan.model.ticket.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
-import kazmierczak.jan.model.ticket.Ticket;
-import kazmierczak.jan.model.user.dto.CreateUserDto;
 
 @Data
 @AllArgsConstructor
@@ -14,8 +13,9 @@ import kazmierczak.jan.model.user.dto.CreateUserDto;
 @Builder
 public class CreateTicketDto {
     private Long id;
-    private CreateSeanceDto seance;
-    private CreateUserDto user;
+    private Long userId;
+    private Long seanceId;
+    private CreateSeatDto seat;
     private Double price;
 
     /**
@@ -25,8 +25,7 @@ public class CreateTicketDto {
     public Ticket toTicket() {
         return Ticket
                 .builder()
-                .seance(seance.toSeance())
-                .user(user.toUser())
+                .seat(seat.toSeat())
                 .price(price)
                 .build();
     }

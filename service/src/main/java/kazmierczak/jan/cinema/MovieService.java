@@ -1,7 +1,6 @@
 package kazmierczak.jan.cinema;
 
 import kazmierczak.jan.cinema.exception.MovieServiceException;
-import kazmierczak.jan.config.validator.Validator;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
 import kazmierczak.jan.model.movie.Movie;
 import kazmierczak.jan.model.movie.dto.CreateMovieDto;
@@ -10,9 +9,7 @@ import kazmierczak.jan.model.movie.dto.GetMovieDto;
 import kazmierczak.jan.model.movie.dto.validator.CreateMovieDtoValidator;
 import kazmierczak.jan.model.movie.repository.MovieRepository;
 import kazmierczak.jan.model.seance.Seance;
-import kazmierczak.jan.model.seance.SeanceUtils;
 import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
-import kazmierczak.jan.model.seance.dto.CreateSeanceResponseDto;
 import kazmierczak.jan.model.seance.dto.GetSeanceDto;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static kazmierczak.jan.config.validator.Validator.*;
-import static kazmierczak.jan.model.seance.SeanceUtils.*;
+import static kazmierczak.jan.config.validator.Validator.validate;
+import static kazmierczak.jan.model.seance.SeanceUtils.toSeanceMovie;
 
 @Service
 @RequiredArgsConstructor

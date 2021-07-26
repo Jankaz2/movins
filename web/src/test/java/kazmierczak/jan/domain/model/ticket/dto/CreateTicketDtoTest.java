@@ -57,8 +57,6 @@ public class CreateTicketDtoTest {
 
         var createTicketDto = CreateTicketDto
                 .builder()
-                .seance(createSeanceDto)
-                .user(userDto)
                 .build();
 
         var ticket = Ticket

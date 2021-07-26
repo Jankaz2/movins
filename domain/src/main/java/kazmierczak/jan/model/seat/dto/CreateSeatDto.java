@@ -1,5 +1,7 @@
 package kazmierczak.jan.model.seat.dto;
 
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +15,7 @@ import kazmierczak.jan.model.seat.Seat;
 public class CreateSeatDto {
     private Integer row;
     private Integer place;
+    private Long cinemaRoomId;
 
     /**
      *
