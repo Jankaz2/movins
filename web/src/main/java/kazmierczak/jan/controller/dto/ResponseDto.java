@@ -11,4 +11,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ResponseDto<T> {
     private T data;
+
+    /**
+     *
+     * @param t we want to response
+     * @param <T> type of response
+     * @return response
+     */
+    public static <T> ResponseDto<T> toResponse(T t) {
+        return ResponseDto
+                .<T>builder()
+                .data(t)
+                .build();
+    }
 }

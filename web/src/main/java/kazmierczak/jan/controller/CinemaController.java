@@ -3,19 +3,18 @@ package kazmierczak.jan.controller;
 import kazmierczak.jan.cinema.CinemaRoomService;
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.dto.ResponseDto;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomResponseDto;
-import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
-import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
+import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static kazmierczak.jan.controller.dto.ResponseDto.*;
 
 @CrossOrigin
 @RestController
@@ -30,10 +29,7 @@ public class CinemaController {
      */
     @GetMapping
     public ResponseDto<List<GetCinemaDto>> getAllCinemas() {
-        return ResponseDto
-                .<List<GetCinemaDto>>builder()
-                .data(cinemaService.findAll())
-                .build();
+        return toResponse(cinemaService.findAll());
     }
 
     /**
@@ -43,10 +39,7 @@ public class CinemaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
-        return ResponseDto
-                .<CreateCinemaResponseDto>builder()
-                .data(cinemaService.createCinema(createCinemaDto))
-                .build();
+        return toResponse(cinemaService.createCinema(createCinemaDto));
     }
 
     /**
@@ -55,10 +48,7 @@ public class CinemaController {
      */
     @GetMapping("/{id}")
     public ResponseDto<GetCinemaDto> getCinemaById(@PathVariable Long id) {
-        return ResponseDto
-                .<GetCinemaDto>builder()
-                .data(cinemaService.findById(id))
-                .build();
+        return toResponse(cinemaService.findById(id));
     }
 
     /**
@@ -67,14 +57,11 @@ public class CinemaController {
      */
     @DeleteMapping("/{id}")
     public ResponseDto<GetCinemaDto> deleteCinema(@PathVariable Long id) {
-        return ResponseDto
-                .<GetCinemaDto>builder()
-                .data(cinemaService.deleteById(id))
-                .build();
+        return toResponse(cinemaService.deleteById(id));
     }
 
     /**
-     * @param name of cinema we want to add cinema room to
+     * @param name                of cinema we want to add cinema room to
      * @param createCinemaRoomDto the cinema room we want to add
      * @return response dto of added object
      */
@@ -83,16 +70,11 @@ public class CinemaController {
     public ResponseDto<CreateCinemaResponseDto> addCinemaRoomToCinema(
             @PathVariable String name,
             @RequestBody List<CreateCinemaRoomDto> createCinemaRoomDto) {
-
-        return ResponseDto
-                .<CreateCinemaResponseDto>builder()
-                .data(cinemaService.addCinemaRoomsToExistedCinema(name, createCinemaRoomDto))
-                .build();
+        return toResponse(cinemaService.addCinemaRoomsToExistedCinema(name, createCinemaRoomDto));
     }
 
     /**
-     *
-     * @param oldName name we want to find cinema by
+     * @param oldName         name we want to find cinema by
      * @param createCinemaDto new cinema object we want to set
      * @return response dto object with id of updated cinema
      */
@@ -101,48 +83,32 @@ public class CinemaController {
     public ResponseDto<CreateCinemaResponseDto> updateCinema(
             @PathVariable String oldName,
             @RequestBody CreateCinemaDto createCinemaDto) {
-
-        return ResponseDto
-                .<CreateCinemaResponseDto>builder()
-                .data(cinemaService.updateCinema(oldName, createCinemaDto))
-                .build();
+        return toResponse(cinemaService.updateCinema(oldName, createCinemaDto));
     }
 
     /**
-     *
      * @return list of all cinema rooms
      */
     @GetMapping("/rooms")
     public ResponseDto<List<GetCinemaRoomDto>> getAllCinemaRooms() {
-        return ResponseDto
-                .<List<GetCinemaRoomDto>>builder()
-                .data(cinemaRoomService.findALl())
-                .build();
+        return toResponse(cinemaRoomService.findAll());
     }
 
     /**
-     *
      * @param id of cinema room we want to find
      * @return cinema room with this id
      */
     @GetMapping("/rooms/{id}")
     public ResponseDto<GetCinemaRoomDto> getCinemaRoomById(@PathVariable Long id) {
-        return ResponseDto
-                .<GetCinemaRoomDto>builder()
-                .data(cinemaRoomService.findById(id))
-                .build();
+        return toResponse(cinemaRoomService.findById(id));
     }
 
     /**
-     *
      * @param id we want to find cinema rooms by
      * @return list of cinema rooms
      */
     @GetMapping("/rooms/name/{id}")
     public ResponseDto<List<GetCinemaRoomDto>> getCinemaRoomsByCinemaId(@PathVariable Long id) {
-        return ResponseDto
-                .<List<GetCinemaRoomDto>>builder()
-                .data(cinemaRoomService.findByCinemaId(id))
-                .build();
+        return toResponse(cinemaRoomService.findByCinemaId(id));
     }
 }

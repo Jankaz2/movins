@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static kazmierczak.jan.controller.dto.ResponseDto.*;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/cinema/movies")
@@ -24,10 +26,7 @@ public class MovieController {
      */
     @GetMapping
     public ResponseDto<List<GetMovieDto>> getAllMovies() {
-        return ResponseDto
-                .<List<GetMovieDto>>builder()
-                .data(movieService.findAll())
-                .build();
+        return toResponse(movieService.findAll());
     }
 
     /**
@@ -39,10 +38,7 @@ public class MovieController {
     public ResponseDto<CreateMovieResponseDto> createMovie(
             @PathVariable Long id,
             @RequestBody CreateMovieDto createMovieDto) {
-        return ResponseDto
-                .<CreateMovieResponseDto>builder()
-                .data(movieService.createMovie(id, createMovieDto))
-                .build();
+        return toResponse(movieService.createMovie(id, createMovieDto));
     }
 
     /**
@@ -52,9 +48,6 @@ public class MovieController {
      */
     @GetMapping("/seances/{id}")
     public ResponseDto<List<GetSeanceDto>> findAllSeancesByCinemaRoomId(@PathVariable Long id){
-        return ResponseDto
-                .<List<GetSeanceDto>>builder()
-                .data(movieService.findAllSeancesByCinemaRoomId(id))
-                .build();
+        return toResponse(movieService.findAllSeancesByCinemaRoomId(id));
     }
 }

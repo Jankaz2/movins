@@ -30,7 +30,7 @@ public class CinemaRoomService {
     /**
      * @return list of all CinemaRooms objects
      */
-    public List<GetCinemaRoomDto> findALl() {
+    public List<GetCinemaRoomDto> findAll() {
         return cinemaRoomRepository
                 .findAll()
                 .stream()

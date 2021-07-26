@@ -7,6 +7,8 @@ import kazmierczak.jan.model.ticket.dto.CreateTicketResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import static kazmierczak.jan.controller.dto.ResponseDto.*;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/tickets")
@@ -21,9 +23,6 @@ public class TicketsController {
      */
     @PostMapping
     public ResponseDto<CreateTicketResponseDto> createTicket(@RequestBody CreateTicketDto createTicketDto) {
-        return ResponseDto
-                .<CreateTicketResponseDto>builder()
-                .data(ticketsService.createTicket(createTicketDto))
-                .build();
+        return toResponse(ticketsService.createTicket(createTicketDto));
     }
 }

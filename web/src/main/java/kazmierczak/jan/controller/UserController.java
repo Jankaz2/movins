@@ -1,15 +1,17 @@
 package kazmierczak.jan.controller;
 
 import kazmierczak.jan.controller.dto.ResponseDto;
-import kazmierczak.jan.user.UserService;
-import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.user.dto.CreateUserDto;
 import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
 import kazmierczak.jan.model.user.dto.GetUserDto;
+import kazmierczak.jan.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static kazmierczak.jan.controller.dto.ResponseDto.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +25,7 @@ public class UserController {
      */
     @GetMapping
     public ResponseDto<List<GetUserDto>> getAllUsers() {
-        return ResponseDto
-                .<List<GetUserDto>>builder()
-                .data(userService.findAll())
-                .build();
+        return toResponse(userService.findAll());
     }
 
     /**
@@ -36,18 +35,12 @@ public class UserController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateUserResponseDto> createUser(@RequestBody CreateUserDto createUserDto) {
-        return ResponseDto
-                .<CreateUserResponseDto>builder()
-                .data(userService.createUser(createUserDto))
-                .build();
+        return toResponse(userService.createUser(createUserDto));
     }
 
     @GetMapping("/activation")
     public ResponseDto<Long> activate(@RequestParam("token") String token) {
-        return ResponseDto
-                .<Long>builder()
-                .data(userService.activateUser(token))
-                .build();
+        return toResponse(userService.activateUser(token));
     }
 
     /**
@@ -56,10 +49,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseDto<GetUserDto> getUserById(@PathVariable Long id) {
-        return ResponseDto
-                .<GetUserDto>builder()
-                .data(userService.findById(id))
-                .build();
+        return toResponse(userService.findById(id));
     }
 
     /**
@@ -68,9 +58,6 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
-        return ResponseDto
-                .<GetUserDto>builder()
-                .data(userService.deleteById(id))
-                .build();
+        return toResponse(userService.deleteById(id));
     }
 }
