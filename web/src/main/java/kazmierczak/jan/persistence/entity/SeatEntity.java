@@ -35,7 +35,6 @@ public class SeatEntity extends BaseEntity {
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
 
-    private boolean booked;
     /**
      * @return Seat object mapped from SeatEntity
      */
@@ -47,7 +46,6 @@ public class SeatEntity extends BaseEntity {
                 .place(place)
                 .cinemaRoom(cinemaRoom == null ? null : cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
-                .booked(booked)
                 .build();
     }
 
@@ -64,7 +62,6 @@ public class SeatEntity extends BaseEntity {
         var seatRow = toSeatRow.apply(seat);
         var seatPlace = toSeatPlace.apply(seat);
         var seatCinemaRoom = toSeatCinemaRoom.apply(seat);
-        var seatBooked = toSeatBooked.apply(seat);
 
         return SeatEntity
                 .builder()
@@ -72,7 +69,6 @@ public class SeatEntity extends BaseEntity {
                 .row(seatRow)
                 .place(seatPlace)
                 .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
-                .booked(seatBooked)
                 .build();
     }
 }

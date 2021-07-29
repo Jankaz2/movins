@@ -25,7 +25,6 @@ public class CreateSeatDto {
                 .builder()
                 .row(row)
                 .place(place)
-                .booked(booked)
                 .build();
     }
 }
