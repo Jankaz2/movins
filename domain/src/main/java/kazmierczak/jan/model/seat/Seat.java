@@ -1,9 +1,10 @@
 package kazmierczak.jan.model.seat;
 
-import lombok.*;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.seat.dto.CreateSeatDto;
+import kazmierczak.jan.model.seat.dto.GetSeatDto;
 import kazmierczak.jan.model.ticket.Ticket;
+import lombok.*;
 
 import java.util.List;
 
@@ -40,6 +41,20 @@ public class Seat {
                 .builder()
                 .row(row)
                 .place(place)
+                .build();
+    }
+
+    /**
+     *
+     * @return GetSeatDto object
+     */
+    public GetSeatDto toGetSeatDto() {
+        return GetSeatDto
+                .builder()
+                .id(id)
+                .row(row)
+                .place(place)
+                .cinemaRoom(cinemaRoom.toGetCinemaRoomDto())
                 .build();
     }
 

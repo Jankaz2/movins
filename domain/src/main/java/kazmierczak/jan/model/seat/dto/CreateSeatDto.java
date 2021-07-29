@@ -14,7 +14,6 @@ public class CreateSeatDto {
     private Integer row;
     private Integer place;
     private Long cinemaRoomId;
-    boolean booked;
 
     /**
      *
