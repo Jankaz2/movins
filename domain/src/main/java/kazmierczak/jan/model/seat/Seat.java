@@ -18,6 +18,7 @@ public class Seat {
     Integer place;
     CinemaRoom cinemaRoom;
     List<Ticket> tickets;
+    boolean booked;
 
     /**
      *

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CreateTicketDto {
-    private Long id;
     private Long userId;
     private Long seanceId;
     private CreateSeatDto seat;

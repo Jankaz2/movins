@@ -1,19 +1,18 @@
 package kazmierczak.jan.persistence.entity;
 
+import kazmierczak.jan.model.seat.Seat;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import kazmierczak.jan.model.seat.Seat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
-import static kazmierczak.jan.persistence.entity.TicketEntity.*;
 import static kazmierczak.jan.model.seat.SeatUtils.*;
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.fromCinemaRooomtoEntity;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,6 +35,7 @@ public class SeatEntity extends BaseEntity {
     @Builder.Default
     private List<TicketEntity> tickets = new ArrayList<>();
 
+    private boolean booked;
     /**
      * @return Seat object mapped from SeatEntity
      */
@@ -47,6 +47,7 @@ public class SeatEntity extends BaseEntity {
                 .place(place)
                 .cinemaRoom(cinemaRoom == null ? null : cinemaRoom.toCinemaRoom())
                 .tickets(new ArrayList<>())
+                .booked(booked)
                 .build();
     }
 
@@ -63,6 +64,7 @@ public class SeatEntity extends BaseEntity {
         var seatRow = toSeatRow.apply(seat);
         var seatPlace = toSeatPlace.apply(seat);
         var seatCinemaRoom = toSeatCinemaRoom.apply(seat);
+        var seatBooked = toSeatBooked.apply(seat);
 
         return SeatEntity
                 .builder()
@@ -70,6 +72,7 @@ public class SeatEntity extends BaseEntity {
                 .row(seatRow)
                 .place(seatPlace)
                 .cinemaRoom(fromCinemaRooomtoEntity(seatCinemaRoom))
+                .booked(seatBooked)
                 .build();
     }
 }

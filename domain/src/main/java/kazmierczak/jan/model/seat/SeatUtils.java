@@ -31,4 +31,9 @@ public interface SeatUtils {
      * map seat object to tickets of this seat
      */
     Function<Seat, List<Ticket>> toSeatTicket = seat -> seat.tickets;
-}
+
+    /**
+     * map seat object to booked value of this seat
+     */
+    Function<Seat, Boolean> toSeatBooked = seat -> seat.booked;
+ }

@@ -1,12 +1,10 @@
 package kazmierczak.jan.model.seat.dto;
 
-import kazmierczak.jan.model.cinema_room.CinemaRoom;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.seat.Seat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import kazmierczak.jan.model.seat.Seat;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +14,7 @@ public class CreateSeatDto {
     private Integer row;
     private Integer place;
     private Long cinemaRoomId;
+    boolean booked;
 
     /**
      *
@@ -26,6 +25,7 @@ public class CreateSeatDto {
                 .builder()
                 .row(row)
                 .place(place)
+                .booked(booked)
                 .build();
     }
 }
