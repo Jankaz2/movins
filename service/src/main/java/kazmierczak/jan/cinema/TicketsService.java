@@ -3,15 +3,19 @@ package kazmierczak.jan.cinema;
 import kazmierczak.jan.cinema.exception.TicketsServiceException;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
+import kazmierczak.jan.model.ticket.Ticket;
 import kazmierczak.jan.model.ticket.dto.CreateTicketDto;
 import kazmierczak.jan.model.ticket.dto.CreateTicketDtoValidator;
 import kazmierczak.jan.model.ticket.dto.CreateTicketResponseDto;
+import kazmierczak.jan.model.ticket.dto.GetTicketDto;
 import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.validate;
 
@@ -67,5 +71,17 @@ public class TicketsService {
         ticketRepository.add(insertedTicket);
 
         return insertedTicket.toCreateTicketResponseDto();
+    }
+
+    /**
+     *
+     * @return list of all tickets
+     */
+    public List<GetTicketDto> findAll() {
+        return ticketRepository
+                .findAll()
+                .stream()
+                .map(Ticket::toGetTicketDto)
+                .toList();
     }
 }

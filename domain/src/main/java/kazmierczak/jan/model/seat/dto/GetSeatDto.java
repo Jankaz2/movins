@@ -1,10 +1,13 @@
 package kazmierczak.jan.model.seat.dto;
 
 import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
+import kazmierczak.jan.model.ticket.dto.GetTicketDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor

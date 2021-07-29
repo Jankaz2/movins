@@ -1,6 +1,7 @@
 package kazmierczak.jan.model.ticket;
 
 import kazmierczak.jan.model.ticket.dto.CreateTicketResponseDto;
+import kazmierczak.jan.model.ticket.dto.GetTicketDto;
 import lombok.*;
 import kazmierczak.jan.model.seat.Seat;
 import kazmierczak.jan.model.seance.Seance;
@@ -19,13 +20,27 @@ public class Ticket {
     Double price;
 
     /**
-     *
      * @return createTicketResponseDto object mapped from Ticket
      */
     public CreateTicketResponseDto toCreateTicketResponseDto() {
         return CreateTicketResponseDto
                 .builder()
                 .id(id)
+                .build();
+    }
+
+    /**
+     *
+     * @return getTicketDto object mapped from Ticket
+     */
+    public GetTicketDto toGetTicketDto() {
+        return  GetTicketDto
+                .builder()
+                .id(id)
+                .seat(seat.toGetSeatDto())
+                .seance(seance.toGetSeanceDto())
+                .user(user.toGetUserDto())
+                .price(price)
                 .build();
     }
 

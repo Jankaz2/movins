@@ -1,12 +1,12 @@
 package kazmierczak.jan.model.ticket.dto;
 
+import kazmierczak.jan.model.seance.dto.GetSeanceDto;
+import kazmierczak.jan.model.seat.dto.GetSeatDto;
+import kazmierczak.jan.model.user.dto.GetUserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import kazmierczak.jan.model.seance.Seance;
-import kazmierczak.jan.model.seat.Seat;
-import kazmierczak.jan.model.user.User;
 
 @Data
 @AllArgsConstructor
@@ -14,8 +14,8 @@ import kazmierczak.jan.model.user.User;
 @Builder
 public class GetTicketDto {
     private Long id;
-    private Seat seat;
-    private Seance seance;
-    private User user;
+    private GetSeanceDto seance;
+    private GetUserDto user;
+    private GetSeatDto seat;
     private Double price;
 }
