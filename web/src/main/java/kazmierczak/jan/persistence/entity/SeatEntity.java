@@ -24,10 +24,7 @@ public class SeatEntity extends BaseEntity {
     private Integer row;
     private Integer place;
 
-    /*
-    TODO zapytaj sie o kaskadowosc w tym wypadku - dziala przy dodawaniu (zamawianiu) biletu, ale czy tak moze byc?
-    */
-    @ManyToOne(cascade = {/*CascadeType.PERSIST*//*, CascadeType.MERGE*/})
+    @ManyToOne
     @JoinColumn(name = "cinemaroom_id")
     private CinemaRoomEntity cinemaRoom;
 

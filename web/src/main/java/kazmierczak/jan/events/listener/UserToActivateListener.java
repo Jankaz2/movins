@@ -1,11 +1,11 @@
 package kazmierczak.jan.events.listener;
 
 import kazmierczak.jan.events.exception.EventsException;
+import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import kazmierczak.jan.persistence.dao.UserEntityDao;
 import kazmierczak.jan.persistence.dao.VerificationTokenEntityDao;
 import kazmierczak.jan.persistence.entity.VerificationTokenEntity;
 import lombok.RequiredArgsConstructor;
-import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static java.lang.Thread.sleep;
 
 @Component
 @RequiredArgsConstructor
@@ -28,6 +30,9 @@ public class UserToActivateListener {
     @Transactional
     public void sendActivationEmail(UserToActivateDto userToActivateDto) {
         var userId = userToActivateDto.getId();
+
+        try { sleep(500); } catch (Exception ignored) { }
+
         var userToActivate = userEntityDao
                 .findById(userId)
                 .orElseThrow(() -> new EventsException("Cannot find userToActivateDto with this id: " + userId));
@@ -43,7 +48,7 @@ public class UserToActivateListener {
 
         var insertedVerificationToken = verificationTokenEntityDao.save(verificationToken);
 
-        var recipientEmail =  userToActivate.getEmail();
+        var recipientEmail = userToActivate.getEmail();
         var subject = "Registration activation";
         var url = "http://localhost:3000/user/activate?token=" + token;
 

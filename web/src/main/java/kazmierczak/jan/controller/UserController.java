@@ -19,7 +19,6 @@ import static kazmierczak.jan.controller.dto.ResponseDto.*;
 public class UserController {
     private final UserService userService;
 
-
     /**
      * @return list of all users
      */
