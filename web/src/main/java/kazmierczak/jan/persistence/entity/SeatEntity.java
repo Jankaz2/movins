@@ -24,7 +24,7 @@ public class SeatEntity extends BaseEntity {
     private Integer row;
     private Integer place;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cinemaroom_id")
     private CinemaRoomEntity cinemaRoom;
 

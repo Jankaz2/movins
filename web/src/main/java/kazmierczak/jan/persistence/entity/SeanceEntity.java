@@ -1,26 +1,20 @@
 package kazmierczak.jan.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import kazmierczak.jan.model.seance.Seance;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.*;
-import static kazmierczak.jan.persistence.entity.MovieEntity.*;
-import static kazmierczak.jan.persistence.entity.TicketEntity.*;
 import static kazmierczak.jan.model.seance.SeanceUtils.*;
+import static kazmierczak.jan.persistence.entity.CinemaRoomEntity.fromCinemaRooomtoEntity;
+import static kazmierczak.jan.persistence.entity.MovieEntity.fromMovieToEntity;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +26,7 @@ public class SeanceEntity extends BaseEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoomEntity cinemaRoom;
 

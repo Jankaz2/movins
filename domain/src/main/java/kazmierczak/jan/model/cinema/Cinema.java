@@ -1,12 +1,11 @@
 package kazmierczak.jan.model.cinema;
 
-import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
-import lombok.*;
 import kazmierczak.jan.model.address.Address;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class Cinema {
                 .id(id)
                 .name(newCinema.getName())
                 .address(newCinema.getAddress().toAddress())
-                .cinemaRooms(newCinema.getCinemaRooms().stream().map(CreateCinemaRoomDto::toCinemaRoom).toList())
+                .cinemaRooms(cinemaRooms)
                 .build();
     }
 

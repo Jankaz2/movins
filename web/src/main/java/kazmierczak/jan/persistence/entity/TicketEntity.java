@@ -1,19 +1,17 @@
 package kazmierczak.jan.persistence.entity;
 
+import kazmierczak.jan.model.ticket.Ticket;
 import kazmierczak.jan.persistence.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import kazmierczak.jan.model.ticket.Ticket;
 
 import javax.persistence.*;
 
-import java.util.List;
-
-import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
-import static kazmierczak.jan.persistence.entity.SeatEntity.*;
-import static kazmierczak.jan.persistence.entity.UserEntity.*;
 import static kazmierczak.jan.model.ticket.TicketUtils.*;
+import static kazmierczak.jan.persistence.entity.SeanceEntity.fromSeanceToEntity;
+import static kazmierczak.jan.persistence.entity.SeatEntity.fromSeatToEntity;
+import static kazmierczak.jan.persistence.entity.UserEntity.fromUserToEntity;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +19,7 @@ import static kazmierczak.jan.model.ticket.TicketUtils.*;
 @Entity
 @Table(name = "tickets")
 public class TicketEntity extends BaseEntity {
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "seat_id")
     private SeatEntity seat;
 

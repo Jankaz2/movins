@@ -1,9 +1,6 @@
 package kazmierczak.jan.cinema;
 
 import kazmierczak.jan.cinema.exception.CinemaServiceException;
-import kazmierczak.jan.model.cinema_room.CinemaRoom;
-import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
-import lombok.RequiredArgsConstructor;
 import kazmierczak.jan.model.cinema.Cinema;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
@@ -11,17 +8,19 @@ import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema.dto.validator.CreateCinemaDtoValidator;
 import kazmierczak.jan.model.cinema.repository.CinemaRepository;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static kazmierczak.jan.config.validator.Validator.*;
-import static kazmierczak.jan.model.cinema.CinemaUtils.*;
-import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.*;
+import static kazmierczak.jan.config.validator.Validator.validate;
+import static kazmierczak.jan.model.cinema.CinemaUtils.cinemaToAddress;
+import static kazmierczak.jan.model.cinema.CinemaUtils.cinemaToCinemaRooms;
+import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.toCinemaRoomCinema;
 
 @Service
 @RequiredArgsConstructor
@@ -104,24 +103,15 @@ public class CinemaService {
 
         validate(new CreateCinemaDtoValidator(), createCinemaDto);
 
-        int cinemaDtoCinemaRoomIndex = 0;
         var cinemaToUpdate = cinemaRepository.findByName(oldName)
                 .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this name: " + oldName));
 
-        var cinemaRooms = cinemaToCinemaRooms.apply(cinemaToUpdate);
         var updatedCinema = cinemaToUpdate.withChangedData(createCinemaDto);
 
         var address = cinemaToAddress.apply(cinemaToUpdate).withChangedData(createCinemaDto.getAddress());
         updatedCinema.setAddress(address);
 
-        var finalCinemaRooms = new ArrayList<CinemaRoom>();
-
-        for (var finalCinemaRoom : cinemaRooms) {
-            finalCinemaRoom.setCinema(updatedCinema);
-            finalCinemaRooms.add(finalCinemaRoom.withChangedData(createCinemaDto.getCinemaRooms().get(cinemaDtoCinemaRoomIndex++)));
-        }
-
-        cinemaRoomRepository.saveAll(finalCinemaRooms);
+        cinemaRepository.add(updatedCinema);
         return updatedCinema.toCreateCinemaResponseDto();
     }
 
