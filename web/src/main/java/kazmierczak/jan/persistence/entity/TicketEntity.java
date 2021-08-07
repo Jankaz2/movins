@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 import static kazmierczak.jan.model.ticket.TicketUtils.*;
 import static kazmierczak.jan.persistence.entity.SeanceEntity.fromSeanceToEntity;
@@ -32,6 +33,7 @@ public class TicketEntity extends BaseEntity {
     private SeanceEntity seance;
 
     private Double price;
+    private LocalDate purchaseDate;
 
     /**
      * @return Ticket object mapped from TicketEntity
@@ -43,6 +45,7 @@ public class TicketEntity extends BaseEntity {
                 .seat(seat == null ? null : seat.toSeat())
                 .user(user == null ? null : user.toUser())
                 .price(price)
+                .purchaseDate(purchaseDate)
                 .build();
     }
 
@@ -56,6 +59,7 @@ public class TicketEntity extends BaseEntity {
         var ticketUser = toTicketUser.apply(ticket);
         var ticketPrice = toTicketPrice.apply(ticket);
         var ticketSeat = toTicketSeat.apply(ticket);
+        var purchaseDate = toTicketPurchaseDate.apply(ticket);
 
         return TicketEntity
                 .builder()
@@ -64,6 +68,7 @@ public class TicketEntity extends BaseEntity {
                 .seat(fromSeatToEntity(ticketSeat))
                 .user(fromUserToEntity(ticketUser))
                 .price(ticketPrice)
+                .purchaseDate(purchaseDate)
                 .build();
     }
 }

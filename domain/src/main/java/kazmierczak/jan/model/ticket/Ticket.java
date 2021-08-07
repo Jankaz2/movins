@@ -7,6 +7,8 @@ import kazmierczak.jan.model.seat.Seat;
 import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.model.user.User;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,6 +20,7 @@ public class Ticket {
     Seance seance;
     User user;
     Double price;
+    LocalDate purchaseDate;
 
     /**
      * @return createTicketResponseDto object mapped from Ticket
@@ -41,6 +44,7 @@ public class Ticket {
                 .seance(seance.toGetSeanceDto())
                 .user(user.toGetUserDto())
                 .price(price)
+                .purchaseDate(purchaseDate)
                 .build();
     }
 

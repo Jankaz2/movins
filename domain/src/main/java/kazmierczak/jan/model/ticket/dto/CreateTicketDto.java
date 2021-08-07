@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class CreateTicketDto {
     private Long seanceId;
     private CreateSeatDto seat;
     private Double price;
+    private LocalDate purchaseDate;
 
     /**
      *
@@ -26,6 +29,7 @@ public class CreateTicketDto {
                 .builder()
                 .seat(seat.toSeat())
                 .price(price)
+                .purchaseDate(purchaseDate)
                 .build();
     }
 }

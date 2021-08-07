@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class GetTicketDto {
     private GetUserDto user;
     private GetSeatDto seat;
     private Double price;
+    private LocalDate purchaseDate;
 }

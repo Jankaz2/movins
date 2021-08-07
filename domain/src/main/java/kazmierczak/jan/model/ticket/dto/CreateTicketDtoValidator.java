@@ -4,6 +4,7 @@ import kazmierczak.jan.config.validator.Validator;
 import kazmierczak.jan.model.seat.dto.CreateSeatDto;
 import kazmierczak.jan.model.seat.dto.validator.CreateSeatDtoValidator;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,5 +69,13 @@ public class CreateTicketDtoValidator implements Validator<CreateTicketDto> {
      */
     private boolean hasIncorrectPrice(double price) {
         return price < 0;
+    }
+
+    /**
+     * @param localDate we want to validate
+     * @return true if date is null, otherwise return false
+     */
+    private boolean hasIncorrectPurchaseDate(LocalDate localDate) {
+        return localDate == null;
     }
 }

@@ -4,6 +4,7 @@ import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.model.seat.Seat;
 import kazmierczak.jan.model.user.User;
 
+import java.time.LocalDate;
 import java.util.function.Function;
 
 public interface TicketUtils {
@@ -31,4 +32,9 @@ public interface TicketUtils {
      * map ticket object to price of this obejct
      */
     Function<Ticket, Double> toTicketPrice = ticket -> ticket.price;
+
+    /**
+     * map ticket object to purhcase date of this obejct
+     */
+    Function<Ticket, LocalDate> toTicketPurchaseDate = ticket -> ticket.purchaseDate;
 }
