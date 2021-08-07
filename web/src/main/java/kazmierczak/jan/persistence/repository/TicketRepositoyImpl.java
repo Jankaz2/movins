@@ -80,4 +80,18 @@ public class TicketRepositoyImpl implements TicketRepository {
                 .map(TicketEntity::toTicket)
                 .toList();
     }
+
+    /**
+     *
+     * @param id of user we want to find tickets by
+     * @return list of all tickets
+     */
+    @Override
+    public List<Ticket> findTicketsByUserId(Long id) {
+        return ticketEntityDao
+                .findAllByUser_Id(id)
+                .stream()
+                .map(TicketEntity::toTicket)
+                .toList();
+    }
 }

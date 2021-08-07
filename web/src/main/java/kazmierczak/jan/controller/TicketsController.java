@@ -29,11 +29,15 @@ public class TicketsController {
     }
 
     /**
-     *
      * @return all tickets
      */
     @GetMapping
     public ResponseDto<List<GetTicketDto>> getAllTickets() {
         return toResponse(ticketsService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseDto<List<GetTicketDto>> getAllTicketsByUserId(@PathVariable Long id) {
+        return toResponse(ticketsService.findAllByUserId(id));
     }
 }

@@ -84,4 +84,17 @@ public class TicketsService {
                 .map(Ticket::toGetTicketDto)
                 .toList();
     }
+
+    /**
+     *
+     * @param id of user we want to find by all tickets
+     * @return all tickets
+     */
+    public List<GetTicketDto> findAllByUserId(Long id){
+        return ticketRepository
+                .findTicketsByUserId(id)
+                .stream()
+                .map(Ticket::toGetTicketDto)
+                .toList();
+    }
 }
