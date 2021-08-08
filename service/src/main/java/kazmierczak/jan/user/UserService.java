@@ -1,10 +1,6 @@
 package kazmierczak.jan.user;
 
-import kazmierczak.jan.model.user.UserUtils;
-import kazmierczak.jan.model.verification_token.VerificationToken;
-import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
-import kazmierczak.jan.user.exception.UserServiceException;
-import lombok.RequiredArgsConstructor;
+import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.model.user.dto.CreateUserDto;
 import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
@@ -12,22 +8,26 @@ import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import kazmierczak.jan.model.user.dto.validator.CreateUserDtoValidator;
 import kazmierczak.jan.model.user.repository.UserRepository;
+import kazmierczak.jan.model.verification_token.VerificationToken;
+import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
+import kazmierczak.jan.user.exception.UserServiceException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 
-import static kazmierczak.jan.config.validator.Validator.*;
-import static java.util.stream.Collectors.*;
-import static kazmierczak.jan.model.user.UserUtils.*;
+import static java.util.stream.Collectors.toList;
+import static kazmierczak.jan.config.validator.Validator.validate;
+import static kazmierczak.jan.model.user.UserUtils.toId;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final TicketRepository ticketRepository;
     private final PasswordEncoder passwordEncoder;
     private final EventPublisher<UserToActivateDto> eventPublisher;
     private final VerificationTokenRepository verificationTokenRepository;
@@ -121,5 +121,16 @@ public class UserService {
                 .delete(id)
                 .map(User::toGetUserDto)
                 .orElseThrow(() -> new UserServiceException("Cannot find user with this id: " + id));
+    }
+
+    /**
+     *
+     * @param id of user we want to count tickets
+     * @return number of purchased tickets by this user
+     */
+    public Integer countPurchasedTickets(Long id) {
+        return ticketRepository
+                .findTicketsByUserId(id)
+                .size();
     }
 }

@@ -59,4 +59,14 @@ public class UserController {
     public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
         return toResponse(userService.deleteById(id));
     }
+
+    /**
+     *
+     * @param id of user we want to count tickets purchased by
+     * @return number of tickets
+     */
+    @GetMapping("/purchase/{id}")
+    public ResponseDto<Integer> purchasedTickets(@PathVariable Long id) {
+        return toResponse(userService.countPurchasedTickets(id));
+    }
 }

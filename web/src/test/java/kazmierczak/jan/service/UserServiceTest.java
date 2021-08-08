@@ -1,5 +1,6 @@
 package kazmierczak.jan.service;
 
+import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
@@ -41,9 +42,12 @@ public class UserServiceTest {
         @MockBean
         public VerificationTokenRepository verificationTokenRepository;
 
+        @MockBean
+        public TicketRepository ticketRepository;
+
         @Bean
         public UserService userService() {
-            return new UserService(userRepository, passwordEncoder, eventPublisher, verificationTokenRepository);
+            return new UserService(userRepository, ticketRepository, passwordEncoder, eventPublisher, verificationTokenRepository);
         }
     }
 
