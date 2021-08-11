@@ -1,8 +1,6 @@
 package kazmierczak.jan.model.seat.dto.validator;
 
 import kazmierczak.jan.config.validator.Validator;
-import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
-import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
 import kazmierczak.jan.model.seat.dto.CreateSeatDto;
 
 import java.util.HashMap;
@@ -15,16 +13,22 @@ public class CreateSeatDtoValidator implements Validator<CreateSeatDto> {
 
         if (createSeatDto == null) {
             errors.put("createSeatDto", "is null");
+            return errors;
         }
 
         var row = createSeatDto.getRow();
         if (hasIncorrectRow(row)) {
-            errors.put("row", "is incorrect");
+            errors.put("row", "is incorrect: " + row);
         }
 
         var place = createSeatDto.getPlace();
         if (hasIncorrectPlace(place)) {
-            errors.put("place", "is incorrect");
+            errors.put("place", "is incorrect: " + place);
+        }
+
+        var cinemaRoomId = createSeatDto.getCinemaRoomId();
+        if(hasIncorrectCinemaRoomId(cinemaRoomId)){
+            errors.put("cinemaRoomId", "is incorrect: " + cinemaRoomId);
         }
 
         return errors;
@@ -44,5 +48,14 @@ public class CreateSeatDtoValidator implements Validator<CreateSeatDto> {
      */
     private boolean hasIncorrectPlace(int place) {
         return place < 1;
+    }
+
+    /**
+     *
+     * @param id of cinema room
+     * @return true if id is null, otherwise return false
+     */
+    private boolean hasIncorrectCinemaRoomId(Long id) {
+        return id == null;
     }
 }

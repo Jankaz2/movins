@@ -4,15 +4,15 @@ import kazmierczak.jan.model.address.Address;
 import kazmierczak.jan.model.cinema.Cinema;
 import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 public class CinemaRoomTest {
@@ -38,10 +38,33 @@ public class CinemaRoomTest {
                 .isEqualTo(createCinemaRoomDto);
     }
 
-    //TODO napraw
-  /*  @Test
-    @DisplayName("when withChangedData method works correct")
+    @Test
+    @DisplayName("when toGetCinemaRoomDto method works correct")
     public void test2() {
+        var cinemaRoom = CinemaRoom
+                .builder()
+                .id(1L)
+                .name("Name")
+                .rows(10)
+                .places(10)
+                .build();
+
+        var getCinemaRoomDto = GetCinemaRoomDto
+                .builder()
+                .id(1L)
+                .name("Name")
+                .rows(10)
+                .places(10)
+                .build();
+
+
+        assertThat(cinemaRoom.toGetCinemaRoomDto())
+                .isEqualTo(getCinemaRoomDto);
+    }
+
+    @Test
+    @DisplayName("when withChangedData method works correct")
+    public void test3() {
         var address = Address
                 .builder()
                 .id(1L)
@@ -61,13 +84,10 @@ public class CinemaRoomTest {
 
         var cinemaRoom = CinemaRoom
                 .builder()
-                .id(1L)
                 .name("Name")
                 .rows(10)
                 .places(11)
                 .cinema(cinema)
-                .seats(new ArrayList<>())
-                .seances(new ArrayList<>())
                 .build();
 
         var createCinemaRoomDto = CreateCinemaRoomDto
@@ -79,16 +99,15 @@ public class CinemaRoomTest {
 
         var cinemaRoomAfterChange = CinemaRoom
                 .builder()
-                .id(1L)
                 .name("Namedto")
                 .rows(11)
                 .places(11)
                 .cinema(cinema)
-                .seats(new ArrayList<>())
-                .seances(new ArrayList<>())
                 .build();
 
-        assertThat(cinemaRoom.withChangedData(createCinemaRoomDto))
+        var newCinemaRoom = cinemaRoom.withChangedData(createCinemaRoomDto);
+
+        assertThat(newCinemaRoom)
                 .isEqualTo(cinemaRoomAfterChange);
-    }*/
+    }
 }

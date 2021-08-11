@@ -1,4 +1,4 @@
-package kazmierczak.jan.domain.model.model.dto;
+package kazmierczak.jan.domain.model.movie.dto;
 
 import kazmierczak.jan.model.movie.Movie;
 import kazmierczak.jan.model.movie.dto.CreateMovieDto;

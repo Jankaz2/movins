@@ -1,8 +1,6 @@
 package kazmierczak.jan.model.seance.dto.validator;
 
 import kazmierczak.jan.config.validator.Validator;
-import kazmierczak.jan.model.movie.dto.CreateMovieDto;
-import kazmierczak.jan.model.movie.dto.validator.CreateMovieDtoValidator;
 import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
 
 import java.time.LocalDate;
@@ -24,9 +22,6 @@ public class CreateSeanceDtoValidator implements Validator<CreateSeanceDto> {
             errors.put("date", "is incorrect: " + date);
         }
 
-        /*var movie = createSeanceDto.getMovie();
-        hasIncorrectMovieDto(movie);*/
-
         return errors;
     }
 
@@ -37,9 +32,5 @@ public class CreateSeanceDtoValidator implements Validator<CreateSeanceDto> {
      */
     private boolean hasIncorrectDate(LocalDate localDate) {
         return localDate == null || localDate.isBefore(LocalDate.now());
-    }
-
-    private void hasIncorrectMovieDto(CreateMovieDto createMovieDto){
-        Validator.validate(new CreateMovieDtoValidator(), createMovieDto);
     }
 }

@@ -14,26 +14,27 @@ public class CreateMovieDtoValidator implements Validator<CreateMovieDto> {
 
         if (createMovieDto == null) {
             errors.put("createMovieDto", "is null");
+            return errors;
         }
 
         var title = createMovieDto.getTitle();
         if (hasIncorrectTitle(title)) {
-            errors.put("title", "is incorrect " + title);
+            errors.put("title", "is incorrect: " + title);
         }
 
         var genre = createMovieDto.getGenre();
         if (hasIncorrectGenre(genre)) {
-            errors.put("genre", "is incorrect " + genre);
+            errors.put("genre", "is incorrect: " + genre);
         }
 
         var duration = createMovieDto.getDuration();
         if (hasIncorrectDuration(duration)) {
-            errors.put("duration", "is incorrect + " + duration);
+            errors.put("duration", "is incorrect: " + duration);
         }
 
         var releaseDate = createMovieDto.getReleaseDate();
         if (hasIncorretReleaseDate(releaseDate)) {
-            errors.put("releaseDate", "is incorrect " + releaseDate);
+            errors.put("releaseDate", "is incorrect: " + releaseDate);
         }
 
         return errors;
