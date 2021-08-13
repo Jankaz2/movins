@@ -1,20 +1,15 @@
 package kazmierczak.jan.domain.model.ticket.dto;
 
-import kazmierczak.jan.model.movie.dto.CreateMovieDto;
-import kazmierczak.jan.model.seance.Seance;
-import kazmierczak.jan.model.seance.dto.CreateSeanceDto;
+import kazmierczak.jan.model.seat.Seat;
 import kazmierczak.jan.model.ticket.Ticket;
 import kazmierczak.jan.model.ticket.dto.CreateTicketDto;
-import kazmierczak.jan.model.user.User;
-import kazmierczak.jan.model.user.dto.CreateUserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-
-import static org.assertj.core.api.Assertions.*;
+import static java.time.LocalDate.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 public class CreateTicketDtoTest {
@@ -22,47 +17,26 @@ public class CreateTicketDtoTest {
     @Test
     @DisplayName("when toTicket method works correct")
     public void test1() {
-        var creatreMovieDto = CreateMovieDto
+        var seat = Seat
                 .builder()
-                .title("Title")
-                .genre("Genre")
-                .duration(1)
-                .releaseDate(LocalDate.of(2021, 12, 12))
-                .build();
-
-        var createSeanceDto = CreateSeanceDto
-                .builder()
-                .date(LocalDate.of(2021, 12, 12))
-                .build();
-
-        var seance = Seance
-                .builder()
-                .movie(creatreMovieDto.toMovie())
-                .date(LocalDate.of(2021, 12, 12))
-                .build();
-
-        var user = User
-                .builder()
-                .username("name")
-                .age(18)
-                .email("email@email.pl")
-                .build();
-
-        var userDto = CreateUserDto
-                .builder()
-                .username("name")
-                .age(18)
-                .email("email@email.pl")
+                .row(1)
+                .place(1)
                 .build();
 
         var createTicketDto = CreateTicketDto
                 .builder()
+                .userId(1L)
+                .seanceId(1L)
+                .seat(seat.toCreateSeatDto())
+                .price(2.5)
+                .purchaseDate(of(2022, 12, 12))
                 .build();
 
         var ticket = Ticket
                 .builder()
-                .seance(seance)
-                .user(user)
+                .seat(seat)
+                .price(2.5)
+                .purchaseDate(of(2022, 12, 12))
                 .build();
 
         assertThat(createTicketDto.toTicket())

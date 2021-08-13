@@ -13,7 +13,6 @@ import static java.time.LocalDate.of;
 import static kazmierczak.jan.config.validator.Validator.validate;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-//TODO: Napraw
 @ExtendWith(SpringExtension.class)
 public class CreateTicketDtoValidatorTest {
 
@@ -26,7 +25,6 @@ public class CreateTicketDtoValidatorTest {
                 .hasMessage("[VALIDATION ERRORS] -> createTicketDto: is null");
     }
 
-    //TODO: NAPRAW
     @Test
     @DisplayName("when ticket has incorrect user id")
     public void test2() {

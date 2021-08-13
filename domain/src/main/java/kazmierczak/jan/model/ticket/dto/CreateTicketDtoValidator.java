@@ -21,12 +21,12 @@ public class CreateTicketDtoValidator implements Validator<CreateTicketDto> {
 
         var userId = createTicketDto.getUserId();
         if (hasIncorrectUser(userId)) {
-            errors.put("userId", "is null");
+            errors.put("userId", "is incorrect: " + userId);
         }
 
         var seanceId = createTicketDto.getSeanceId();
         if (hasIncorrectSeance(seanceId)) {
-            errors.put("seanceId", "is incorrect");
+            errors.put("seanceId", "is incorrect: " + seanceId);
         }
 
         var seatDto = createTicketDto.getSeat();
@@ -34,7 +34,7 @@ public class CreateTicketDtoValidator implements Validator<CreateTicketDto> {
 
         var price = createTicketDto.getPrice();
         if (hasIncorrectPrice(price)) {
-            errors.put("price", "is incorrect");
+            errors.put("price", "is incorrect: " + price);
         }
 
         return errors;
