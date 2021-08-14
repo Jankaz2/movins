@@ -163,11 +163,11 @@ public class CinemaService {
 
         var seances = new ArrayList<List<Seance>>();
 
-        for (var cinemaRoomsId : cinemaRoomsIds) {
-            var foundSeances = seanceRepository
-                    .findAllByCinemaRoomId(cinemaRoomsId);
-            seances.add(foundSeances);
-        }
+        cinemaRoomsIds
+                .forEach(cinemaRoomId -> {
+                    var foundSeances = seanceRepository.findAllByCinemaRoomId(cinemaRoomId);
+                    seances.add(foundSeances);
+                });
 
         var deletedCinema = cinemaRepository
                 .delete(id)
