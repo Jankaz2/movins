@@ -7,19 +7,23 @@ import kazmierczak.jan.model.cinema.dto.CreateCinemaResponseDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema.dto.validator.CreateCinemaDtoValidator;
 import kazmierczak.jan.model.cinema.repository.CinemaRepository;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.cinema_room.dto.CreateCinemaRoomDto;
+import kazmierczak.jan.model.cinema_room.dto.GetCinemaRoomDto;
 import kazmierczak.jan.model.cinema_room.dto.validator.CreateCinemaRoomDtoValidator;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
+import kazmierczak.jan.model.seance.Seance;
+import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.validate;
 import static kazmierczak.jan.model.cinema.CinemaUtils.cinemaToAddress;
-import static kazmierczak.jan.model.cinema.CinemaUtils.cinemaToCinemaRooms;
 import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.toCinemaRoomCinema;
 
 @Service
@@ -28,6 +32,7 @@ import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.toCinemaRoomCine
 public class CinemaService {
     private final CinemaRepository cinemaRepository;
     private final CinemaRoomRepository cinemaRoomRepository;
+    private final SeanceRepository seanceRepository;
 
     /**
      * @param createCinemaDto object we want to create
@@ -142,9 +147,41 @@ public class CinemaService {
      * @return deleted object
      */
     public GetCinemaDto deleteById(Long id) {
-        return cinemaRepository
+        cinemaRepository.findById(id)
+                .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this id: " + id));
+
+        var cinemaRooms = cinemaRoomRepository
+                .findCinemaRoomsByCinemaId(id)
+                .stream()
+                .map(CinemaRoom::toGetCinemaRoomDto)
+                .toList();
+
+        var cinemaRoomsIds = cinemaRooms
+                .stream()
+                .map(GetCinemaRoomDto::getId)
+                .toList();
+
+        var seances = new ArrayList<List<Seance>>();
+
+        for (var cinemaRoomsId : cinemaRoomsIds) {
+            var foundSeances = seanceRepository
+                    .findAllByCinemaRoomId(cinemaRoomsId);
+            seances.add(foundSeances);
+        }
+
+        var deletedCinema = cinemaRepository
                 .delete(id)
                 .map(Cinema::toGetCinemaDto)
                 .orElseThrow(() -> new CinemaServiceException("Cannot find cinema with this id: " + id));
+
+        seances
+                .stream()
+                .flatMap(List::stream)
+                .toList()
+                .stream()
+                .map(Seance::toGetSeanceDto)
+                .forEach(seance -> seanceRepository.delete(seance.getId()));
+
+        return deletedCinema;
     }
 }
