@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kazmierczak.jan.security.dto.AuthenticationDto;
 import kazmierczak.jan.security.exception.MovinsSecurityException;
 import kazmierczak.jan.security.tokens.MovinsTokensService;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +14,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
+
+import static java.util.Collections.emptyList;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class MovinsAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -36,7 +37,7 @@ public class MovinsAuthenticationFilter extends UsernamePasswordAuthenticationFi
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     userToAuthenticate.getUsername(),
                     userToAuthenticate.getPassword(),
-                    Collections.emptyList()
+                    emptyList()
             ));
         } catch (Exception e) {
             throw new MovinsSecurityException(e.getMessage());
@@ -51,7 +52,7 @@ public class MovinsAuthenticationFilter extends UsernamePasswordAuthenticationFi
             Authentication authResult) throws IOException {
 
         var tokens = movinsTokensService.createTokens(authResult);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setContentType(APPLICATION_JSON_VALUE);
         response.getWriter().write(new ObjectMapper().writeValueAsString(tokens));
         response.getWriter().flush();
         response.getWriter().close();

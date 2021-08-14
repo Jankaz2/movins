@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import static java.util.List.of;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class MovinsUserDetailsService implements UserDetailsService {
                             authenticatedUser.getUsername(),
                             authenticatedUser.getPassword(),
                             authenticatedUser.isEnabled(), true, true, true,
-                            List.of(new SimpleGrantedAuthority(authenticatedUser.getRole().toString()))
+                            of(new SimpleGrantedAuthority(authenticatedUser.getRole().toString()))
                     );
                 }).orElseThrow(() -> new MovinsSecurityException("Cannot authenticate user"));
     }
