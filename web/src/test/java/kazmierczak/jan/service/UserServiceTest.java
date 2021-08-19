@@ -9,11 +9,9 @@ import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepo
 import kazmierczak.jan.types.Role;
 import kazmierczak.jan.user.EventPublisher;
 import kazmierczak.jan.user.UserService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,8 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+
+import static java.util.List.of;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 public class UserServiceTest {
@@ -47,7 +48,13 @@ public class UserServiceTest {
 
         @Bean
         public UserService userService() {
-            return new UserService(userRepository, ticketRepository, passwordEncoder, eventPublisher, verificationTokenRepository);
+            return new UserService(
+                    userRepository,
+                    ticketRepository,
+                    passwordEncoder,
+                    eventPublisher,
+                    verificationTokenRepository
+            );
         }
     }
 
@@ -69,9 +76,8 @@ public class UserServiceTest {
     @Test
     @DisplayName("testing findAll method")
     public void test1() {
-        Mockito
-                .when(userRepository.findAll())
-                .thenReturn(List.of(
+        when(userRepository.findAll())
+                .thenReturn(of(
                         User
                                 .builder()
                                 .id(1L)
@@ -85,8 +91,7 @@ public class UserServiceTest {
                                 .build()
                 ));
 
-        Assertions
-                .assertThat(userService.findAll())
+        assertThat(userService.findAll())
                 .hasSize(1)
                 .containsExactly(
                         GetUserDto
@@ -104,8 +109,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("testing findById method")
     public void test2() {
-        Mockito
-                .when(userRepository.findById(1L))
+        when(userRepository.findById(1L))
                 .thenReturn(Optional.of(
                         User
                                 .builder()
@@ -120,8 +124,7 @@ public class UserServiceTest {
                                 .build()
                 ));
 
-        Assertions
-                .assertThat(userService.findById(1L))
+        assertThat(userService.findById(1L))
                 .isEqualTo(
                         GetUserDto
                                 .builder()
@@ -138,8 +141,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("testing deleteById method")
     public void test3() {
-        Mockito
-                .when(userRepository.delete(1L))
+        when(userRepository.delete(1L))
                 .thenReturn(Optional.of(
                         User
                                 .builder()
@@ -154,17 +156,56 @@ public class UserServiceTest {
                                 .build()
                 ));
 
-        Assertions
-                .assertThat(userService.deleteById(1L))
+        assertThat(userService.deleteById(1L))
                 .isEqualTo(GetUserDto
-                                .builder()
-                                .id(1L)
-                                .username("Username")
-                                .email("email@gmail.com")
-                                .age(18)
-                                .password("password")
-                                .role(Role.USER)
-                                .build()
+                        .builder()
+                        .id(1L)
+                        .username("Username")
+                        .email("email@gmail.com")
+                        .age(18)
+                        .password("password")
+                        .role(Role.USER)
+                        .build()
                 );
+    }
+
+    //TODO: TESTUJ
+    @Test
+    @DisplayName("testing createUser method")
+    public void test4() {
+       /* var user = User
+                .builder()
+                .id(1L)
+                .username("Username")
+                .age(12)
+                .email("email@wp.pl")
+                .password("password")
+                .role(Role.USER)
+                .enabled(false)
+                .build();
+
+        var userDto = CreateUserDto
+                .builder()
+                .username("Username")
+                .age(12)
+                .email("email@wp.pl")
+                .password("password")
+                .role(Role.USER)
+                .build();
+
+        var userResponseDto = CreateUserResponseDto
+                .builder()
+                .id(1L)
+                .username("Username")
+                .build();
+
+        when(userService.createUser(userDto))
+                .thenReturn(userResponseDto);*/
+    }
+
+    @Test
+    @DisplayName("testing countPurchasedTickets method")
+    public void test5() {
+
     }
 }

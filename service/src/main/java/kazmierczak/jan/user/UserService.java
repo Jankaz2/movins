@@ -64,7 +64,6 @@ public class UserService {
     }
 
     /**
-     *
      * @param token we want to activate user by
      * @return id of activated user
      */
@@ -116,15 +115,21 @@ public class UserService {
      * @param id of user we want to delete
      * @return deleted object
      */
+    @Transactional
     public GetUserDto deleteById(Long id) {
-        return userRepository
-                .delete(id)
+        var userDto = userRepository
+                .findById(id)
                 .map(User::toGetUserDto)
                 .orElseThrow(() -> new UserServiceException("Cannot find user with this id: " + id));
+
+        verificationTokenRepository
+                .deleteByUserId(id)
+                .orElseThrow();
+
+        return userDto;
     }
 
     /**
-     *
      * @param id of user we want to count tickets
      * @return number of purchased tickets by this user
      */
@@ -132,5 +137,16 @@ public class UserService {
         return ticketRepository
                 .findTicketsByUserId(id)
                 .size();
+    }
+
+    /**
+     * @param username we want to find user by
+     * @return user dto
+     */
+    public GetUserDto findByUsername(String username) {
+        return userRepository
+                .findByUsername(username)
+                .map(User::toGetUserDto)
+                .orElseThrow(() -> new UserServiceException("Cannot find user with this username: " + username));
     }
 }
