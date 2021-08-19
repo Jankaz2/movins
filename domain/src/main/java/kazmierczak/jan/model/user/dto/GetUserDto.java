@@ -15,6 +15,5 @@ public class GetUserDto {
     private String username;
     private String email;
     private Integer age;
-    private String password;
     private Role role;
 }
