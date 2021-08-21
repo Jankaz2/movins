@@ -21,7 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static java.util.List.*;
+import static java.util.List.of;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -55,9 +55,11 @@ public class MovinsWebConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users/register", "/users/activation").permitAll()
-                .antMatchers("*").permitAll()
-              //  .anyRequest().authenticated()
+                .antMatchers("/").permitAll()
+                //.antMatchers("/users/register", "/users/activation", "/login").permitAll()
+                //.antMatchers("/**/admin/**").hasAnyRole("ADMIN")
+                //.antMatchers("*").hasAnyRole("USER", "ADMIN")
+                //  .anyRequest().authenticated()
 
                 .and()
                 .addFilter(new MovinsAuthenticationFilter(authenticationManager(), movinsTokensService))

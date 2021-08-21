@@ -36,7 +36,7 @@ public class CinemaController {
      * @param createCinemaDto object we want to post
      * @return response dto of posted cinema object
      */
-    @PostMapping
+    @PostMapping("/admin")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
         return toResponse(cinemaService.createCinema(createCinemaDto));
@@ -55,7 +55,7 @@ public class CinemaController {
      * @param id of object we want to delete
      * @return deleted object
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseDto<GetCinemaDto> deleteCinema(@PathVariable Long id) {
         return toResponse(cinemaService.deleteById(id));
     }
@@ -65,7 +65,7 @@ public class CinemaController {
      * @param createCinemaRoomDto the cinema room we want to add
      * @return response dto of added object
      */
-    @PatchMapping("/{name}")
+    @PatchMapping("/admin/{name}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> addCinemaRoomToCinema(
             @PathVariable String name,
@@ -78,7 +78,7 @@ public class CinemaController {
      * @param createCinemaDto new cinema object we want to set
      * @return response dto object with id of updated cinema
      */
-    @PutMapping("/{oldName}")
+    @PutMapping("/admin/{oldName}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> updateCinema(
             @PathVariable String oldName,

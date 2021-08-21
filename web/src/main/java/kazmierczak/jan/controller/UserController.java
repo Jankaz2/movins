@@ -55,18 +55,27 @@ public class UserController {
      * @param id of user we want to delete
      * @return deleted object
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseDto<GetUserDto> deleteUserById(@PathVariable Long id) {
         return toResponse(userService.deleteById(id));
     }
 
     /**
-     *
      * @param id of user we want to count tickets purchased by
      * @return number of tickets
      */
     @GetMapping("/purchase/{id}")
     public ResponseDto<Integer> purchasedTickets(@PathVariable Long id) {
         return toResponse(userService.countPurchasedTickets(id));
+    }
+
+    /**
+     *
+     * @param username we want to find user by
+     * @return user dto
+     */
+    @GetMapping("/username/{username}")
+    public ResponseDto<GetUserDto> getUserByUsername(@PathVariable String username) {
+        return toResponse(userService.findByUsername(username));
     }
 }

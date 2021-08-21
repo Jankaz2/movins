@@ -39,7 +39,6 @@ public class User {
                 .username(username)
                 .email(email)
                 .age(age)
-                .password(password)
                 .role(role)
                 .build();
     }

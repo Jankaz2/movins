@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
+import static java.lang.String.format;
 import static java.lang.Thread.sleep;
+import static java.time.LocalDateTime.now;
+import static java.util.UUID.randomUUID;
 
 @Component
 @RequiredArgsConstructor
@@ -37,25 +37,32 @@ public class UserToActivateListener {
                 .findById(userId)
                 .orElseThrow(() -> new EventsException("Cannot find userToActivateDto with this id: " + userId));
 
-        var token = UUID.randomUUID().toString().replaceAll("\\W", "");
+        var token = randomUUID().toString().replaceAll("\\W", "");
 
         var verificationToken = VerificationTokenEntity
                 .builder()
                 .token(token)
                 .user(userToActivate)
-                .dateTime(LocalDateTime.now().plusMinutes(5))
+                .dateTime(now().plusMinutes(5))
                 .build();
 
-        var insertedVerificationToken = verificationTokenEntityDao.save(verificationToken);
+        verificationTokenEntityDao.save(verificationToken);
 
+        var username = userToActivate.getUsername();
         var recipientEmail = userToActivate.getEmail();
-        var subject = "Registration activation";
-        var url = "http://localhost:3000/user/activate?token=" + token;
+        var subject = "Activate your account";
+
+        var url = "http://localhost:5000/users/activation?token=" + token;
+        var message = format("Hello, %s! " +
+                "\nWe are so happy that u decided to start working with Movins!" +
+                "\nLast step is to click this link and finish your reigstration!\n %s " +
+                "\n\nWish you the best, %s" +
+                "\nMovins team", username, url, username);
 
         var simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(recipientEmail);
         simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(url);
+        simpleMailMessage.setText(message);
 
         mailSender.send(simpleMailMessage);
     }

@@ -2,6 +2,7 @@ package kazmierczak.jan.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kazmierczak.jan.cinema.CinemaRoomService;
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.controller.CinemaController;
 import kazmierczak.jan.model.address.dto.CreateAddressDto;
@@ -16,24 +17,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
+import static java.util.List.of;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(CinemaController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = {CinemaService.class, CinemaController.class})
 public class CinemaControllerTest {
     @MockBean
     private CinemaService cinemaService;
+
+    @MockBean
+    private CinemaRoomService cinemaRoomService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -62,14 +70,14 @@ public class CinemaControllerTest {
                 .cinemaRooms(new ArrayList<>())
                 .build();
 
-        var cinemas = List.of(cinemaDto1, cinemaDto2);
+        var cinemas = of(cinemaDto1, cinemaDto2);
 
         when(cinemaService.findAll()).thenReturn(cinemas);
 
         mockMvc
                 .perform(
                         get("/cinema")
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
@@ -102,9 +110,9 @@ public class CinemaControllerTest {
 
         mockMvc
                 .perform(
-                        post("/cinema")
+                        post("/cinema/admin")
                                 .content(toJson(cinemaDto))
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$", notNullValue()))
@@ -136,7 +144,7 @@ public class CinemaControllerTest {
         mockMvc
                 .perform(
                         get("/cinema/{id}", cinemaId)
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
@@ -168,8 +176,8 @@ public class CinemaControllerTest {
 
         mockMvc
                 .perform(
-                        delete("/cinema/{id}", cinemaId)
-                                .contentType(MediaType.APPLICATION_JSON)
+                        delete("/cinema/admin/{id}", cinemaId)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
@@ -194,7 +202,7 @@ public class CinemaControllerTest {
                 .places(10)
                 .build();
 
-        var cinemaRoomDtos = List.of(cinemaRoomDto);
+        var cinemaRoomDtos = of(cinemaRoomDto);
         var cinemaResponseDto = CreateCinemaResponseDto
                 .builder()
                 .cinemaId(1L)
@@ -206,9 +214,9 @@ public class CinemaControllerTest {
 
         mockMvc
                 .perform(
-                        patch("/cinema/{name}", name)
+                        patch("/cinema/admin/{name}", name)
                                 .content(toJson(cinemaRoomDtos))
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$", notNullValue()))
@@ -242,9 +250,9 @@ public class CinemaControllerTest {
 
         mockMvc
                 .perform(
-                        put("/cinema/{oldName}", oldName)
-                        .content(toJson(cinemaDto))
-                        .contentType(MediaType.APPLICATION_JSON)
+                        put("/cinema/admin/{oldName}", oldName)
+                                .content(toJson(cinemaDto))
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$", notNullValue()))

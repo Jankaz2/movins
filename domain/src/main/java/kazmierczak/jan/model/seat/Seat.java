@@ -22,18 +22,6 @@ public class Seat {
 
     /**
      *
-     * @param seats we want to map
-     * @return list of CreateSeatDto objects
-     */
-    public static List<CreateSeatDto> toListOfCreateSeatDto(List<Seat> seats) {
-        return seats
-                .stream()
-                .map(Seat::toCreateSeatDto)
-                .toList();
-    }
-
-    /**
-     *
      * @return CreateSeatDto object
      */
     public CreateSeatDto toCreateSeatDto() {

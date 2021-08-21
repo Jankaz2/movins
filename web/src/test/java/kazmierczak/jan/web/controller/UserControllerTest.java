@@ -16,19 +16,23 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.List;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = {UserService.class, UserController.class})
 public class UserControllerTest {
 
     @MockBean
@@ -46,7 +50,6 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .password("password")
                 .role(Role.USER)
                 .build();
 
@@ -56,7 +59,6 @@ public class UserControllerTest {
                 .username("Usernamee")
                 .email("email@gmail.com")
                 .age(12)
-                .password("password")
                 .role(Role.USER)
                 .build();
 
@@ -66,7 +68,7 @@ public class UserControllerTest {
 
         mockMvc
                 .perform(
-                        get("/user")
+                        get("/users")
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(jsonPath("$", notNullValue()))
@@ -93,7 +95,7 @@ public class UserControllerTest {
 
         mockMvc
                 .perform(
-                        post("/user")
+                        post("/users/register")
                                 .content(toJson(userDto))
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -111,7 +113,6 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .password("password")
                 .role(Role.USER)
                 .build();
 
@@ -121,7 +122,7 @@ public class UserControllerTest {
 
         mockMvc
                 .perform(
-                        get("/user/{id}", userId)
+                        get("/users/{id}", userId)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(jsonPath("$", notNullValue()))
@@ -138,7 +139,6 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .password("password")
                 .role(Role.USER)
                 .build();
 
@@ -148,7 +148,7 @@ public class UserControllerTest {
 
         mockMvc
                 .perform(
-                        delete("/user/{id}", userId)
+                        delete("/users/admin/{id}", userId)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())

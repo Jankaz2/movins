@@ -19,7 +19,7 @@ public class CreateUserResponseDtoTest {
         var user = User
                 .builder()
                 .id(1L)
-                .username("name")
+                .username("Username")
                 .age(18)
                 .email("email@email.pl")
                 .password("password")
@@ -29,6 +29,7 @@ public class CreateUserResponseDtoTest {
         var createUserResponseDto = CreateUserResponseDto
                 .builder()
                 .id(1L)
+                .username("Username")
                 .build();
 
         assertThat(user.toCreateUserResponseDto())

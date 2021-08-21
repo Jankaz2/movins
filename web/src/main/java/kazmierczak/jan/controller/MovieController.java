@@ -34,7 +34,7 @@ public class MovieController {
      * @param createMovieDto we want to post
      * @return response dto of created object packed into responseDto
      */
-    @PostMapping("/{id}")
+    @PostMapping("/admin/{id}")
     public ResponseDto<CreateMovieResponseDto> createMovie(
             @PathVariable Long id,
             @RequestBody CreateMovieDto createMovieDto) {
