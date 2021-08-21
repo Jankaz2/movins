@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static kazmierczak.jan.controller.dto.ResponseDto.toResponse;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/tickets")
 @RequiredArgsConstructor
+@RequestMapping("/tickets")
 public class TicketsController {
     private final TicketsService ticketsService;
 
@@ -24,6 +25,7 @@ public class TicketsController {
      * @return response dto of posted object
      */
     @PostMapping
+    @ResponseStatus(CREATED)
     public ResponseDto<CreateTicketResponseDto> createTicket(@RequestBody CreateTicketDto createTicketDto) {
         return toResponse(ticketsService.createTicket(createTicketDto));
     }

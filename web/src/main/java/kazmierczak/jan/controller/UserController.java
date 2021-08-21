@@ -6,12 +6,12 @@ import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static kazmierczak.jan.controller.dto.ResponseDto.*;
+import static kazmierczak.jan.controller.dto.ResponseDto.toResponse;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class UserController {
      * @return posted user object
      */
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public ResponseDto<CreateUserResponseDto> createUser(@RequestBody CreateUserDto createUserDto) {
         return toResponse(userService.createUser(createUserDto));
     }

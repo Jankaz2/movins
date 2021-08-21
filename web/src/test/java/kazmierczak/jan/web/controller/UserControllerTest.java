@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +24,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -69,7 +69,7 @@ public class UserControllerTest {
         mockMvc
                 .perform(
                         get("/users")
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.data[0].username", equalTo("Username")));
@@ -91,13 +91,14 @@ public class UserControllerTest {
                 .builder()
                 .id(1L)
                 .build();
+
         when(userService.createUser(userDto)).thenReturn(responseDto);
 
         mockMvc
                 .perform(
                         post("/users/register")
                                 .content(toJson(userDto))
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$", notNullValue()))
@@ -123,7 +124,7 @@ public class UserControllerTest {
         mockMvc
                 .perform(
                         get("/users/{id}", userId)
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.data.username", equalTo("Username")))
@@ -149,7 +150,7 @@ public class UserControllerTest {
         mockMvc
                 .perform(
                         delete("/users/admin/{id}", userId)
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
