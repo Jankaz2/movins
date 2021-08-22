@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static kazmierczak.jan.controller.dto.ResponseDto.*;
+import static kazmierczak.jan.controller.dto.ResponseDto.toResponse;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin
 @RestController
@@ -35,6 +36,7 @@ public class MovieController {
      * @return response dto of created object packed into responseDto
      */
     @PostMapping("/admin/{id}")
+    @ResponseStatus(CREATED)
     public ResponseDto<CreateMovieResponseDto> createMovie(
             @PathVariable Long id,
             @RequestBody CreateMovieDto createMovieDto) {
