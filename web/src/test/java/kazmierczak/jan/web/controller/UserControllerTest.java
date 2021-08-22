@@ -3,10 +3,11 @@ package kazmierczak.jan.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kazmierczak.jan.controller.UserController;
+import kazmierczak.jan.model.ticket.Ticket;
+import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.model.user.dto.CreateUserDto;
 import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
 import kazmierczak.jan.model.user.dto.GetUserDto;
-import kazmierczak.jan.types.Role;
 import kazmierczak.jan.user.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
+import static java.util.List.of;
+import static kazmierczak.jan.types.Role.USER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
@@ -50,7 +54,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
         var userDto2 = GetUserDto
@@ -59,10 +63,10 @@ public class UserControllerTest {
                 .username("Usernamee")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
-        var users = List.of(userDto, userDto2);
+        var users = of(userDto, userDto2);
 
         when(userService.findAll()).thenReturn(users);
 
@@ -84,7 +88,7 @@ public class UserControllerTest {
                 .email("email@gmail.com")
                 .age(12)
                 .password("password")
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
         var responseDto = CreateUserResponseDto
@@ -114,7 +118,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
         var userId = 1L;
@@ -140,7 +144,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
         var userId = 1L;
@@ -154,6 +158,84 @@ public class UserControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.id", equalTo(1)));
+    }
+
+    @Test
+    @DisplayName("when purchaesedTickets method works correctly")
+    public void test5() throws Exception {
+        var ticket1 = Ticket
+                .builder()
+                .id(2L)
+                .seat(null)
+                .seance(null)
+                .user(null)
+                .price(2.5)
+                .purchaseDate(LocalDate.of(2020, 12, 12))
+                .build();
+
+        var ticket2 = Ticket
+                .builder()
+                .id(3L)
+                .seat(null)
+                .seance(null)
+                .user(null)
+                .price(2.5)
+                .purchaseDate(LocalDate.of(2021, 12, 12))
+                .build();
+
+        var tickets = of(ticket1, ticket2);
+
+        var user = User
+                .builder()
+                .id(1L)
+                .username("Username")
+                .email("email@wp.pl")
+                .age(12)
+                .role(USER)
+                .password("passwordd")
+                .tickets(tickets)
+                .build();
+
+        var userId = 1L;
+
+        when(userService.countPurchasedTickets(userId)).thenReturn(2);
+
+        mockMvc
+                .perform(
+                        get("/users/purchase/{id}", userId)
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data", equalTo(2)));
+    }
+
+    @Test
+    @DisplayName("when findByUsername works correctly")
+    public void test6() throws Exception {
+        var user = User
+                .builder()
+                .id(1L)
+                .username("Username")
+                .email("email@wp.pl")
+                .age(12)
+                .role(USER)
+                .password("passwordd")
+                .tickets(new ArrayList<>())
+                .build();
+
+        var userDto = user.toGetUserDto();
+        var username = "Username";
+
+        when(userService.findByUsername(username)).thenReturn(userDto);
+
+        mockMvc
+                .perform(
+                        get("/users/username/{username}", username)
+                                .contentType(APPLICATION_JSON)
+                )
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.username", equalTo("Username")))
                 .andExpect(jsonPath("$.data.id", equalTo(1)));
     }
 
