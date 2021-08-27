@@ -128,52 +128,29 @@ public class CinemaServiceTest {
     @Test
     @DisplayName("testing deleteById method")
     public void test3() {
-        when(cinemaRepository.findById(1L))
-                .thenReturn(Optional.of(Cinema
+        var cinema = Cinema
+                .builder()
+                .id(1L)
+                .name("Cinema")
+                .address(Address
                         .builder()
                         .id(1L)
-                        .name("Cinema")
-                        .address(Address
-                                .builder()
-                                .id(1L)
-                                .cinemas(new ArrayList<>())
-                                .city("City")
-                                .street("Street")
-                                .number(1)
-                                .build())
-                        .cinemaRooms(new ArrayList<>())
-                        .build()));
+                        .cinemas(new ArrayList<>())
+                        .city("City")
+                        .street("Street")
+                        .number(1)
+                        .build())
+                .cinemaRooms(new ArrayList<>())
+                .build();
+
+        when(cinemaRepository.findById(1L))
+                .thenReturn(Optional.of(cinema));
 
         when(cinemaRepository.delete(1L))
-                .thenReturn(Optional.of(Cinema
-                        .builder()
-                        .id(1L)
-                        .name("Cinema")
-                        .address(Address
-                                .builder()
-                                .id(1L)
-                                .cinemas(new ArrayList<>())
-                                .city("City")
-                                .street("Street")
-                                .number(1)
-                                .build())
-                        .cinemaRooms(new ArrayList<>())
-                        .build()));
+                .thenReturn(Optional.of(cinema));
 
         assertThat(cinemaService.deleteById(1L))
-                .isEqualTo(GetCinemaDto
-                        .builder()
-                        .id(1L)
-                        .name("Cinema")
-                        .address(CreateAddressDto
-                                .builder()
-                                .city("City")
-                                .street("Street")
-                                .number(1)
-                                .build())
-                        .cinemaRooms(new ArrayList<>())
-                        .build()
-                );
+                .isEqualTo(cinema.toGetCinemaDto());
     }
 
     //TODO: NAPRAW

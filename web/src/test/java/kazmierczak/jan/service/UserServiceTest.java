@@ -5,8 +5,8 @@ import kazmierczak.jan.model.user.User;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import kazmierczak.jan.model.user.repository.UserRepository;
+import kazmierczak.jan.model.verification_token.VerificationToken;
 import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
-import kazmierczak.jan.types.Role;
 import kazmierczak.jan.user.EventPublisher;
 import kazmierczak.jan.user.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +22,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static java.time.LocalDateTime.now;
 import static java.util.List.of;
+import static kazmierczak.jan.types.Role.USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -86,7 +88,7 @@ public class UserServiceTest {
                                 .age(18)
                                 .password("password")
                                 .enabled(true)
-                                .role(Role.USER)
+                                .role(USER)
                                 .tickets(new ArrayList<>())
                                 .build()
                 ));
@@ -100,7 +102,7 @@ public class UserServiceTest {
                                 .username("Username")
                                 .email("email@gmail.com")
                                 .age(18)
-                                .role(Role.USER)
+                                .role(USER)
                                 .build()
                 );
     }
@@ -118,7 +120,7 @@ public class UserServiceTest {
                                 .age(18)
                                 .password("password")
                                 .enabled(true)
-                                .role(Role.USER)
+                                .role(USER)
                                 .tickets(new ArrayList<>())
                                 .build()
                 ));
@@ -131,7 +133,7 @@ public class UserServiceTest {
                                 .username("Username")
                                 .email("email@gmail.com")
                                 .age(18)
-                                .role(Role.USER)
+                                .role(USER)
                                 .build()
                 );
     }
@@ -139,31 +141,38 @@ public class UserServiceTest {
     @Test
     @DisplayName("testing deleteById method")
     public void test3() {
-       /* when(userRepository.delete(1L))
-                .thenReturn(Optional.of(
-                        User
-                                .builder()
-                                .id(1L)
-                                .username("Username")
-                                .email("email@gmail.com")
-                                .age(18)
-                                .password("password")
-                                .enabled(true)
-                                .role(Role.USER)
-                                .tickets(new ArrayList<>())
-                                .build()
-                ));
+        var user = User
+                .builder()
+                .id(1L)
+                .username("Username")
+                .email("email@gmail.com")
+                .age(18)
+                .password("password")
+                .enabled(true)
+                .role(USER)
+                .tickets(new ArrayList<>())
+                .build();
+
+        var verificationToken = VerificationToken
+                .builder()
+                .id(1L)
+                .token("token")
+                .dateTime(now())
+                .user(user)
+                .build();
+
+
+        when(verificationTokenRepository.findById(1L))
+                .thenReturn(Optional.of(verificationToken));
+
+        when(userRepository.findById(1L))
+                .thenReturn(Optional.of(user));
+
+        when(verificationTokenRepository.deleteByUserId(1L))
+                .thenReturn(Optional.of(verificationToken));
 
         assertThat(userService.deleteById(1L))
-                .isEqualTo(GetUserDto
-                        .builder()
-                        .id(1L)
-                        .username("Username")
-                        .email("email@gmail.com")
-                        .age(18)
-                        .role(Role.USER)
-                        .build()
-                );*/
+                .isEqualTo(user.toGetUserDto());
     }
 
     //TODO: TESTUJ
