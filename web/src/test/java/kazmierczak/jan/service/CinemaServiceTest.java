@@ -18,9 +18,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -58,7 +58,7 @@ public class CinemaServiceTest {
     @DisplayName("testing findAll method")
     public void test1() {
         when(cinemaRepository.findAll())
-                .thenReturn(List.of(Cinema
+                .thenReturn(of(Cinema
                         .builder()
                         .id(1L)
                         .name("Cinema")
@@ -128,7 +128,23 @@ public class CinemaServiceTest {
     @Test
     @DisplayName("testing deleteById method")
     public void test3() {
-      /*  when(cinemaRepository.delete(1L))
+        when(cinemaRepository.findById(1L))
+                .thenReturn(Optional.of(Cinema
+                        .builder()
+                        .id(1L)
+                        .name("Cinema")
+                        .address(Address
+                                .builder()
+                                .id(1L)
+                                .cinemas(new ArrayList<>())
+                                .city("City")
+                                .street("Street")
+                                .number(1)
+                                .build())
+                        .cinemaRooms(new ArrayList<>())
+                        .build()));
+
+        when(cinemaRepository.delete(1L))
                 .thenReturn(Optional.of(Cinema
                         .builder()
                         .id(1L)
@@ -157,7 +173,7 @@ public class CinemaServiceTest {
                                 .build())
                         .cinemaRooms(new ArrayList<>())
                         .build()
-                );*/
+                );
     }
 
     //TODO: NAPRAW
