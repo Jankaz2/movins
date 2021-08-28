@@ -4,8 +4,10 @@ import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.model.address.Address;
 import kazmierczak.jan.model.address.dto.CreateAddressDto;
 import kazmierczak.jan.model.cinema.Cinema;
+import kazmierczak.jan.model.cinema.dto.CreateCinemaDto;
 import kazmierczak.jan.model.cinema.dto.GetCinemaDto;
 import kazmierczak.jan.model.cinema.repository.CinemaRepository;
+import kazmierczak.jan.model.cinema_room.CinemaRoom;
 import kazmierczak.jan.model.cinema_room.repository.CinemaRoomRepository;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +24,7 @@ import java.util.Optional;
 
 import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -153,28 +156,53 @@ public class CinemaServiceTest {
                 .isEqualTo(cinema.toGetCinemaDto());
     }
 
-    //TODO: NAPRAW
     @Test
     @DisplayName("when createCinema method works correctly")
     public void test4() {
-     /*   var createCinemaDto = CreateCinemaDto
+        var address = Address
+                .builder()
+                .id(1L)
+                .city("City")
+                .street("Street")
+                .number(1)
+                .build();
+
+        var cinemaRoom = CinemaRoom
+                .builder()
+                .id(1L)
+                .name("Name")
+                .cinema(null)
+                .rows(10)
+                .places(10)
+                .seances(new ArrayList<>())
+                .seats(new ArrayList<>())
+                .build();
+
+        var cinema = Cinema
+                .builder()
+                .id(1L)
+                .name("Cinema")
+                .address(address)
+                .cinemaRooms(of(cinemaRoom))
+                .build();
+
+        cinemaRoom.setCinema(cinema);
+        cinema.setCinemaRooms(of(cinemaRoom));
+        var cinemaRoomDto = cinemaRoom.toCreateCinemaRoomDto();
+
+        var cinemaDto = CreateCinemaDto
                 .builder()
                 .name("Cinema")
-                .address(CreateAddressDto
-                        .builder()
-                        .city("City")
-                        .street("Street")
-                        .number(1)
-                        .build())
-                .cinemaRooms(new ArrayList<>())
+                .address(address.toCreateAddressDto())
+                .cinemaRooms(of(cinemaRoomDto))
                 .build();
 
-        var cinemaResponseDto = CreateCinemaResponseDto
-                .builder()
-                .cinemaId(1L)
-                .build();
+        when(cinemaRepository.add(any(Cinema.class)))
+                .thenReturn(Optional.of(cinema));
 
-        when(cinemaService.createCinema(createCinemaDto))
-                .thenReturn(cinemaResponseDto);*/
+        var createdCinema = cinemaService.createCinema(cinemaDto);
+
+        assertThat(createdCinema.getCinemaId())
+                .isEqualTo(1L);
     }
 }
