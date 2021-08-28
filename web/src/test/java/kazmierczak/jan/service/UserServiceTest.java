@@ -2,6 +2,7 @@ package kazmierczak.jan.service;
 
 import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.CreateUserDto;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
 import kazmierczak.jan.model.user.repository.UserRepository;
@@ -26,6 +27,7 @@ import static java.time.LocalDateTime.now;
 import static java.util.List.of;
 import static kazmierczak.jan.types.Role.USER;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -175,19 +177,19 @@ public class UserServiceTest {
                 .isEqualTo(user.toGetUserDto());
     }
 
-    //TODO: TESTUJ
     @Test
     @DisplayName("testing createUser method")
     public void test4() {
-       /* var user = User
+        var user = User
                 .builder()
                 .id(1L)
                 .username("Username")
-                .age(12)
                 .email("email@wp.pl")
+                .age(12)
                 .password("password")
-                .role(Role.USER)
-                .enabled(false)
+                .role(USER)
+                .tickets(new ArrayList<>())
+                .enabled(true)
                 .build();
 
         var userDto = CreateUserDto
@@ -196,22 +198,21 @@ public class UserServiceTest {
                 .age(12)
                 .email("email@wp.pl")
                 .password("password")
-                .role(Role.USER)
+                .role(USER)
                 .build();
 
-        var userResponseDto = CreateUserResponseDto
-                .builder()
-                .id(1L)
-                .username("Username")
-                .build();
+        when(userRepository.add(any(User.class)))
+                .thenReturn(Optional.of(user));
 
-        when(userService.createUser(userDto))
-                .thenReturn(userResponseDto);*/
-    }
+        var createdUser = userService.createUser(userDto);
 
-    @Test
-    @DisplayName("testing countPurchasedTickets method")
-    public void test5() {
+        assertThat(createdUser.getUsername())
+                .isEqualTo("Username");
 
+        assertThat(createdUser.getId())
+                .isEqualTo(1L);
+
+        assertThat(createdUser.getUsername())
+                .isNotEqualTo("Username2");
     }
 }

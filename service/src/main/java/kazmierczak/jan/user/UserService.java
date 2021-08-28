@@ -14,7 +14,6 @@ import kazmierczak.jan.user.exception.UserServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -22,6 +21,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static kazmierczak.jan.config.validator.Validator.validate;
 import static kazmierczak.jan.model.user.UserUtils.toId;
+import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
 
 @Service
 @RequiredArgsConstructor
@@ -36,8 +36,7 @@ public class UserService {
      * @param createUserDto object we want to build responseDto from
      * @return created UserResponseDto object
      */
-    //TODO przetestuj
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public CreateUserResponseDto createUser(CreateUserDto createUserDto) {
         validate(new CreateUserDtoValidator(), createUserDto);
 
@@ -67,7 +66,7 @@ public class UserService {
      * @param token we want to activate user by
      * @return id of activated user
      */
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public Long activateUser(String token) {
         if (token == null) {
             throw new UserServiceException("Activation token is null");
