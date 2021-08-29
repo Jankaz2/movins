@@ -241,7 +241,6 @@ public class TicketsServiceTest {
                 .containsExactly(ticket.toGetTicketDto());
     }
 
-    //FIXME: fix
     @Test
     @DisplayName("when createTicket method works correct")
     public void test3() {
@@ -336,8 +335,14 @@ public class TicketsServiceTest {
                 .build();
 
 
-        when(userRepository.add(any(User.class)))
+        when(userRepository.findById(1L))
                 .thenReturn(Optional.of(user));
+
+        when(cinemaRoomRepository.findById(1L))
+                .thenReturn(Optional.of(cinemaRoom));
+
+        when(seanceRepository.findById(1L))
+                .thenReturn(Optional.of(seance));
 
         when(ticketRepository.add(any(Ticket.class)))
                 .thenReturn(Optional.of(ticket));
