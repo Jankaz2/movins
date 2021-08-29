@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -138,7 +138,6 @@ public class MovieServiceTest {
                 .containsExactly(seance.toGetSeanceDto());
     }
 
-    //FIXME: fix
     @Test
     @DisplayName("when method createMovie works correctly")
     public void test3() {
@@ -205,10 +204,11 @@ public class MovieServiceTest {
         when(cinemaRoomRepository.findById(1L))
                 .thenReturn(Optional.of(cinemaRoom));
 
-        //cinemaRoomRepository.add(cinemaRoom);
-
         when(movieRepository.add(any(Movie.class)))
                 .thenReturn(Optional.of(movie));
+
+        when(seanceRepository.saveAll(anyList()))
+                .thenReturn(of(seance));
 
         var createdMovie = movieService
                 .createMovie(1L, movieDto);
