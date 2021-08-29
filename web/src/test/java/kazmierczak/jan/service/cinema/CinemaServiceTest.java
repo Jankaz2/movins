@@ -1,4 +1,4 @@
-package kazmierczak.jan.service;
+package kazmierczak.jan.service.cinema;
 
 import kazmierczak.jan.cinema.CinemaService;
 import kazmierczak.jan.model.address.Address;

@@ -1,4 +1,4 @@
-package kazmierczak.jan.service;
+package kazmierczak.jan.service.cinema;
 
 import kazmierczak.jan.cinema.CinemaRoomService;
 import kazmierczak.jan.model.cinema.Cinema;

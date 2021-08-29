@@ -1,4 +1,4 @@
-package kazmierczak.jan.service;
+package kazmierczak.jan.service.user;
 
 import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
