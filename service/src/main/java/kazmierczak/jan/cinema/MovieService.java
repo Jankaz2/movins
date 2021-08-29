@@ -14,13 +14,13 @@ import kazmierczak.jan.model.seance.dto.GetSeanceDto;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.validate;
 import static kazmierczak.jan.model.seance.SeanceUtils.toSeanceMovie;
+import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class MovieService {
     private final SeanceRepository seanceRepository;
     private final CinemaRoomRepository cinemaRoomRepository;
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public CreateMovieResponseDto createMovie(Long cinemaRoomId, CreateMovieDto createMovieDto) {
         validate(new CreateMovieDtoValidator(), createMovieDto);
 

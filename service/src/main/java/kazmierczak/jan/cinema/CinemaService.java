@@ -16,7 +16,6 @@ import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ import java.util.List;
 import static kazmierczak.jan.config.validator.Validator.validate;
 import static kazmierczak.jan.model.cinema.CinemaUtils.cinemaToAddress;
 import static kazmierczak.jan.model.cinema_room.CinemaRoomUtils.toCinemaRoomCinema;
+import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +38,7 @@ public class CinemaService {
      * @param createCinemaDto object we want to create
      * @return created CinemaResponseDto object
      */
-    //TODO: przetestuj
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public CreateCinemaResponseDto createCinema(CreateCinemaDto createCinemaDto) {
         var name = createCinemaDto.getName();
         if (cinemaRepository.findByName(name).isPresent()) {
@@ -70,7 +69,7 @@ public class CinemaService {
      * @param cinemaRoomDtos cinema rooms we want to add
      * @return cinema response dto object
      */
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public CreateCinemaResponseDto addCinemaRoomsToExistedCinema(String cinemaName, List<CreateCinemaRoomDto> cinemaRoomDtos) {
         if (cinemaRepository.findByName(cinemaName).isEmpty()) {
             throw new CinemaServiceException("Cinema with this id -> [" + cinemaName + "] does not exist");

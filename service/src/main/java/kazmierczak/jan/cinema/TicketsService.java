@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static kazmierczak.jan.config.validator.Validator.validate;
+import static org.springframework.transaction.annotation.Isolation.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class TicketsService {
      * @param createTicketDto we want to create
      * @return response dto of added object
      */
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = SERIALIZABLE)
     public CreateTicketResponseDto createTicket(CreateTicketDto createTicketDto) {
         if (createTicketDto == null) {
             throw new TicketsServiceException("Ticket dto object is null");
