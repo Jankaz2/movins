@@ -24,7 +24,7 @@ import java.util.Optional;
 
 import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -188,6 +188,7 @@ public class CinemaServiceTest {
 
         cinemaRoom.setCinema(cinema);
         cinema.setCinemaRooms(of(cinemaRoom));
+
         var cinemaRoomDto = cinemaRoom.toCreateCinemaRoomDto();
 
         var cinemaDto = CreateCinemaDto
@@ -197,8 +198,8 @@ public class CinemaServiceTest {
                 .cinemaRooms(of(cinemaRoomDto))
                 .build();
 
-        when(cinemaRepository.add(any(Cinema.class)))
-                .thenReturn(Optional.of(cinema));
+        when(cinemaRoomRepository.saveAll(anyList()))
+                .thenReturn(of(cinemaRoom));
 
         var createdCinema = cinemaService.createCinema(cinemaDto);
 
