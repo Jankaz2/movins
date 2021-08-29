@@ -1,7 +1,5 @@
 package kazmierczak.jan.persistence.repository;
 
-import kazmierczak.jan.config.repository.CrudRepository;
-import kazmierczak.jan.model.cinema.repository.CinemaRepository;
 import kazmierczak.jan.model.seance.Seance;
 import kazmierczak.jan.model.seance.repository.SeanceRepository;
 import kazmierczak.jan.persistence.dao.SeanceEntityDao;
@@ -14,7 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static kazmierczak.jan.persistence.entity.SeanceEntity.*;
+import static kazmierczak.jan.persistence.entity.SeanceEntity.fromSeanceToEntity;
+import static kazmierczak.jan.persistence.entity.SeanceEntity.fromSeancesToEntityList;
 
 @Repository
 @RequiredArgsConstructor
@@ -99,10 +98,10 @@ public class SeanceRepositoryImpl implements SeanceRepository {
      */
     @Override
     public List<Seance> saveAll(List<Seance> seances) {
-        var seanceEntites = fromSeancesToEntityList(seances);
+        var seanceEntities = fromSeancesToEntityList(seances);
 
         var insertedSeances = seanceEntityDao
-                .saveAll(seanceEntites);
+                .saveAll(seanceEntities);
 
         return insertedSeances
                 .stream()

@@ -55,7 +55,7 @@ public class UserToActivateListener {
         var url = "http://localhost:5000/users/activation?token=" + token;
         var message = format("Hello, %s! " +
                 "\nWe are so happy that u decided to start working with Movins!" +
-                "\nLast step is to click this link and finish your reigstration!\n %s " +
+                "\nLast step is to click this link and finish your registration!\n %s " +
                 "\n\nWish you the best, %s" +
                 "\nMovins team", username, url, username);
 
