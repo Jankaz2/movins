@@ -13,11 +13,16 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.SecretKey;
 
+import static io.jsonwebtoken.SignatureAlgorithm.*;
+import static io.jsonwebtoken.security.Keys.*;
+import static org.springframework.boot.SpringApplication.*;
+import static org.springframework.security.crypto.factory.PasswordEncoderFactories.*;
+
 @SpringBootApplication
 @EnableAsync
 public class MovinsApp {
     public static void main(String[] args) {
-        SpringApplication.run(MovinsApp.class, args);
+        run(MovinsApp.class, args);
     }
 
     @Bean
@@ -27,11 +32,11 @@ public class MovinsApp {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return createDelegatingPasswordEncoder();
     }
 
     @Bean
     public SecretKey secretKey() {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        return secretKeyFor(HS512);
     }
 }
