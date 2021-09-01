@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movins | Activation</title>
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap}">
+</head>
+<body>
+<header>
+    <div class='user-activation'>
+        <div class='correct-200'>
+            <h1 class='correct-200__text'>Great, your account has been registered</h1>
+            <a th:href="@{http://localhost:3000}">
+                <button type="button" th:class='user-activation__login'>login</button>
+            </a>
+        </div>
+    </div>
+</header>
+<footer class="footer">
+    <div class="footer__logo-box">
+        <a class='footer__logo-box-text'>
+            <h1 class='heading--primary--main'>MOVINS</h1>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col span-1-of-2">
+            <div class="footer__navigation">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <p class="footer__link__p">Company</p>
+                    </li>
+                    <li class="footer__item">
+                        <p class="footer__link__p">Carrer</p>
+                    </li>
+                    <li class="footer__item">
+                        <p class="footer__link__p">Privacy</p>
+                    </li>
+                    <li class="footer__item">
+                        <p class="footer__link__p">Terms</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col span-1-of-2">
+            <p class="footer__copyright">
+                Created by <a th:href="@{https://github.com/Jankaz2}"
+                              target="_blank"
+                              class="footer__link">Jan Kaźmierczak</a>, as his own project for
+                portfolio.&nbsp;
+                <a href="#" class='footer__link'>Movins </a> is Spring
+                application with fully responsive layout. Every functionality
+                has been created by <a href="https://github.com/Jankaz2"
+                                       target="_blank"
+                                       class="footer__link">Jan Kaźmierczak</a>.<br/>
+                Home page layout is inspired by Jonas Schmedtmann online course Advanced CSS and SASS
+                where I learned advanced CSS tricks and SASS from.
+                <br/>Copyright &copy; by Jan Kaźmierczak.
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
