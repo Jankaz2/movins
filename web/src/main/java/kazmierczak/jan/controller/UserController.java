@@ -37,11 +37,6 @@ public class UserController {
         return toResponse(userService.createUser(createUserDto));
     }
 
- /*   @GetMapping("/activation")
-    public ResponseDto<Long> activate(@RequestParam("token") String token) {
-        return toResponse(userService.activateUser(token));
-    }*/
-
     /**
      * @param id of user we want to get
      * @return userDto with this id
