@@ -2,10 +2,7 @@ package kazmierczak.jan.user;
 
 import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
-import kazmierczak.jan.model.user.dto.CreateUserDto;
-import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
-import kazmierczak.jan.model.user.dto.GetUserDto;
-import kazmierczak.jan.model.user.dto.UserToActivateDto;
+import kazmierczak.jan.model.user.dto.*;
 import kazmierczak.jan.model.user.dto.validator.CreateUserDtoValidator;
 import kazmierczak.jan.model.user.repository.UserRepository;
 import kazmierczak.jan.model.verification_token.VerificationToken;
@@ -30,6 +27,7 @@ public class UserService {
     private final TicketRepository ticketRepository;
     private final PasswordEncoder passwordEncoder;
     private final EventPublisher<UserToActivateDto> eventPublisher;
+    private final EventPublisher<ForgotPasswordDto> changePasswordEventPublisher;
     private final VerificationTokenRepository verificationTokenRepository;
 
     /**
@@ -60,6 +58,79 @@ public class UserService {
 
         eventPublisher.publishEvent(UserToActivateDto.builder().id(insertedUser.getId()).build());
         return insertedUser;
+    }
+
+    /**
+     *
+     * @param forgotPasswordDto - email of the use who wants to reset password
+     * @return dto response of this user
+     */
+    public CreateUserResponseDto getEmailToResetPassword(ForgotPasswordDto forgotPasswordDto) {
+        var email = forgotPasswordDto.getEmail();
+        if (email == null) {
+            throw new UserServiceException("Email is null");
+        }
+
+        if (userRepository.findByEmail(email).isEmpty()) {
+            throw new UserServiceException("User with this email -> [" + email + "] does not exist");
+        }
+
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserServiceException("Cannot find user with this email: " + email));
+        user.deactivate();
+        userRepository.add(user);
+
+        changePasswordEventPublisher.publishEvent(ForgotPasswordDto.builder().email(email).build());
+
+        return user.toCreateUserResponseDto();
+    }
+
+    /**
+     *
+     * @param token to reset password
+     * @return id of activated user if token is valid
+     */
+    public Long confirmResetToken(String token) {
+        if (token == null) {
+            throw new UserServiceException("Token is null");
+        }
+
+        if (verificationTokenRepository.findByToken(token).isEmpty()) {
+            throw new UserServiceException("This token does not exist: " + token);
+        }
+
+        return activateUser(token);
+    }
+
+    /**
+     *
+     * @param changePasswordDto data to change password
+     * @return dto response of user who changed password
+     */
+    public CreateUserResponseDto resetPassword(ChangePasswordDto changePasswordDto) {
+        if (changePasswordDto == null) {
+            throw new UserServiceException("changePasswordDto object is null");
+        }
+
+        var token = changePasswordDto.getToken();
+        if (verificationTokenRepository.findByToken(token).isEmpty()) {
+            throw new UserServiceException("Cannot find this token: " + token);
+        }
+
+        var verificationToken = verificationTokenRepository.findByToken(token)
+                .orElseThrow(() -> new UserServiceException("Cannot find verification token with this token: " + token));
+
+        var userId = verificationToken.getUserId();
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserServiceException("Cannot find user with this id: " + userId));
+        var newPassword = changePasswordDto.getPassword();
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        var updatedUser = userRepository
+                .add(user)
+                .orElseThrow(() -> new UserServiceException("Cannot add updatedUser"));
+
+        return updatedUser.toCreateUserResponseDto();
     }
 
     /**

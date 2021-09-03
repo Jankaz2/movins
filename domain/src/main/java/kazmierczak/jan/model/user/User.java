@@ -28,6 +28,7 @@ public class User {
     public void activate() {
         enabled = true;
     }
+    public void deactivate() {enabled = false;}
 
     /**
      * @return GetUserDto object
@@ -78,5 +79,9 @@ public class User {
                 .username(username)
                 .role(role)
                 .build();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,9 +1,7 @@
 package kazmierczak.jan.controller;
 
 import kazmierczak.jan.controller.dto.ResponseDto;
-import kazmierczak.jan.model.user.dto.CreateUserDto;
-import kazmierczak.jan.model.user.dto.CreateUserResponseDto;
-import kazmierczak.jan.model.user.dto.GetUserDto;
+import kazmierczak.jan.model.user.dto.*;
 import kazmierczak.jan.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +63,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param username we want to find user by
      * @return user dto
      */
@@ -73,4 +70,29 @@ public class UserController {
     public ResponseDto<GetUserDto> getUserByUsername(@PathVariable String username) {
         return toResponse(userService.findByUsername(username));
     }
+
+    /**
+     *
+     * @param forgotPasswordDto email to change password
+     * @return dto response of user who wants to change password
+     */
+    @PostMapping("/forgot-password")
+    public ResponseDto<CreateUserResponseDto> forgotPassword(@RequestBody ForgotPasswordDto forgotPasswordDto) {
+        return toResponse(userService.getEmailToResetPassword(forgotPasswordDto));
+    }
+
+    /**
+     * @param token to activate user
+     * @return activated user
+     */
+    @GetMapping(value = "/reset")
+    public ResponseDto<Long> changePasswordEmail(@RequestParam("token") String token) {
+        return toResponse(userService.confirmResetToken(token));
+    }
+
+    @PostMapping(value = "/reset")
+    public ResponseDto<CreateUserResponseDto> resetPassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        return toResponse(userService.resetPassword(changePasswordDto));
+    }
+
 }

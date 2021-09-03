@@ -25,4 +25,14 @@ public class VerificationToken {
     public Long getUserId() {
         return toId.apply(user);
     }
+
+    public VerificationToken withChangedToken(String newToken) {
+        return VerificationToken
+                .builder()
+                .id(id)
+                .token(newToken)
+                .dateTime(dateTime)
+                .user(user)
+                .build();
+    }
 }

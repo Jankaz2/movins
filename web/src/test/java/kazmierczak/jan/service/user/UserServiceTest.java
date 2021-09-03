@@ -2,6 +2,7 @@ package kazmierczak.jan.service.user;
 
 import kazmierczak.jan.model.ticket.repository.TicketRepository;
 import kazmierczak.jan.model.user.User;
+import kazmierczak.jan.model.user.dto.ForgotPasswordDto;
 import kazmierczak.jan.model.user.dto.CreateUserDto;
 import kazmierczak.jan.model.user.dto.GetUserDto;
 import kazmierczak.jan.model.user.dto.UserToActivateDto;
@@ -45,6 +46,10 @@ public class UserServiceTest {
         public EventPublisher<UserToActivateDto> eventPublisher;
 
         @MockBean
+        public EventPublisher<ForgotPasswordDto> eventPublisherPassword;
+
+
+        @MockBean
         public VerificationTokenRepository verificationTokenRepository;
 
         @MockBean
@@ -57,6 +62,7 @@ public class UserServiceTest {
                     ticketRepository,
                     passwordEncoder,
                     eventPublisher,
+                    eventPublisherPassword,
                     verificationTokenRepository
             );
         }
@@ -73,6 +79,9 @@ public class UserServiceTest {
 
     @Autowired
     private EventPublisher<UserToActivateDto> eventPublisher;
+
+    @Autowired
+    private EventPublisher<ForgotPasswordDto> eventPublisherPassword;
 
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
