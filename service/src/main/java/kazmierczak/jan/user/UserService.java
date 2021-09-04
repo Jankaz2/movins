@@ -61,7 +61,6 @@ public class UserService {
     }
 
     /**
-     *
      * @param forgotPasswordDto - email of the use who wants to reset password
      * @return dto response of this user
      */
@@ -86,9 +85,7 @@ public class UserService {
     }
 
     /**
-     *
      * @param token to reset password
-     * @return id of activated user if token is valid
      */
     public Long confirmResetToken(String token) {
         if (token == null) {
@@ -103,7 +100,6 @@ public class UserService {
     }
 
     /**
-     *
      * @param changePasswordDto data to change password
      * @return dto response of user who changed password
      */

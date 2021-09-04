@@ -80,19 +80,4 @@ public class UserController {
     public ResponseDto<CreateUserResponseDto> forgotPassword(@RequestBody ForgotPasswordDto forgotPasswordDto) {
         return toResponse(userService.getEmailToResetPassword(forgotPasswordDto));
     }
-
-    /**
-     * @param token to activate user
-     * @return activated user
-     */
-    @GetMapping(value = "/reset")
-    public ResponseDto<Long> changePasswordEmail(@RequestParam("token") String token) {
-        return toResponse(userService.confirmResetToken(token));
-    }
-
-    @PostMapping(value = "/reset")
-    public ResponseDto<CreateUserResponseDto> resetPassword(@RequestBody ChangePasswordDto changePasswordDto) {
-        return toResponse(userService.resetPassword(changePasswordDto));
-    }
-
 }
