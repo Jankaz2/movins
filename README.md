@@ -1,6 +1,6 @@
 # Movins
 
-## Table of contents
+## Table of contents 📓
 
 * [General info](#general-info)
 * [Technologies](#technologies)
@@ -21,7 +21,7 @@ and get better at `Spring` framework.
 ***
 
 ***
-## Technologies
+## Technologies :computer:
 Project is created with: 
 - Java 16
 - Spring Boot 2.4.5
@@ -36,7 +36,7 @@ Project is created with:
 
 
 ***
-## Installation
+## Installation :hammer:
 If you want to use the `Movins` application locally, you need to create `web/docker-compose.yml`
 and `web/src/main/resources/properties.yml` files to set the database and mail properties.  
 Then you need to follow these few steps:
@@ -50,6 +50,6 @@ Then you need to follow these few steps:
 ```
 
 ***
-## Pictures
+## Pictures 🖼️
 Graphical representation is placed in `front-end repository` to this `project`.  
 [movins-layout github](https://github.com/Jankaz2/movins-layout)
