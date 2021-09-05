@@ -42,11 +42,11 @@ and `web/src/main/resources/properties.yml` files to set the database and mail p
 Then you need to follow these few steps:
 ```aidl
 //from main directory
->> mvn clean install
->> cd .\web\
->> docker-compose up -d --build
+$ mvn clean install
+$ cd .\web\
+$ docker-compose up -d --build
 //logs if you want to be sure that the application is working correctly
->> docker-compose logs -f
+$ docker-compose logs -f
 ```
 
 ***
