@@ -8,7 +8,7 @@
 * [Pictures](#pictures)
 ***
 
-## General info
+## General info ℹ️
 The aim of this application is to help the user find his favourite cinema (if it exists in our database),
 check what seances this cinema currently shows and book the ticket. All of these steps 
 are really easy and fast to do with `Movins` web.  
