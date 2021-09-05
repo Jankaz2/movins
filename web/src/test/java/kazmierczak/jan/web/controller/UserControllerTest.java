@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static java.util.List.of;
-import static kazmierczak.jan.types.Role.USER;
+import static kazmierczak.jan.types.Role.ROLE_USER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
@@ -54,7 +54,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         var userDto2 = GetUserDto
@@ -63,7 +63,7 @@ public class UserControllerTest {
                 .username("Usernamee")
                 .email("email@gmail.com")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         var users = of(userDto, userDto2);
@@ -88,7 +88,7 @@ public class UserControllerTest {
                 .email("email@gmail.com")
                 .age(12)
                 .password("password")
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         var responseDto = CreateUserResponseDto
@@ -118,7 +118,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         var userId = 1L;
@@ -144,7 +144,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         var userId = 1L;
@@ -192,7 +192,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@wp.pl")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .password("passwordd")
                 .tickets(tickets)
                 .build();
@@ -219,7 +219,7 @@ public class UserControllerTest {
                 .username("Username")
                 .email("email@wp.pl")
                 .age(12)
-                .role(USER)
+                .role(ROLE_USER)
                 .password("passwordd")
                 .tickets(new ArrayList<>())
                 .build();

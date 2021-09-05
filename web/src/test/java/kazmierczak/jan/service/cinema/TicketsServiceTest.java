@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static java.util.List.of;
-import static kazmierczak.jan.types.Role.USER;
+import static kazmierczak.jan.types.Role.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -133,7 +133,7 @@ public class TicketsServiceTest {
                 .email("email@wp.pl")
                 .age(12)
                 .enabled(true)
-                .role(USER)
+                .role(ROLE_USER)
                 .tickets(new ArrayList<>())
                 .build();
 
@@ -217,7 +217,7 @@ public class TicketsServiceTest {
                 .email("email@wp.pl")
                 .age(12)
                 .enabled(true)
-                .role(USER)
+                .role(ROLE_USER)
                 .tickets(new ArrayList<>())
                 .build();
 
@@ -304,7 +304,7 @@ public class TicketsServiceTest {
                 .email("email@wp.pl")
                 .age(12)
                 .enabled(true)
-                .role(USER)
+                .role(ROLE_USER)
                 .tickets(new ArrayList<>())
                 .build();
 

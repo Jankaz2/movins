@@ -107,7 +107,7 @@ public class TicketTest {
                 .email("email@wp.pl")
                 .age(12)
                 .enabled(true)
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .tickets(new ArrayList<>())
                 .build();
 

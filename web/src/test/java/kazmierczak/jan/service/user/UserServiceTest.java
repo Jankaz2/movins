@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 import static java.util.List.of;
-import static kazmierczak.jan.types.Role.USER;
+import static kazmierczak.jan.types.Role.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -99,7 +99,7 @@ public class UserServiceTest {
                                 .age(18)
                                 .password("password")
                                 .enabled(true)
-                                .role(USER)
+                                .role(ROLE_USER)
                                 .tickets(new ArrayList<>())
                                 .build()
                 ));
@@ -113,7 +113,7 @@ public class UserServiceTest {
                                 .username("Username")
                                 .email("email@gmail.com")
                                 .age(18)
-                                .role(USER)
+                                .role(ROLE_USER)
                                 .build()
                 );
     }
@@ -131,7 +131,7 @@ public class UserServiceTest {
                                 .age(18)
                                 .password("password")
                                 .enabled(true)
-                                .role(USER)
+                                .role(ROLE_USER)
                                 .tickets(new ArrayList<>())
                                 .build()
                 ));
@@ -144,7 +144,7 @@ public class UserServiceTest {
                                 .username("Username")
                                 .email("email@gmail.com")
                                 .age(18)
-                                .role(USER)
+                                .role(ROLE_USER)
                                 .build()
                 );
     }
@@ -160,7 +160,7 @@ public class UserServiceTest {
                 .age(18)
                 .password("password")
                 .enabled(true)
-                .role(USER)
+                .role(ROLE_USER)
                 .tickets(new ArrayList<>())
                 .build();
 
@@ -196,7 +196,7 @@ public class UserServiceTest {
                 .email("email@wp.pl")
                 .age(12)
                 .password("password")
-                .role(USER)
+                .role(ROLE_USER)
                 .tickets(new ArrayList<>())
                 .enabled(true)
                 .build();
@@ -207,7 +207,7 @@ public class UserServiceTest {
                 .age(12)
                 .email("email@wp.pl")
                 .password("password")
-                .role(USER)
+                .role(ROLE_USER)
                 .build();
 
         when(userRepository.add(any(User.class)))

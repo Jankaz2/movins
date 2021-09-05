@@ -21,7 +21,7 @@ public class GetUserDtoTest {
                 .username("name")
                 .age(18)
                 .email("email@email.pl")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         var userDto = GetUserDto
@@ -30,7 +30,7 @@ public class GetUserDtoTest {
                 .username("name")
                 .age(18)
                 .email("email@email.pl")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         assertThat(user.toGetUserDto())

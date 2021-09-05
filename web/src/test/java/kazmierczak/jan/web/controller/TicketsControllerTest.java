@@ -116,7 +116,7 @@ public class TicketsControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
 
@@ -198,7 +198,7 @@ public class TicketsControllerTest {
                 .username("Username")
                 .email("email@gmail.com")
                 .age(12)
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         var movie = Movie

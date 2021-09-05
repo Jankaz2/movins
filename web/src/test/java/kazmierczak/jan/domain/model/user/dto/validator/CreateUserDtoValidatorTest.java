@@ -33,7 +33,7 @@ public class CreateUserDtoValidatorTest {
                 .age(10)
                 .email("john2001@wp.pl")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         assertThatThrownBy(() -> Validator.validate(validator, createUserDto))
@@ -52,7 +52,7 @@ public class CreateUserDtoValidatorTest {
                 .age(10)
                 .email("john2001@wp.pl")
                 .password("passw")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         assertThatThrownBy(() -> Validator.validate(validator, createUserDto))
@@ -71,7 +71,7 @@ public class CreateUserDtoValidatorTest {
                 .age(0)
                 .email("john2001@wp.pl")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         assertThatThrownBy(() -> Validator.validate(validator, createUserDto))
@@ -90,7 +90,7 @@ public class CreateUserDtoValidatorTest {
                 .age(10)
                 .email("j@wp.pl")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         assertThatThrownBy(() -> Validator.validate(validator, createUserDto))

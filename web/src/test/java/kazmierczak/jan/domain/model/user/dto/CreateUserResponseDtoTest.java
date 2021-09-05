@@ -23,7 +23,7 @@ public class CreateUserResponseDtoTest {
                 .age(18)
                 .email("email@email.pl")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         var createUserResponseDto = CreateUserResponseDto
