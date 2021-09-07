@@ -1,9 +1,12 @@
 package kazmierczak.jan.events.listener;
 
 import kazmierczak.jan.events.exception.EventsException;
+import kazmierczak.jan.model.user.UserUtils;
 import kazmierczak.jan.model.user.dto.ForgotPasswordDto;
+import kazmierczak.jan.model.verification_token.repository.VerificationTokenRepository;
 import kazmierczak.jan.persistence.dao.UserEntityDao;
 import kazmierczak.jan.persistence.dao.VerificationTokenEntityDao;
+import kazmierczak.jan.persistence.entity.UserEntity;
 import kazmierczak.jan.persistence.entity.VerificationTokenEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -17,6 +20,7 @@ import static java.lang.String.format;
 import static java.lang.Thread.sleep;
 import static java.time.LocalDateTime.now;
 import static java.util.UUID.randomUUID;
+import static kazmierczak.jan.model.user.UserUtils.*;
 
 @Component
 @RequiredArgsConstructor
@@ -24,6 +28,7 @@ public class ChangePasswordListener {
     private final UserEntityDao userEntityDao;
     private final JavaMailSender mailSender;
     private final VerificationTokenEntityDao verificationTokenEntityDao;
+    private final VerificationTokenRepository repository;
 
     @Async
     @EventListener
@@ -36,6 +41,11 @@ public class ChangePasswordListener {
                 .orElseThrow(() -> new EventsException("Cannot find userToUpdatePassword with this email: " + userEmail));
 
         var token = randomUUID().toString().replaceAll("\\W", "");
+        var user = userToUpdatePassword.toUser();
+        var userId = toId.apply(user);
+
+        repository.deleteByUserId(userId)
+                .orElseThrow(() -> new EventsException("Cannot find token to delete with this user id: " + userId));
 
         var newVerificationToken = VerificationTokenEntity
                 .builder()
