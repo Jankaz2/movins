@@ -77,7 +77,7 @@ public class MovinsWebConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
 
                 .antMatchers(
-                        "/cinema/admin",
+                        "/cinema/admin/create",
                         "/cinema/admin/{id}",
                         "/cinema/admin/{name}",
                         "/cinema/admin/{oldName}",

@@ -36,7 +36,7 @@ public class CinemaController {
      * @param createCinemaDto object we want to post
      * @return response dto of posted cinema object
      */
-    @PostMapping("/admin")
+    @PostMapping("/admin/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseDto<CreateCinemaResponseDto> createCinema(@RequestBody CreateCinemaDto createCinemaDto) {
         return toResponse(cinemaService.createCinema(createCinemaDto));
