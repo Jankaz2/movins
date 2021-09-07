@@ -8,7 +8,7 @@
 * [Pictures](#pictures-)
 ***
 
-## General info ℹ️
+## General info :information_source:
 The aim of this application is to help the user find his favourite cinema (if it exists in our database),
 check what seances this cinema currently shows and book the ticket. All of these steps 
 are really easy and fast to do with `Movins` web.  
@@ -50,6 +50,6 @@ $ docker-compose logs -f
 ```
 
 ***
-## Pictures 🖼️
+## Pictures :framed_picture:
 Graphical representation to this project is placed in `movins-layout repository`.  
-[movins-layout github](https://github.com/Jankaz2/movins-layout)
+[movins-layout](https://github.com/Jankaz2/movins-layout)
