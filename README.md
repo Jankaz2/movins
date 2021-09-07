@@ -2,10 +2,10 @@
 
 ## Table of contents 📓
 
-* [General info](#general-info-)
+* [General info](#general-info-information_source)
 * [Technologies](#technologies-computer)
 * [Installation](#installation-hammer)
-* [Pictures](#pictures-)
+* [Pictures](#pictures-framed_picture)
 ***
 
 ## General info :information_source:
