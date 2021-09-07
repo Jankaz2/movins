@@ -2,10 +2,10 @@
 
 ## Table of contents 📓
 
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Installation](#installation)
-* [Pictures](#pictures)
+* [General info](#general-info-)
+* [Technologies](#technologies-computer)
+* [Installation](#installation-hammer)
+* [Pictures](#pictures-)
 ***
 
 ## General info ℹ️
