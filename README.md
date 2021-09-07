@@ -51,5 +51,5 @@ $ docker-compose logs -f
 
 ***
 ## Pictures 🖼️
-Graphical representation is placed in `front-end repository` to this `project`.  
+Graphical representation to this project is placed in `movins-layout repository`.  
 [movins-layout github](https://github.com/Jankaz2/movins-layout)
