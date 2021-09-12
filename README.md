@@ -20,6 +20,21 @@ I decided to create this application to better understand the concept of commerc
 and get better at `Spring` framework.
 ***
 
+## Usecases 
+As an user you ar able to:
+ - reviewing cinemas list, their cinema rooms and seances,
+ - order ticket,
+ - access to history of tickets that you purchased.
+
+As an admin you are able to:
+ - do all of the normal user possibilities
+ - adding new cinemas,
+ - reviewing users list,
+ - cinema modification,
+ - creating new admin account,
+ - adding cinema room to existing cinema.
+ - delete cinema or user
+
 ***
 ## Technologies :computer:
 Project is created with: 
