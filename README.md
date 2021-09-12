@@ -22,7 +22,7 @@ and get better at `Spring` framework.
 ***
 
 ## Usecases :briefcase:
-As an **user** you ar able to:
+As an **user** you are able to:
  - reviewing cinemas list, their cinema rooms and seances,
  - order ticket,
  - access to history of tickets that you purchased.
