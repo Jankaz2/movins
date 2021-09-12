@@ -3,6 +3,7 @@
 ## Table of contents 📓
 
 * [General info](#general-info-information_source)
+* [Usecases](#usecases-briefcase)
 * [Technologies](#technologies-computer)
 * [Installation](#installation-hammer)
 * [Pictures](#pictures-framed_picture)
@@ -20,13 +21,13 @@ I decided to create this application to better understand the concept of commerc
 and get better at `Spring` framework.
 ***
 
-## Usecases 
-As an user you ar able to:
+## Usecases :briefcase:
+As an **user** you ar able to:
  - reviewing cinemas list, their cinema rooms and seances,
  - order ticket,
  - access to history of tickets that you purchased.
 
-As an admin you are able to:
+As an **admin** you are able to:
  - do all of the normal user possibilities
  - adding new cinemas,
  - reviewing users list,
