@@ -50,7 +50,7 @@ Project is created with:
 - Maven
 - Docker 20.10.8
 - Lombok
-- AWS EC2/ S3
+- AWS EC2
 
 
 ***
