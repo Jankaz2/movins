@@ -1,5 +1,7 @@
 # Movins
 
+Link to website: http://movins.com.s3-website.eu-central-1.amazonaws.com
+
 ## Table of contents 📓
 
 * [General info](#general-info-information_source)
@@ -13,12 +15,11 @@
 The aim of this application is to help the user find his favourite cinema (if it exists in our database),
 check what seances this cinema currently shows and book the ticket. All of these steps 
 are really easy and fast to do with `Movins` web.  
-If you are `admin` you are able to manage all of the `cinemas`, `users`, and  `seances`. 
-You can create, delete or update new cinemas, add movies etc.  
+Movins is application that helped me to better understand the concept of commercial programs and get better at `Spring` framework.
+When I was writing this website I tried to use all of the best programming rules like `DDD` or `SOLID`.
+
 Frontend for this application is built in `React` library - more details here: [movins-layout](https://github.com/Jankaz2/movins-layout/blob/master/README.md)
 
-I decided to create this application to better understand the concept of commercial programs 
-and get better at `Spring` framework.
 ***
 
 ## Usecases :briefcase:
@@ -49,6 +50,7 @@ Project is created with:
 - Maven
 - Docker 20.10.8
 - Lombok
+- AWS EC2/ S3
 
 
 ***
