@@ -29,7 +29,7 @@ As an **user** you are able to:
  - access to history of tickets that you bought.
 
 As an **admin** you are able to:
- - do all of the normal user possibilities
+ - do whatever the normal user can
  - adding new cinemas,
  - reviewing users list,
  - cinema modification,
