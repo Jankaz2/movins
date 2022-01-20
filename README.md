@@ -1,7 +1,5 @@
 # Movins
 
-# **EC2 Server with this backend is turned off now! The only thing u will se by clicking the link below is frontend!**
-
 Link to website: http://movins.com.s3-website.eu-central-1.amazonaws.com
 
 ## Table of contents 📓
