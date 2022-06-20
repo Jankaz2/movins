@@ -1,6 +1,6 @@
 # Movins
 
-### Backend server is turned off now because so the only thing you will see by clicking the link below is frontend (S3 is much cheaper than EBS :smiley:)
+### Backend server is turned off now because I am poor student (AWS is so expensive :smiley:) so the only thing you will see by clicking the link below is frontend
 Link to website: http://movins.com.s3-website.eu-central-1.amazonaws.com
 
 ## Table of contents 📓
